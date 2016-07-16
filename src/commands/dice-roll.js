@@ -19,7 +19,7 @@ export default class DiceRollCommand {
 			// Build the list of dice
 			let diceList = '';
 			for(const [index, diceResults] of rollResult.diceRaw.entries()) {
-				if(diceList) diceList += ', ';
+				if(diceList) diceList += ',  ';
 				diceList += diceResults.join(' + ') + ' = ' + rollResult.diceSums[index];
 			}
 
