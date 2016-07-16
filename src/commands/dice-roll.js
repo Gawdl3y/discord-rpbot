@@ -16,6 +16,13 @@ export default class DiceRollCommand {
 			const dice = new DiceExpression(matchResult[1]);
 			const result = dice.roll();
 			console.log(result);
+
+			let diceList = '';
+			for(const [index, diceResults] of result.diceRaw.entries()) {
+				if(diceList) diceList += ', ';
+				diceList += diceResults.join(' + ') + ' = ' + result.diceSums[index];
+			}
+
 			if(matchResult[3]) {
 				const operator = matchResult[3];
 				const target = parseInt(matchResult[4]);
@@ -28,9 +35,11 @@ export default class DiceRollCommand {
 					success = result.roll < target;
 					targetMessage = (!success ? 'not ' : '') + 'less than ' + target;
 				}
-				message.client.sendMessage(message, message.author + (success ? ' has **succeeded**. ' : ' has **failed**. ') + ' (Rolled ' + result.roll + ', ' + targetMessage + ')');
+				let messageText = success ? ' has **succeeded**.' : ' has **failed**.';
+				messageText += ' (Rolled ' + result.roll + ', ' + targetMessage + (diceList ? '; ' + diceList : '') + ')';
+				message.client.sendMessage(message, message.author + messageText);
 			} else {
-				message.client.sendMessage(message, message.author + ' rolled **' + result.roll + '**.');
+				message.client.sendMessage(message, message.author + ' rolled **' + result.roll + '**.' + (diceList ? ' (' + diceList + ')' : ''));
 			}
 		} catch(e) {
 			console.log(e);
