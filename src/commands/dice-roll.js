@@ -13,33 +13,36 @@ export default class DiceRollCommand {
 
 	run(message, matchResult) {
 		try {
-			const dice = new DiceExpression(matchResult[1]);
-			const result = dice.roll();
-			console.log(result);
+			const rollResult = new DiceExpression(matchResult[1]).roll();
+			console.log(rollResult);
 
+			// Build the list of dice
 			let diceList = '';
-			for(const [index, diceResults] of result.diceRaw.entries()) {
+			for(const [index, diceResults] of rollResult.diceRaw.entries()) {
 				if(diceList) diceList += ', ';
-				diceList += diceResults.join(' + ') + ' = ' + result.diceSums[index];
+				diceList += diceResults.join(' + ') + ' = ' + rollResult.diceSums[index];
 			}
 
-			if(matchResult[3]) {
-				const operator = matchResult[3];
+			const operator = matchResult[3];
+			if(operator) {
+				// Determine whether or not the target is met
 				const target = parseInt(matchResult[4]);
 				let success = false;
 				let targetMessage = '';
 				if(operator === '>') {
-					success = result.roll > target;
+					success = rollResult.roll > target;
 					targetMessage = (!success ? 'not ' : '') + 'greater than ' + target;
 				} else {
-					success = result.roll < target;
+					success = rollResult.roll < target;
 					targetMessage = (!success ? 'not ' : '') + 'less than ' + target;
 				}
+
+				// Send message
 				let messageText = success ? ' has **succeeded**.' : ' has **failed**.';
-				messageText += ' (Rolled ' + result.roll + ', ' + targetMessage + (diceList ? '; ' + diceList : '') + ')';
+				messageText += ' (Rolled ' + rollResult.roll + ', ' + targetMessage + (diceList ? '; ' + diceList : '') + ')';
 				message.client.sendMessage(message, message.author + messageText);
 			} else {
-				message.client.sendMessage(message, message.author + ' rolled **' + result.roll + '**.' + (diceList ? ' (' + diceList + ')' : ''));
+				message.client.sendMessage(message, message.author + ' rolled **' + rollResult.roll + '**.' + (diceList ? ' (' + diceList + ')' : ''));
 			}
 		} catch(e) {
 			console.log(e);

@@ -12,9 +12,8 @@ export default class MinDiceRollCommand {
 
 	run(message, matchResult) {
 		try {
-			const dice = new DiceExpression(matchResult[1]);
-			const result = dice.min();
-			message.client.sendMessage(message, message.author + ', the minimum roll is ' + result + '.');
+			const minRoll = new DiceExpression(matchResult[1]).min();
+			message.client.sendMessage(message, message.author + ', the minimum roll is ' + minRoll + '.');
 		} catch(e) {
 			console.log(e);
 			message.client.sendMessage(message, message.author + ' specified an invalid dice expression.');
