@@ -16,11 +16,11 @@ export default class DiceRollCommand {
 			const dice = new DiceExpression(matchResult[1]);
 			const result = dice.roll();
 			console.log(result);
-			if(matchResult.length >= 4 && matchResult[3]) {
+			if(matchResult[3]) {
 				const target = parseInt(matchResult[3]);
-				message.client.sendMessage(message, message.author + (target <= result.roll ? ' has succeeded. ' : ' has failed. ') + ' (Rolled ' + result.roll + ', target ' + target + ')');
+				message.client.sendMessage(message, message.author + (target <= result.roll ? ' has **succeeded**. ' : ' has **failed**. ') + ' (Rolled ' + result.roll + ', target ' + target + ')');
 			} else {
-				message.client.sendMessage(message, message.author + ' rolled ' + result.roll + '.');
+				message.client.sendMessage(message, message.author + ' rolled **' + result.roll + '**.');
 			}
 		} catch(e) {
 			console.log(e);
