@@ -19,8 +19,8 @@ export default class DiceRollCommand {
 			// Build the list of dice
 			let diceList = '';
 			for(const [index, diceResults] of rollResult.diceRaw.entries()) {
-				if(diceList) diceList += ',  ';
-				diceList += diceResults.join(' + ') + ' = ' + rollResult.diceSums[index];
+				if(diceList) diceList += ',   ';
+				diceList += diceResults.join('\xa0+\xa0') + '\xa0=\xa0' + rollResult.diceSums[index];
 			}
 
 			const operator = matchResult[3];
@@ -39,7 +39,7 @@ export default class DiceRollCommand {
 
 				// Send message
 				let messageText = success ? ' has **succeeded**.' : ' has **failed**.';
-				messageText += ' (Rolled ' + rollResult.roll + ', ' + targetMessage + (diceList ? '; ' + diceList : '') + ')';
+				messageText += ' (Rolled ' + rollResult.roll + ', ' + targetMessage + (diceList ? ';   ' + diceList : '') + ')';
 				message.client.sendMessage(message, message.author + messageText);
 			} else {
 				message.client.sendMessage(message, message.author + ' rolled **' + rollResult.roll + '**.' + (diceList ? ' (' + diceList + ')' : ''));
