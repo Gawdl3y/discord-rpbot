@@ -8,9 +8,13 @@ import fs from 'fs';
 // Commands
 import TestCommand from './commands/test';
 import DiceRollCommand from './commands/dice-roll';
+import MaxDiceRollCommand from './commands/max-roll';
+import MinDiceRollCommand from './commands/min-roll';
 const commands = [
 	new TestCommand(),
-	new DiceRollCommand()
+	new DiceRollCommand(),
+	new MaxDiceRollCommand(),
+	new MinDiceRollCommand()
 ];
 
 // Parse config
