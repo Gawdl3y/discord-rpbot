@@ -23,10 +23,10 @@ export default class MinDiceRollCommand {
 	static run(message, matches) {
 		try {
 			const minRoll = new DiceExpression(matches[1]).min();
-			message.client.sendMessage(message, message.author + ', the minimum roll is ' + minRoll + '.');
+			message.client.reply(message, 'The minimum possible roll is ' + minRoll + '.');
 		} catch(e) {
 			console.log(e);
-			message.client.sendMessage(message, message.author + ' specified an invalid dice expression.');
+			message.client.reply(message, 'Invalid dice expression specified.');
 			return;
 		}
 	}

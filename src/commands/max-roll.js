@@ -23,10 +23,10 @@ export default class MaxDiceRollCommand {
 	static run(message, matches) {
 		try {
 			const maxRoll = new DiceExpression(matches[1]).max();
-			message.client.sendMessage(message, message.author + ', the maximum roll is ' + maxRoll + '.');
+			message.client.reply(message, 'The maximum possible roll is ' + maxRoll + '.');
 		} catch(e) {
 			console.log(e);
-			message.client.sendMessage(message, message.author + ' specified an invalid dice expression.');
+			message.client.reply(message, 'Invalid dice expression specified.');
 			return;
 		}
 	}

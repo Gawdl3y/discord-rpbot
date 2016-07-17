@@ -24,15 +24,16 @@ export default class HelpCommand {
 			const command = commands.find(command => command.information().label === matches[1].toLowerCase());
 			if(command) {
 				const info = command.information();
-				let help = '**Usage:** ' + info.usage;
+				let help = 'Command "' + info.label + '": ' + info.description;
+				help += '\n**Usage:** ' + info.usage;
 				help += info.details ? '\n**Details:** ' + info.details : '';
 				if(info.examples) {
 					help += '\n**Examples:**';
 					for(const example of info.examples) help += '\n' + example;
 				}
-				message.client.sendMessage(message, message.author + ', command "' + info.label + '": ' + info.description + '\n' + help);
+				message.client.reply(message, help);
 			} else {
-				message.client.sendMessage(message, message.author + ', invalid command specified.');
+				message.client.reply(message, 'Invalid command specified.');
 			}
 		} else {
 			let commandList = '';
@@ -41,7 +42,7 @@ export default class HelpCommand {
 				const info = command.information();
 				commandList += '!' + info.label + ' - ' + info.description;
 			}
-			message.client.sendMessage(message, message.author + ', available commands (use "!help <command>" for more info):\n' + commandList);
+			message.client.reply(message, 'Available commands (use "!help <command>" for more info):\n' + commandList);
 		}
 	}
 }

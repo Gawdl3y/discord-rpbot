@@ -17,6 +17,6 @@ export default class TestCommand {
 	}
 
 	static run(message) {
-		message.client.sendMessage(message, 'Oh boy, the test command is working!');
+		message.client.reply(message, 'Oh boy, the test command is working!');
 	}
 }
