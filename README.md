@@ -4,6 +4,7 @@ It is written in ECMAScript 6 using Babel, and uses Node.js.
 
 ## Usage
 Clone the repository, and run `npm install --no-optional && npm run build` in it.
+Copy `settings.example.yaml` to `settings.yml`, and configure the email and password in it for your bot account.
 To run the bot, use `node lib/main.js`.
 
 ## Commands
