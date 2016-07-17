@@ -2,13 +2,21 @@
 'use strict';
 
 export default class TestCommand {
-	constructor() {
-		this.matches = [
+	static information() {
+		return {
+			label: 'test',
+			description: 'Does absolutely nothing useful.',
+			usage: '!test'
+		};
+	}
+
+	static triggers() {
+		return [
 			/^!test(\s.*)?$/i
 		];
 	}
 
-	run(message) {
+	static run(message) {
 		message.client.sendMessage(message, 'Oh boy, the test command is working!');
 	}
 }

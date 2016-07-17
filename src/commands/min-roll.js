@@ -4,15 +4,25 @@
 import DiceExpression from 'dice-expression-evaluator';
 
 export default class MinDiceRollCommand {
-	constructor() {
-		this.matches = [
+	static information() {
+		return {
+			label: 'minroll',
+			description: 'Calculates the minimum possible roll for a dice expression.',
+			details: 'The dice expression follows the same rules as !roll, but targets (< or >) cannot be used.',
+			usage: '!minroll <dice expression>',
+			examples: ['!minroll 2d20', '!minroll 3d20 - 1d10 + 6']
+		};
+	}
+
+	static triggers() {
+		return [
 			/^!minroll\s+([0-9d+ -]+)\s*$/i
 		];
 	}
 
-	run(message, matchResult) {
+	static run(message, matches) {
 		try {
-			const minRoll = new DiceExpression(matchResult[1]).min();
+			const minRoll = new DiceExpression(matches[1]).min();
 			message.client.sendMessage(message, message.author + ', the minimum roll is ' + minRoll + '.');
 		} catch(e) {
 			console.log(e);
