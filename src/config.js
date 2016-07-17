@@ -30,12 +30,12 @@ const config = yargs
 	.option('log', {
 		type: 'string',
 		default: 'rpbot.log',
-		describe: 'The file to log to'
+		describe: 'Path to log file'
 	})
 	.option('log-level', {
 		type: 'string',
 		default: 'info',
-		describe: 'The log level to output to the log file (error, warn, info, verbose, debug)'
+		describe: 'Log level to output to the log file (error, warn, info, verbose, debug)'
 	})
 	.config('config', (configFile) => {
 		const extension = path.extname(configFile).toLowerCase();

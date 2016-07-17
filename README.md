@@ -21,6 +21,8 @@ The settings:
 | email          | Email of the Discord account for the bot to use (not needed if using `token`)    |
 | password       | Password of the Discord account for the bot to use (not needed if using `token`) |
 | auto-reconnect | Whether or not the bot should automatically reconnect when disconnected          |
+| log            | Path to the log file to output to                                                |
+| log-level      | Log level to output to the log file (error, warn, info, verbose, debug)          |
 
 ## Usage
 Run `rpbot` on the command-line.
