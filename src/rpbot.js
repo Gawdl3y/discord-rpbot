@@ -24,15 +24,24 @@ export const commands = [
 
 // Set up config
 export const config = yargs.usage('$0 [args]')
+	.option('token', {
+		type: 'string',
+		alias: 't',
+		describe: 'API token for the bot account'
+	})
 	.option('email', {
 		type: 'string',
 		alias: 'e',
-		describe: 'Email for the Discord account'
+		describe: 'Email of the Discord account for the bot to use'
 	})
 	.option('password', {
 		type: 'string',
 		alias: 'p',
-		describe: 'Password for the Discord account'
+		describe: 'Password of the Discord account for the bot to use'
+	})
+	.option('auto-reconnect', {
+		type: 'boolean',
+		describe: 'Whether or not the bot should automatically reconnect when disconnected'
 	})
 	.config('config', (configFile) => {
 		const extension = path.extname(configFile).toLowerCase();
@@ -47,35 +56,30 @@ export const config = yargs.usage('$0 [args]')
 	.alias('help', 'h')
 	.argv;
 
-// Verify that user and password are set
-if(!config.email) {
-	console.log('No email specified. Config file: ' + config.config);
-	process.exit(1);
-}
-if(!config.password) {
-	console.log('No password specified. Config file: ' + config.config);
+// Verify that the credentials are usable
+if(!config.token && (!config.email || !config.password)) {
+	console.log('Both "email" and "password" must be specified if not using a token.');
 	process.exit(1);
 }
 
 // Create client
-export const bot = new Discord.Client();
-bot.on('ready', () => {
-	console.log('Bot is ready; logged in as ' + bot.user.username + '#' + bot.user.discriminator + ' (ID ' + bot.user.id + ')');
+export const client = new Discord.Client({ autoReconnect: config.autoReconnect });
+client.on('ready', () => {
+	console.log('Bot is ready; logged in as ' + client.user.username + '#' + client.user.discriminator + ' (ID ' + client.user.id + ')');
 });
-bot.on('error', e => {
+client.on('error', e => {
 	console.log('ERROR: ' + e);
 });
-bot.on('warn', e => {
+client.on('warn', e => {
 	console.log('WARNING: ' + e);
 });
-bot.on('disconnected', () => {
+client.on('disconnected', () => {
 	console.log('Disconnected!');
-	process.exit(1);
-})
+});
 
 // Set up commands
-bot.on('message', message => {
-	if(message.author !== bot.user) {
+client.on('message', message => {
+	if(message.author !== client.user) {
 		commandLoop: for(const command of commands) {
 			for(const match of command.triggers()) {
 				const matchResult = match.exec(message.content);
@@ -90,4 +94,4 @@ bot.on('message', message => {
 });
 
 // Log in
-bot.login(config.email, config.password);
+if(config.token) client.loginWithToken(config.token, config.email, config.password); else client.login(config.email, config.password);

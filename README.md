@@ -11,19 +11,20 @@ It is written in ECMAScript 6 using Babel, and is built with [discord.js](https:
 Run `sudo npm install -g discord-rpbot --no-optional`.
 
 ## Configure
-Configuration can be specified on the command line, or in a config file.
+Configuration can be specified on the command line, or in a JSON or YAML config file.
+Specify the config file with `--config=(FILE PATH)`.
 The settings:
 
-| Setting    | Description                                                 |        
-|------------|-------------------------------------------------------------|
-| email      | The email of the Discord account for the bot to use         |
-| password   | The password of the Discord account for the bot to use      |
+| Setting        | Description                                                                      |        
+|----------------|----------------------------------------------------------------------------------|
+| token          | API token for the bot account                                                    |
+| email          | Email of the Discord account for the bot to use (not needed if using `token`)    |
+| password       | Password of the Discord account for the bot to use (not needed if using `token`) |
+| auto-reconnect | Whether or not the bot should automatically reconnect when disconnected          |
 
 ## Usage
-Run `rpbot --email=(ACCOUNT EMAIL) --password=(ACCOUNT PASSWORD)`.
-The settings can be extracted into a JSON or YAML file.
-Specify the config file with `--config=(FILE PATH)`.
-Use `rpbot --help` for info.
+Run `rpbot` on the command-line.
+Use `rpbot --help` for information.
 
 ## Commands
 | Command    | Description                                                                                                            |
