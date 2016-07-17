@@ -1,8 +1,9 @@
 # Discord RPBot
 This is a simple bot that contains commands useful for roleplaying.
+It is written in ECMAScript 6 using Babel, and uses Node.js.
 
 ## Usage
-Clone the repository, and run `npm run build` in it.
+Clone the repository, and run `npm install --no-optional && npm run build` in it.
 To run the bot, use `node lib/main.js`.
 
 ## Commands
