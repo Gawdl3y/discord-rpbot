@@ -17,19 +17,24 @@
 		"roleplaying",
 		"dice"
 	],
+	"preferGlobal": true,
 	"scripts": {
 		"build": "babel src -d lib"
+	},
+	"bin": {
+		"rpbot": "lib/rpbot.js"
 	},
 	"dependencies": {
 		"discord.js": "^8.0.0",
 		"js-yaml": "^3.6.1",
 		"dice-expression-evaluator": "^0.1.2",
-		"babel-cli": "^6.0.0",
-		"babel-preset-es2015-node-auto": "^0.0.5"
+		"yargs": "^4.8.0"
 	},
 	"devDependencies": {
 		"eslint": "^3.0.0",
-		"babel-eslint": "^6.0.4"
+		"babel-eslint": "^6.0.4",
+		"babel-cli": "^6.0.0",
+		"babel-preset-es2015-node-auto": "^0.0.5"
 	},
 	"engines": {
 		"node": ">=4.0.0"

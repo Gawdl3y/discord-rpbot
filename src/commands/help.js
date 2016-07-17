@@ -1,7 +1,7 @@
 'use babel';
 'use strict';
 
-import { commands } from '../main';
+import { commands } from '../rpbot';
 
 export default class HelpCommand {
 	static information() {

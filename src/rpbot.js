@@ -1,9 +1,12 @@
+#!/usr/bin/env node
 'use babel';
 'use strict';
 
 import Discord from 'discord.js';
+import yargs from 'yargs';
 import YAML from 'js-yaml';
 import fs from 'fs';
+import path from 'path';
 
 // Commands
 import HelpCommand from './commands/help';
@@ -19,8 +22,40 @@ export const commands = [
 	MinDiceRollCommand
 ];
 
-// Parse config
-export const config = YAML.safeLoad(fs.readFileSync('settings.yaml'));
+// Set up config
+export const config = yargs.usage('$0 [args]')
+	.option('email', {
+		type: 'string',
+		alias: 'e',
+		describe: 'Email for the Discord account'
+	})
+	.option('password', {
+		type: 'string',
+		alias: 'p',
+		describe: 'Password for the Discord account'
+	})
+	.config('config', (configFile) => {
+		const extension = path.extname(configFile).toLowerCase();
+		if(extension === '.json')
+			return JSON.parse(fs.readFileSync(configFile));
+		else if(extension === '.yml' || extension == '.yaml')
+			return YAML.safeLoad(fs.readFileSync(configFile));
+		throw new Error('Unknown config file type');
+	})
+	.alias('config', 'c')
+	.help()
+	.alias('help', 'h')
+	.argv;
+
+// Verify that user and password are set
+if(!config.email) {
+	console.log('No email specified. Config file: ' + config.config);
+	process.exit(1);
+}
+if(!config.password) {
+	console.log('No password specified. Config file: ' + config.config);
+	process.exit(1);
+}
 
 // Create client
 export const bot = new Discord.Client();
