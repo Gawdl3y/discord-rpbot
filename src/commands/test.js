@@ -12,7 +12,7 @@ export default class TestCommand {
 
 	static triggers() {
 		return [
-			/^!test(\s.*)?$/i
+			/^!test(?:\s.*)?$/i
 		];
 	}
 

@@ -16,8 +16,8 @@ export default class DiceRollCommand {
 
 	static triggers() {
 		return [
-			/^!roll\s+([0-9d+ -]+)((>|<)\s*([0-9]+))?\s*$/i,
-			/\(\s*roll:\s*([0-9d+ -]+)((>|<)\s*([0-9]+))?\s*\)/i
+			/^!roll\s+(.+?)(?:(>|<)\s*([0-9]+?))?\s*$/i,
+			/\(\s*roll:\s*(.+?)(?:(>|<)\s*([0-9]+?))?\s*\)/i
 		];
 	}
 
@@ -33,10 +33,10 @@ export default class DiceRollCommand {
 				diceList += diceResults.join('\xa0+\xa0') + '\xa0=\xa0' + rollResult.diceSums[index];
 			}
 
-			const operator = matches[3];
+			const operator = matches[2];
 			if(operator) {
 				// Determine whether or not the target is met
-				const target = parseInt(matches[4]);
+				const target = parseInt(matches[3]);
 				let success = false;
 				let targetMessage = '';
 				if(operator === '>') {

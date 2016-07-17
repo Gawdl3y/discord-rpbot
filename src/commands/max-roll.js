@@ -16,7 +16,7 @@ export default class MaxDiceRollCommand {
 
 	static triggers() {
 		return [
-			/^!maxroll\s+([0-9d+ -]+)\s*$/i
+			/^!maxroll\s+(.+?)\s*$/i
 		];
 	}
 

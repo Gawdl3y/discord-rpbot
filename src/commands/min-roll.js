@@ -16,7 +16,7 @@ export default class MinDiceRollCommand {
 
 	static triggers() {
 		return [
-			/^!minroll\s+([0-9d+ -]+)\s*$/i
+			/^!minroll\s+(.+?)\s*$/i
 		];
 	}
 

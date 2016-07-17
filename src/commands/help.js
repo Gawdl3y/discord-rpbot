@@ -15,13 +15,13 @@ export default class HelpCommand {
 
 	static triggers() {
 		return [
-			/^!help(\s+([a-z0-9-]+))?\s*$/i
+			/^!help(?:\s+([a-z0-9 -]+?))?\s*$/i
 		];
 	}
 
 	static run(message, matches) {
-		if(matches[2]) {
-			const command = commands.find(command => command.information().label === matches[2].toLowerCase());
+		if(matches[1]) {
+			const command = commands.find(command => command.information().label === matches[1].toLowerCase());
 			if(command) {
 				const info = command.information();
 				let help = '**Usage:** ' + info.usage;
