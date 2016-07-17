@@ -23,12 +23,15 @@
 	"dependencies": {
 		"discord.js": "^8.0.0",
 		"js-yaml": "^3.6.1",
-		"dice-expression-evaluator": "^0.1.2"
+		"dice-expression-evaluator": "^0.1.2",
+		"babel-cli": "^6.0.0",
+		"babel-preset-es2015-node-auto": "^0.0.5"
 	},
 	"devDependencies": {
 		"eslint": "^3.0.0",
-		"babel-eslint": "^6.0.4",
-		"babel-cli": "^6.0.0",
-		"babel-preset-es2015": "^6.9.0"
+		"babel-eslint": "^6.0.4"
+	},
+	"engines": {
+		"node": ">=4.0.0"
 	}
 }
