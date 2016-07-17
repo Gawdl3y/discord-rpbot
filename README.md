@@ -3,10 +3,11 @@ This is a simple bot that contains commands useful for roleplaying.
 It is written in ECMAScript 6 using Babel, and uses Node.js.
 
 ## Install
-Run `npm install -g discord-rpbot`
+Run `sudo npm install -g discord-rpbot --no-optional`
 
 ## Configure
-Configuration can be specified on the command line, or in a config file. The settings:
+Configuration can be specified on the command line, or in a config file.
+The settings:
 
 | Setting    | Description                                                 |        
 |------------|-------------------------------------------------------------|
