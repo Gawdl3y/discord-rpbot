@@ -2,6 +2,7 @@
 'use strict';
 
 import DiceExpression from 'dice-expression-evaluator';
+import logger from '../logger';
 
 export default class MinDiceRollCommand {
 	static information() {
@@ -25,7 +26,7 @@ export default class MinDiceRollCommand {
 			const minRoll = new DiceExpression(matches[1]).min();
 			message.client.reply(message, 'The minimum possible roll is ' + minRoll + '.');
 		} catch(e) {
-			console.log(e);
+			logger.error(e);
 			message.client.reply(message, 'Invalid dice expression specified.');
 			return;
 		}

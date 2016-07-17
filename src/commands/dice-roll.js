@@ -2,6 +2,7 @@
 'use strict';
 
 import DiceExpression from 'dice-expression-evaluator';
+import logger from '../logger';
 
 export default class DiceRollCommand {
 	static information() {
@@ -24,7 +25,7 @@ export default class DiceRollCommand {
 	static run(message, matches) {
 		try {
 			const rollResult = new DiceExpression(matches[1]).roll();
-			console.log(rollResult);
+			logger.debug(rollResult);
 
 			// Build the list of dice
 			let diceList = '';
@@ -55,7 +56,7 @@ export default class DiceRollCommand {
 				message.client.sendMessage(message, message.author + ' rolled **' + rollResult.roll + '**.' + (diceList ? ' (' + diceList + ')' : ''));
 			}
 		} catch(e) {
-			console.log(e);
+			logger.error(e);
 			message.client.sendMessage(message, message.author + ' specified an invalid dice expression.');
 			return;
 		}
