@@ -2,10 +2,22 @@
 This is a simple bot that contains commands useful for roleplaying.
 It is written in ECMAScript 6 using Babel, and uses Node.js.
 
+## Install
+Run `npm install -g discord-rpbot`
+
+## Configure
+Configuration can be specified on the command line, or in a config file. The settings:
+
+| Setting    | Description                                                 |        
+|------------|-------------------------------------------------------------|
+| email      | The email of the Discord account for the bot to use         |
+| password   | The password of the Discord account for the bot to use      |
+
 ## Usage
-Clone the repository, and run `npm install --no-optional && npm run build` in it.
-Copy `settings.example.yaml` to `settings.yml`, and configure the email and password in it for your bot account.
-To run the bot, use `node lib/main.js`.
+Run `rpbot --email=(ACCOUNT EMAIL) --password=(ACCOUNT PASSWORD)`.
+The settings can be extracted into a JSON or YAML file.
+Specify the config file with `--config=(FILE PATH)`.
+Use `rpbot --help` for info.
 
 ## Commands
 | Command    | Description                                                                                                            |
