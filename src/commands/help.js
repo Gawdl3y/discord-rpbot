@@ -4,7 +4,7 @@
 import { commands } from '../rpbot';
 
 export default class HelpCommand {
-	static information() {
+	static get information() {
 		return {
 			label: 'help',
 			description: 'Displays a list of available commands, or detailed information for a specified command.',
@@ -13,7 +13,7 @@ export default class HelpCommand {
 		};
 	}
 
-	static triggers() {
+	static get triggers() {
 		return [
 			/^!help(?:\s+([a-z0-9 -]+?))?\s*$/i
 		];
@@ -21,9 +21,9 @@ export default class HelpCommand {
 
 	static run(message, matches) {
 		if(matches[1]) {
-			const command = commands.find(command => command.information().label === matches[1].toLowerCase());
+			const command = commands.find(command => command.information.label === matches[1].toLowerCase());
 			if(command) {
-				const info = command.information();
+				const info = command.information;
 				let help = 'Command "' + info.label + '": ' + info.description;
 				help += '\n**Usage:** ' + info.usage;
 				help += info.details ? '\n**Details:** ' + info.details : '';
@@ -39,7 +39,7 @@ export default class HelpCommand {
 			let commandList = '';
 			for(const command of commands) {
 				if(commandList) commandList += '\n';
-				const info = command.information();
+				const info = command.information;
 				commandList += '!' + info.label + ' - ' + info.description;
 			}
 			message.client.reply(message, 'Available commands (use "!help <command>" for more info):\n' + commandList);

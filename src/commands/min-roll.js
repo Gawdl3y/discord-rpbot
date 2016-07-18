@@ -5,7 +5,7 @@ import DiceExpression from 'dice-expression-evaluator';
 import logger from '../logger';
 
 export default class MinDiceRollCommand {
-	static information() {
+	static get information() {
 		return {
 			label: 'minroll',
 			description: 'Calculates the minimum possible roll for a dice expression.',
@@ -15,7 +15,7 @@ export default class MinDiceRollCommand {
 		};
 	}
 
-	static triggers() {
+	static get triggers() {
 		return [
 			/^!minroll\s+(.+?)\s*$/i
 		];

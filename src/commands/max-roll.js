@@ -5,7 +5,7 @@ import DiceExpression from 'dice-expression-evaluator';
 import logger from '../logger';
 
 export default class MaxDiceRollCommand {
-	static information() {
+	static get information() {
 		return {
 			label: 'maxroll',
 			description: 'Calculates the maximum possible roll for a dice expression.',
@@ -15,7 +15,7 @@ export default class MaxDiceRollCommand {
 		};
 	}
 
-	static triggers() {
+	static get triggers() {
 		return [
 			/^!maxroll\s+(.+?)\s*$/i
 		];

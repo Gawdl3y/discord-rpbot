@@ -5,7 +5,7 @@ import DiceExpression from 'dice-expression-evaluator';
 import logger from '../logger';
 
 export default class DiceRollCommand {
-	static information() {
+	static get information() {
 		return {
 			label: 'roll',
 			description: 'Rolls specified dice.',
@@ -15,7 +15,7 @@ export default class DiceRollCommand {
 		};
 	}
 
-	static triggers() {
+	static get triggers() {
 		return [
 			/^!roll\s+(.+?)(?:(>|<)\s*([0-9]+?))?\s*$/i,
 			/\(\s*roll:\s*(.+?)(?:(>|<)\s*([0-9]+?))?\s*\)/i

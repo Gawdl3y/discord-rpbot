@@ -2,7 +2,7 @@
 'use strict';
 
 export default class TestCommand {
-	static information() {
+	static get information() {
 		return {
 			label: 'test',
 			description: 'Does absolutely nothing useful.',
@@ -10,7 +10,7 @@ export default class TestCommand {
 		};
 	}
 
-	static triggers() {
+	static get triggers() {
 		return [
 			/^!test(?:\s.*)?$/i
 		];
