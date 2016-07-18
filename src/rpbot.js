@@ -7,7 +7,7 @@ import config from './config';
 import logger from './logger';
 
 // Version info
-export const VERSION = { code: 21, string: '0.2.1' };
+export const VERSION = { code: 30, string: '0.3.0' };
 
 // Commands
 import HelpCommand from './commands/help';
