@@ -4,6 +4,8 @@
 import Character from '../characters/character';
 import database from '../characters/database';
 
+const disallowedPattern = /@everyone|@here|<@[0-9]+>/i;
+
 export default class AddCharacterCommand {
 	static get information() {
 		return {
@@ -22,6 +24,11 @@ export default class AddCharacterCommand {
 	}
 
 	static run(message, matches) {
+		if(disallowedPattern.test(matches[1]) || disallowedPattern.test(matches[2])) {
+			message.client.reply(message, 'Please do not use mentions in your character name or information.');
+			return;
+		}
+
 		const character = new Character(matches[1], matches[2], message.author.id, message.server.id);
 		if(database.saveCharacter(character)) {
 			message.client.reply(message, 'Added/updated character "' + character.name + '".');
