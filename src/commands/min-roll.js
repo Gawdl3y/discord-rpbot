@@ -11,7 +11,7 @@ export default class MinDiceRollCommand {
 			description: 'Calculates the minimum possible roll for a dice expression.',
 			details: 'The dice expression follows the same rules as !roll, but targets (< or >) cannot be used.',
 			usage: '!minroll <dice expression>',
-			examples: ['!minroll 2d20', '!minroll 3d20 - 1d10 + 6']
+			examples: ['!minroll 2d20', '!minroll 3d20 - d10 + 6']
 		};
 	}
 

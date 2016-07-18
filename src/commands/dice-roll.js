@@ -11,7 +11,7 @@ export default class DiceRollCommand {
 			description: 'Rolls specified dice.',
 			usage: '!roll <dice expression>',
 			details: 'Dice expressions can contain the standard representations of dice in text form (e.g. 2d20 is two 20-sided dice), with addition and subtraction allowed. You may also use a single greater-than (>) or less-than (<) symbol at the end of the expression to add a target - if that target is met, a success message is displayed. Otherwise, a failure message is shown.',
-			examples: ['!roll 2d20', '!roll 3d20 - 1d10 + 6', '!roll 1d20 > 10', 'Billy McBillFace attempts to slay the dragon. (Roll: 1d20 > 10)']
+			examples: ['!roll 2d20', '!roll 3d20 - d10 + 6', '!roll d20 > 10', 'Billy McBillFace attempts to slay the dragon. (Roll: d20 > 10)']
 		};
 	}
 
