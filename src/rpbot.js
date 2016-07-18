@@ -48,7 +48,7 @@ client.on('disconnected', () => {
 	logger.error('Disconnected.');
 });
 
-// Set up commands
+// Set up command recognition
 client.on('message', message => {
 	if(message.author !== client.user) {
 		commandLoop: for(const command of commands) {
