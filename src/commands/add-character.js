@@ -4,7 +4,7 @@
 import Character from '../characters/character';
 import database from '../characters/database';
 
-const disallowedPattern = /@everyone|@here|<@[0-9]+>/i;
+const disallowedPattern = /@everyone|@here|<@&?[0-9]+>/i;
 
 export default class AddCharacterCommand {
 	static get information() {
