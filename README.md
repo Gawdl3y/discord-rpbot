@@ -31,10 +31,14 @@ Run `rpbot` on the command-line.
 Use `rpbot --help` for information.
 
 ## Commands
-| Command    | Description                                                                                                            |
-|------------|------------------------------------------------------------------------------------------------------------------------|
-| !help      | Displays a list of available commands, or detailed information for a specified command.                                |
-| !about     | Displays information about the bot                                                                                     |
-| !roll      | Rolls specified dice. (Uses [dice-expression-evaluator](https://github.com/dbkang/dice-expression-evaluator))          |
-| !maxroll   | Calculates the maximum possible roll for a dice expression.                                                            |
-| !minroll   | Calculates the minimum possible roll for a dice expression.                                                            |
+| Command           | Description                                                                                                   |
+|-------------------|---------------------------------------------------------------------------------------------------------------|
+| !help             | Displays a list of available commands, or detailed information for a specified command.                       |
+| !about            | Displays information about the bot                                                                            |
+| !roll             | Rolls specified dice. (Uses [dice-expression-evaluator](https://github.com/dbkang/dice-expression-evaluator)) |
+| !maxroll          | Calculates the maximum possible roll for a dice expression.                                                   |
+| !minroll          | Calculates the minimum possible roll for a dice expression.                                                   |
+| !character        | View a character's information.                                                                               |
+| !characters       | Lists all of the characters in the database.                                                                  |
+| !addcharacter     | Adds a character to the database.                                                                             |
+| !deletecharacter  | Deletes a character from the database.                                                                        |

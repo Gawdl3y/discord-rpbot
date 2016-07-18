@@ -15,12 +15,20 @@ import AboutCommand from './commands/about';
 import DiceRollCommand from './commands/dice-roll';
 import MaxDiceRollCommand from './commands/max-roll';
 import MinDiceRollCommand from './commands/min-roll';
+import ViewCharacterCommand from './commands/view-character';
+import ListCharactersCommand from './commands/list-characters';
+import AddCharacterCommand from './commands/add-character';
+import DeleteCharacterCommand from './commands/delete-character';
 export const commands = [
 	HelpCommand,
 	AboutCommand,
 	DiceRollCommand,
 	MaxDiceRollCommand,
-	MinDiceRollCommand
+	MinDiceRollCommand,
+	ViewCharacterCommand,
+	ListCharactersCommand,
+	AddCharacterCommand,
+	DeleteCharacterCommand
 ];
 
 logger.info('RPBot v' + VERSION.string + ' (' + VERSION.code + ') is starting...');
