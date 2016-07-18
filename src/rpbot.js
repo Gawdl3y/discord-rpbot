@@ -11,12 +11,14 @@ export const VERSION = { code: 32, string: '0.3.2' };
 
 // Commands
 import HelpCommand from './commands/help';
+import AboutCommand from './commands/about';
 import TestCommand from './commands/test';
 import DiceRollCommand from './commands/dice-roll';
 import MaxDiceRollCommand from './commands/max-roll';
 import MinDiceRollCommand from './commands/min-roll';
 export const commands = [
 	HelpCommand,
+	AboutCommand,
 	TestCommand,
 	DiceRollCommand,
 	MaxDiceRollCommand,

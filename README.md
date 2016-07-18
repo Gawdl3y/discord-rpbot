@@ -34,6 +34,7 @@ Use `rpbot --help` for information.
 | Command    | Description                                                                                                            |
 |------------|------------------------------------------------------------------------------------------------------------------------|
 | !help      | Displays a list of available commands, or detailed information for a specified command.                                |
+| !about     | Displays information about the bot                                                                                     |
 | !roll      | Rolls specified dice. (Uses [dice-expression-evaluator](https://github.com/dbkang/dice-expression-evaluator))          |
 | !maxroll   | Calculates the maximum possible roll for a dice expression.                                                            |
 | !minroll   | Calculates the minimum possible roll for a dice expression.                                                            |
