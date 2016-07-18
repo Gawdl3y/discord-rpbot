@@ -40,7 +40,7 @@ if(!config.token && (!config.email || !config.password)) {
 }
 
 // Create client
-const clientOptions = { autoReconnect: config.autoReconnect };
+const clientOptions = { autoReconnect: config.autoReconnect, forceFetchUsers: true, disableEveryone: true };
 export const client = new Discord.Client(clientOptions);
 logger.info('Client created.', clientOptions);
 client.on('ready', () => {
