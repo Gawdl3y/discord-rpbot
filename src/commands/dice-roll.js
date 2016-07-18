@@ -29,9 +29,11 @@ export default class DiceRollCommand {
 
 			// Build the list of dice
 			let diceList = '';
-			for(const [index, diceResults] of rollResult.diceRaw.entries()) {
-				if(diceList) diceList += ',   ';
-				diceList += diceResults.join('\xa0+\xa0') + '\xa0=\xa0' + rollResult.diceSums[index];
+			if(rollResult.diceRaw.length > 1 || (rollResult.diceRaw.length > 0 && rollResult.diceRaw[0].length > 1)) {
+				for(const [index, diceResults] of rollResult.diceRaw.entries()) {
+					if(diceList) diceList += ',   ';
+					diceList += diceResults.join('\xa0+\xa0') + '\xa0=\xa0' + rollResult.diceSums[index];
+				}
 			}
 
 			const operator = matches[2];
