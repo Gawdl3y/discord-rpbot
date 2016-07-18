@@ -6,6 +6,9 @@ import Discord from 'discord.js';
 import config from './config';
 import logger from './logger';
 
+// Version info
+export const VERSION = { code: 21, string: '0.2.1' };
+
 // Commands
 import HelpCommand from './commands/help';
 import TestCommand from './commands/test';
@@ -20,7 +23,7 @@ export const commands = [
 	MinDiceRollCommand
 ];
 
-logger.info('RPBot is starting...');
+logger.info('RPBot v' + VERSION.string + ' (' + VERSION.code + ') is starting...');
 
 // Verify that the credentials are usable
 if(!config.token && (!config.email || !config.password)) {
