@@ -7,6 +7,7 @@ import config from './config';
 const logger = new winston.Logger({
 	transports: [
 		new (winston.transports.Console)({
+			level: config.consoleLevel,
 			colorize: true,
 			timestamp: true
 		})
@@ -15,8 +16,8 @@ const logger = new winston.Logger({
 
 if(config.log) {
 	logger.add(winston.transports.File, {
-		filename: config.log,
 		level: config.logLevel,
+		filename: config.log,
 		json: false
 	});
 }

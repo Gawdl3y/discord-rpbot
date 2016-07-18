@@ -40,6 +40,12 @@ const config = yargs
 		alias: 'lv',
 		describe: 'Log level to output to the log file (error, warn, info, verbose, debug)'
 	})
+	.option('console-level', {
+		type: 'string',
+		default: 'info',
+		alias: 'clv',
+		describe: 'Log level to output to the console (error, warn, info, verbose, debug)'
+	})
 	.config('config', (configFile) => {
 		const extension = path.extname(configFile).toLowerCase();
 		if(extension === '.json')
