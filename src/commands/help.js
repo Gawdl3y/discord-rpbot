@@ -1,7 +1,7 @@
 'use babel';
 'use strict';
 
-import { commands } from '../rpbot';
+import { VERSION, commands } from '../rpbot';
 
 export default class HelpCommand {
 	static get information() {
@@ -42,7 +42,7 @@ export default class HelpCommand {
 				const info = command.information;
 				commandList += '!' + info.label + ' - ' + info.description;
 			}
-			message.client.reply(message, 'Available commands (use "!help <command>" for more info):\n' + commandList);
+			message.client.reply(message, 'RPBot v' + VERSION.string + ' - Available commands (use "!help <command>" for more info):\n' + commandList);
 		}
 	}
 }
