@@ -25,16 +25,19 @@ const config = yargs
 	})
 	.option('auto-reconnect', {
 		type: 'boolean',
+		alias: ['reconnect', 'r', 'ar'],
 		describe: 'Whether or not the bot should automatically reconnect when disconnected'
 	})
 	.option('log', {
 		type: 'string',
 		default: 'rpbot.log',
+		alias: 'l',
 		describe: 'Path to log file'
 	})
 	.option('log-level', {
 		type: 'string',
 		default: 'info',
+		alias: 'lv',
 		describe: 'Log level to output to the log file (error, warn, info, verbose, debug)'
 	})
 	.config('config', (configFile) => {
@@ -43,12 +46,13 @@ const config = yargs
 			return JSON.parse(fs.readFileSync(configFile));
 		else if(extension === '.yml' || extension == '.yaml')
 			return YAML.safeLoad(fs.readFileSync(configFile));
-		throw new Error('Unknown config file type');
+		throw new Error('Unknown config file type.');
 	})
 	.alias('config', 'c')
 	.describe('config', 'Path to JSON/YAML config file')
 	.help()
 	.alias('help', 'h')
+	.wrap(yargs.terminalWidth())
 	.argv;
 
 export default config;
