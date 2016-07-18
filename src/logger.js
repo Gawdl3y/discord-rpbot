@@ -9,13 +9,16 @@ const logger = new winston.Logger({
 		new winston.transports.Console({
 			colorize: true,
 			timestamp: true
-		}),
-		new winston.transports.File({
-			filename: config.log,
-			level: config.logLevel,
-			json: false
 		})
 	]
 });
+
+if(config.log) {
+	logger.add(new winston.transports.File({
+		filename: config.log,
+		level: config.logLevel,
+		json: false
+	}));
+}
 
 export default logger;
