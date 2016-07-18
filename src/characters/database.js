@@ -79,6 +79,7 @@ export default class CharacterDatabase {
 		if(!this.serversMap) this.loadDatabase();
 		if(!this.serversMap[server]) return null;
 		const character = this.serversMap[server].find(element => element.name === name);
+		if(!character) return null;
 		return character instanceof Character ? character :  new Character(character.name, character.info, character.owner, character.server);
 	}
 }
