@@ -1,7 +1,6 @@
 'use babel';
 'use strict';
 
-import Character from '../characters/character';
 import database from '../characters/database';
 
 export default class DeleteCharacterCommand {
@@ -21,11 +20,19 @@ export default class DeleteCharacterCommand {
 	}
 
 	static run(message, matches) {
-		const character = new Character(matches[1], null, message.author.id, message.server.id);
-		if(database.deleteCharacter(character, message)) {
-			message.client.reply(message, 'Deleted character "' + character.name + '".');
+		const characters = database.findCharacters(matches[1], message.server.id);
+		if(characters.length === 1) {
+			if(database.deleteCharacter(characters[0], message)) {
+				message.client.reply(message, 'Deleted character "' + characters[0].name + '".');
+			} else {
+				message.client.reply(message, 'Unable to delete character "' + characters[0].name + '". You are not the owner.');
+			}
+		} else if(characters.length > 1) {
+			let characterList = '';
+			for(const character of characters) characterList += (characterList ? ',   ' : '') + '"' + character.name.replace(/ /g, '\xa0') + '"';
+			message.client.reply(message, 'Multiple characters found, please be more specific: ' + characterList);
 		} else {
-			message.client.reply(message, 'Unable to delete character "' + character.name + '". It may not exist, or you may not be the owner.');
+			message.client.reply(message, 'Unable to find character "' + matches[1] + '". Use !characters to see the list of characters.');
 		}
 	}
 }

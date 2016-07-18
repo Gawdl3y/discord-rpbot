@@ -20,9 +20,13 @@ export default class ViewCharacterCommand {
 	}
 
 	static run(message, matches) {
-		const character = database.findCharacter(matches[1], message.server.id);
-		if(character) {
-			message.client.reply(message, 'Character **' + character.name + '**:' + (character.info.indexOf('\n') >= 0 ? '\n' : ' ') + character.info);
+		const characters = database.findCharacters(matches[1], message.server.id);
+		if(characters.length === 1) {
+			message.client.reply(message, 'Character **' + characters[0].name + '**:' + (characters[0].info.indexOf('\n') >= 0 ? '\n' : ' ') + characters[0].info);
+		} else if(characters.length > 1) {
+			let characterList = '';
+			for(const character of characters) characterList += (characterList ? ',   ' : '') + '"' + character.name.replace(/ /g, '\xa0') + '"';
+			message.client.reply(message, 'Multiple characters found, please be more specific: ' + characterList);
 		} else {
 			message.client.reply(message, 'Unable to find character "' + matches[1] + '". Use !characters to see the list of characters.');
 		}

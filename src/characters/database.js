@@ -73,13 +73,20 @@ export default class CharacterDatabase {
 		return this.serversMap[server];
 	}
 
-	static findCharacter(name, server) {
+	static findCharacters(name, server) {
 		if(!name) throw new Error('A name must be specified.');
 		if(!server) throw new Error('A server must be specified.');
 		if(!this.serversMap) this.loadDatabase();
 		if(!this.serversMap[server]) return null;
-		const character = this.serversMap[server].find(element => element.name === name);
-		if(!character) return null;
-		return character instanceof Character ? character :  new Character(character.name, character.info, character.owner, character.server);
+		const lowercaseName = name.toLowerCase();
+		const characters = this.serversMap[server].filter(element => element.name.toLowerCase().indexOf(lowercaseName) >= 0);
+		for(const [index, character] of characters.entries()) {
+			if(!(character instanceof Character)) characters[index] = new Character(character.name, character.info, character.owner, character.server);
+		}
+		return characters;
+	}
+
+	static findCharacter(name, server) {
+		return this.findCharacters(name, server)[0];
 	}
 }
