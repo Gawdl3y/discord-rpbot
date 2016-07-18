@@ -35,9 +35,9 @@
 		"eslint": "^3.0.0",
 		"babel-eslint": "^6.0.4",
 		"babel-cli": "^6.0.0",
-		"babel-preset-es2015-node-auto": "^0.0.5"
+		"babel-preset-es2015-node6": "^0.2.0"
 	},
 	"engines": {
-		"node": ">=4.0.0"
+		"node": ">=6.0.0"
 	}
 }

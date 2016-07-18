@@ -8,6 +8,7 @@ This is a simple Discord bot that contains commands useful for roleplaying.
 It is written in ECMAScript 6 using Babel, and is built with [discord.js](https://github.com/hydrabolt/discord.js) and Node.js.
 
 ## Install
+You must be running Node.js 6.0.0 or newer.  
 Run `sudo npm install -g discord-rpbot --no-optional`.
 
 ## Configure
