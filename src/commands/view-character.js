@@ -22,7 +22,10 @@ export default class ViewCharacterCommand {
 	static run(message, matches) {
 		const characters = database.findCharacters(matches[1], message.server.id);
 		if(characters.length === 1) {
-			message.client.reply(message, 'Character **' + characters[0].name + '**:' + (characters[0].info.indexOf('\n') >= 0 ? '\n' : ' ') + characters[0].info);
+			const owner = message.client.users.get('id', characters[0].owner);
+			const ownerName = owner ? owner.name + '#' + owner.discriminator : 'Unknown';
+			const characterInfo = (characters[0].info.indexOf('\n') >= 0 ? '\n' : ' ') + characters[0].info;
+			message.client.reply(message, 'Character **' + characters[0].name + '** (created by ' + ownerName + '):' + characterInfo);
 		} else if(characters.length > 1) {
 			let characterList = '';
 			for(const character of characters) characterList += (characterList ? ',   ' : '') + '"' + character.name.replace(/ /g, '\xa0') + '"';
