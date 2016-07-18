@@ -32,7 +32,7 @@ export default class DiceRollCommand {
 			if(rollResult.diceRaw.length > 1 || (rollResult.diceRaw.length > 0 && rollResult.diceRaw[0].length > 1)) {
 				for(const [index, diceResults] of rollResult.diceRaw.entries()) {
 					if(diceList) diceList += ',   ';
-					diceList += diceResults.join('\xa0+\xa0') + '\xa0=\xa0' + rollResult.diceSums[index];
+					diceList += diceResults.length > 1 ? diceResults.join('\xa0+\xa0') + '\xa0=\xa0' + rollResult.diceSums[index] : diceResults[0];
 				}
 			}
 
