@@ -38,4 +38,3 @@ Use `rpbot --help` for information.
 | !roll      | Rolls specified dice. (Uses [dice-expression-evaluator](https://github.com/dbkang/dice-expression-evaluator))          |
 | !maxroll   | Calculates the maximum possible roll for a dice expression.                                                            |
 | !minroll   | Calculates the minimum possible roll for a dice expression.                                                            |
-| !test      | Does absolutely nothing useful.                                                                                        |
