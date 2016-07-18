@@ -23,7 +23,7 @@ export default class ListCharactersCommand {
 		if(characters && characters.length > 0) {
 			let characterList = '';
 			for(const character of characters) characterList += (characterList ? '\n' : '') + character.name;
-			message.client.reply(message, 'Character list (use !character <name> to view information about one):\n' + characterList);
+			message.client.reply(message, 'Character list (use "!character <name>" to view information about one):\n' + characterList);
 		} else {
 			message.client.reply(message, 'There are no characters in the database.');
 		}
