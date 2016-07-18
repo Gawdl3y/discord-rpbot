@@ -6,7 +6,7 @@ import Character from './character';
 import config from '../config';
 import logger from '../logger';
 
-export const storage = new LocalStorage(config.database);
+export const storage = new LocalStorage(config.storage);
 
 export default class CharacterDatabase {
 	static loadDatabase() {

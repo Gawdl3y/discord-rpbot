@@ -28,11 +28,11 @@ const config = yargs
 		alias: ['reconnect', 'r', 'ar'],
 		describe: 'Whether or not the bot should automatically reconnect when disconnected'
 	})
-	.option('database', {
+	.option('storage', {
 		type: 'string',
 		default: 'rpbot-storage',
-		alias: 'd',
-		describe: 'Path to database directory'
+		alias: 's',
+		describe: 'Path to storage directory'
 	})
 	.option('log', {
 		type: 'string',
