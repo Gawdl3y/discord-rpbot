@@ -9,8 +9,8 @@ export default class MaxDiceRollCommand {
 		return {
 			label: 'maxroll',
 			description: 'Calculates the maximum possible roll for a dice expression.',
-			details: 'The dice expression follows the same rules as !roll, but targets (< or >) cannot be used.',
 			usage: '!maxroll <dice expression>',
+			details: 'The dice expression follows the same rules as !roll, but targets (< or >) cannot be used.',
 			examples: ['!maxroll 2d20', '!maxroll 3d20 - d10 + 6']
 		};
 	}
