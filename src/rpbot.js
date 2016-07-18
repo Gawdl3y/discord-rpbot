@@ -29,7 +29,9 @@ if(!config.token && (!config.email || !config.password)) {
 }
 
 // Create client
-export const client = new Discord.Client({ autoReconnect: config.autoReconnect });
+const clientOptions = { autoReconnect: config.autoReconnect };
+export const client = new Discord.Client(clientOptions);
+logger.info('Client created.', clientOptions);
 client.on('ready', () => {
 	logger.info('Bot is ready; logged in as ' + client.user.username + '#' + client.user.discriminator + ' (ID ' + client.user.id + ')');
 });
@@ -39,8 +41,11 @@ client.on('error', e => {
 client.on('warn', e => {
 	logger.warn(e);
 });
+client.on('debug', e => {
+	logger.debug(e);
+});
 client.on('disconnected', () => {
-	logger.error('Disconnected!');
+	logger.error('Disconnected.');
 });
 
 // Set up commands
@@ -50,7 +55,7 @@ client.on('message', message => {
 			for(const match of command.triggers()) {
 				const matches = match.exec(message.content);
 				if(matches) {
-					logger.info('Running ' + command.name, { message: message.toString(), matches: matches.toString() });
+					logger.info('Running ' + command.name + '.', { message: message.toString(), matches: matches.toString() });
 					command.run(message, matches);
 					break commandLoop;
 				}
@@ -60,4 +65,13 @@ client.on('message', message => {
 });
 
 // Log in
-if(config.token) client.loginWithToken(config.token, config.email, config.password); else client.login(config.email, config.password);
+const loginCallback = e => {
+	if(e) logger.error('Failed to login.', e);
+}
+if(config.token) {
+	logger.info('Logging in with token...');
+	client.loginWithToken(config.token, config.email, config.password, loginCallback);
+} else {
+	logger.info('Logging in with email and password...');
+	client.login(config.email, config.password, loginCallback);
+}
