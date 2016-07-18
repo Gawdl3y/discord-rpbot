@@ -9,6 +9,7 @@ export default class DeleteCharacterCommand {
 			label: 'deletecharacter',
 			description: 'Deletes a character from the database.',
 			usage: '!deletecharacter <name>',
+			details: 'The name can be the whole name of the character, or just a part of it.',
 			examples: ['!deletecharacter Billy McBillface']
 		};
 	}

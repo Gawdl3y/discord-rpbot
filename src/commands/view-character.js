@@ -9,6 +9,7 @@ export default class ViewCharacterCommand {
 			label: 'character',
 			description: 'Views a character\'s information.',
 			usage: '!character <name>',
+			details: 'The name can be the whole name of the character, or just a part of it.',
 			examples: ['!character Billy McBillface']
 		};
 	}
