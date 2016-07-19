@@ -72,6 +72,8 @@ const config = yargs
 		alias: 'clv',
 		describe: 'Log level to output to the console (error, warn, info, verbose, debug)'
 	})
+
+	// General yargs
 	.config('config', (configFile) => {
 		const extension = path.extname(configFile).toLowerCase();
 		if(extension === '.json')
@@ -82,8 +84,6 @@ const config = yargs
 	})
 	.alias('config', 'c')
 	.describe('config', 'Path to JSON/YAML config file')
-
-	// General Winston
 	.help()
 	.alias('help', 'h')
 	.wrap(yargs.terminalWidth())
