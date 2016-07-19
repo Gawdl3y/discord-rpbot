@@ -21,8 +21,8 @@ export default class ListCharactersCommand {
 	static run(message) {
 		const characters = database.findCharactersInServer(message.server.id);
 		if(characters.length > 0) {
-			let characterList = '';
-			for(const character of characters) characterList += (characterList ? '\n' : '') + character.name;
+			characters.sort((a, b) => a.name < b.name ? -1 : (a.name > b.name ? 1 : 0));
+			const characterList = characters.map(element => element.name).join('\n');
 			message.client.reply(message, 'Character list (use "!character <name>" to view information about one):\n' + characterList);
 		} else {
 			message.client.reply(message, 'There are no characters in the database.');
