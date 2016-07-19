@@ -28,6 +28,8 @@ The settings:
 | auto-reconnect | Whether or not the bot should automatically reconnect when disconnected          |
 | storage        | Path to the storage directory                                                    |
 | log            | Path to the log file to output to                                                |
+| log-max-size   | Maximum size of a single log file                                                |
+| log-max-files  | Maximum log files to keep                                                        |
 | log-level      | Log level to output to the log file (error, warn, info, verbose, debug)          |
 | console-level  | Log level to output to the console (error, warn, info, verbose, debug)           |
 

@@ -40,10 +40,22 @@ const config = yargs
 		alias: 'l',
 		describe: 'Path to log file'
 	})
+	.option('log-max-size', {
+		type: 'number',
+		default: 5242880,
+		alias: 'lms',
+		describe: 'Maximum size of single log file'
+	})
+	.option('log-max-files', {
+		type: 'number',
+		default: 5,
+		alias: 'lmf',
+		describe: 'Maximum amount of log files to keep'
+	})
 	.option('log-level', {
 		type: 'string',
 		default: 'info',
-		alias: 'lv',
+		alias: 'll',
 		describe: 'Log level to output to the log file (error, warn, info, verbose, debug)'
 	})
 	.option('console-level', {

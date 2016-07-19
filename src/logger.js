@@ -18,6 +18,9 @@ if(config.log) {
 	logger.add(winston.transports.File, {
 		level: config.logLevel,
 		filename: config.log,
+		maxsize: config.logMaxSize,
+		maxFiles: config.logMaxFiles,
+		tailable: true,
 		json: false
 	});
 }
