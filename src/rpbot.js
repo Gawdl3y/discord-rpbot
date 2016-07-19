@@ -33,8 +33,17 @@ export const commands = [
 ];
 
 logger.info('RPBot v' + VERSION + ' is starting...');
-logger.debug('Configuration:', config);
 checkForUpdate(VERSION);
+
+// Output safe config
+const debugConfig = Object.assign({}, config);
+if(debugConfig.email) debugConfig.email = '--snip--';
+if(debugConfig.e) debugConfig.e = '--snip--';
+if(debugConfig.password) debugConfig.password = '--snip--';
+if(debugConfig.p) debugConfig.p = '--snip--';
+if(debugConfig.token) debugConfig.token = '--snip--';
+if(debugConfig.t) debugConfig.t = '--snip--';
+logger.debug('Configuration:', debugConfig);
 
 // Verify that the credentials are usable
 if(!config.token && (!config.email || !config.password)) {
