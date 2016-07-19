@@ -8,7 +8,7 @@ import logger from './logger';
 import checkForUpdate from './update-check';
 
 // Version info
-export const VERSION = { code: 10200, string: '1.1.0' };
+export const VERSION = '1.1.0';
 
 // Commands
 import HelpCommand from './commands/help';
@@ -32,9 +32,9 @@ export const commands = [
 	DeleteCharacterCommand
 ];
 
-logger.info('RPBot v' + VERSION.string + ' (' + VERSION.code + ') is starting...');
+logger.info('RPBot v' + VERSION + ' is starting...');
 logger.debug('Configuration:', config);
-checkForUpdate(VERSION.string);
+checkForUpdate(VERSION);
 
 // Verify that the credentials are usable
 if(!config.token && (!config.email || !config.password)) {
