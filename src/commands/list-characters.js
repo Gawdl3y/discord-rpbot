@@ -20,7 +20,7 @@ export default class ListCharactersCommand {
 
 	static run(message) {
 		const characters = database.findCharactersInServer(message.server.id);
-		if(characters && characters.length > 0) {
+		if(characters.length > 0) {
 			let characterList = '';
 			for(const character of characters) characterList += (characterList ? '\n' : '') + character.name;
 			message.client.reply(message, 'Character list (use "!character <name>" to view information about one):\n' + characterList);

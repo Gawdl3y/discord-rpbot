@@ -70,7 +70,7 @@ export default class CharacterDatabase {
 	static findCharactersInServer(server) {
 		if(!server) throw new Error('A server must be specified.');
 		if(!this.serversMap) this.loadDatabase();
-		return this.serversMap[server];
+		return this.serversMap[server] ? this.serversMap[server] : [];
 	}
 
 	static findCharacters(name, server) {
