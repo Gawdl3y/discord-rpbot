@@ -9,7 +9,8 @@ const logger = new winston.Logger({
 		new (winston.transports.Console)({
 			level: config.consoleLevel,
 			colorize: true,
-			timestamp: true
+			timestamp: true,
+			handleExceptions: true
 		})
 	]
 });
@@ -21,7 +22,8 @@ if(config.log) {
 		maxsize: config.logMaxSize,
 		maxFiles: config.logMaxFiles,
 		tailable: true,
-		json: false
+		json: false,
+		handleExceptions: true
 	});
 }
 
