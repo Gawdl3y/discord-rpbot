@@ -32,6 +32,7 @@ export const commands = [
 ];
 
 logger.info('RPBot v' + VERSION.string + ' (' + VERSION.code + ') is starting...');
+logger.debug('Configuration:', config);
 
 // Verify that the credentials are usable
 if(!config.token && (!config.email || !config.password)) {
