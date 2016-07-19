@@ -10,6 +10,7 @@ export default class AddCharacterCommand {
 	static get information() {
 		return {
 			label: 'addcharacter',
+			aliases: ['addchar'],
 			description: 'Adds a character to the database, or updates the existing one.',
 			usage: '!addcharacter "<name>" <info>',
 			details: 'The character name *must* be surrounded by quotes. The information doesn\'t have to be a single line.',
@@ -19,7 +20,7 @@ export default class AddCharacterCommand {
 
 	static get triggers() {
 		return [
-			/^!addcharacter\s+"(.+?)"\s+((?:.|\n)+?)\s*$/i
+			/^!(?:addcharacter|addchar)\s+"(.+?)"\s+((?:.|\n)+?)\s*$/i
 		];
 	}
 

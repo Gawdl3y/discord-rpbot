@@ -15,17 +15,21 @@ export default class HelpCommand {
 
 	static get triggers() {
 		return [
-			/^!help(?:\s+([a-z0-9 -]+?))?\s*$/i
+			/^!help(?:\s+(.+?))?\s*$/i
 		];
 	}
 
 	static run(message, matches) {
 		if(matches[1]) {
-			const command = commands.find(command => command.information.label === matches[1].toLowerCase());
+			const lowercaseSearch = matches[1].toLowerCase();
+			const command = commands.find(command => {
+				return command.information.label === lowercaseSearch || (command.information.aliases && command.information.aliases.includes(lowercaseSearch));
+			});
 			if(command) {
 				const info = command.information;
 				let help = 'Command "' + info.label + '": ' + info.description;
 				help += '\n**Usage:** ' + info.usage;
+				if(info.aliases) help += '\n**Aliases:** ' + info.aliases.join(', ');
 				help += info.details ? '\n**Details:** ' + info.details : '';
 				if(info.examples) {
 					help += '\n**Examples:**';

@@ -8,6 +8,7 @@ export default class DeleteCharacterCommand {
 	static get information() {
 		return {
 			label: 'deletecharacter',
+			aliases: ['removecharacter', 'delchar', 'rmchar'],
 			description: 'Deletes a character from the database.',
 			usage: '!deletecharacter <name>',
 			details: 'The name can be the whole name of the character, or just a part of it.',
@@ -17,7 +18,7 @@ export default class DeleteCharacterCommand {
 
 	static get triggers() {
 		return [
-			/^!deletecharacter\s+"?(.+?)"?\s*$/i
+			/^!(?:deletecharacter|removecharacter|delchar|rmchar)\s+"?(.+?)"?\s*$/i,
 		];
 	}
 

@@ -7,6 +7,7 @@ export default class ListCharactersCommand {
 	static get information() {
 		return {
 			label: 'characters',
+			aliases: ['listcharacters', 'chars'],
 			description: 'Lists characters in the database.',
 			usage: '!characters <search (optional)>',
 			details: 'If no search string is specified, all characters will be listed. If the search string is only one letter long, characters that start with that character will be listed. If the search string is more than one letter, all characters that contain that string will be listed.',
@@ -16,7 +17,7 @@ export default class ListCharactersCommand {
 
 	static get triggers() {
 		return [
-			/^!characters(?:\s+(.+?))?\s*$/i
+			/^!(?:characters|listcharacters|chars)(?:\s+(.+?))?\s*$/i
 		];
 	}
 

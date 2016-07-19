@@ -8,6 +8,7 @@ export default class ViewCharacterCommand {
 	static get information() {
 		return {
 			label: 'character',
+			aliases: ['viewcharacter', 'char'],
 			description: 'Views a character\'s information.',
 			usage: '!character <name>',
 			details: 'The name can be the whole name of the character, or just a part of it.',
@@ -17,7 +18,7 @@ export default class ViewCharacterCommand {
 
 	static get triggers() {
 		return [
-			/^!character\s+"?(.+?)"?\s*$/i
+			/^!(?:character|viewcharacter|char)\s+"?(.+?)"?\s*$/i
 		];
 	}
 
