@@ -37,7 +37,7 @@ export default class HelpCommand {
 				}
 				message.client.reply(message, help);
 			} else {
-				message.client.reply(message, 'Invalid command specified. Use "!help" to see the list of all commands.');
+				message.client.reply(message, 'Invalid command specified. Use "!help" to view the list of all commands.');
 			}
 		} else {
 			let commandList = '';
