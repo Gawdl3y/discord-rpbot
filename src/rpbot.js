@@ -66,7 +66,14 @@ client.on('message', message => {
 			for(const match of command.triggers) {
 				const matches = match.exec(message.content);
 				if(matches) {
-					logger.info('Running ' + command.name + '.', { message: message.toString(), matches: matches.toString() });
+					logger.info('Running ' + command.name + '.', {
+						message: message.toString(),
+						matches: matches.toString(),
+						user: message.author.username + '#' + message.author.discriminator,
+						userID: message.author.id,
+						server: message.server.toString(),
+						serverID: message.server.id
+					});
 					command.run(message, matches);
 					break commandLoop;
 				}
