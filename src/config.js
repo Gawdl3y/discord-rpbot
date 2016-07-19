@@ -8,6 +8,8 @@ import path from 'path';
 
 const config = yargs
 	.usage('$0 [args]')
+
+	// Authentication
 	.option('token', {
 		type: 'string',
 		alias: 't',
@@ -23,17 +25,23 @@ const config = yargs
 		alias: 'p',
 		describe: 'Password of the Discord account for the bot to use'
 	})
-	.option('auto-reconnect', {
-		type: 'boolean',
-		alias: ['reconnect', 'r', 'ar'],
-		describe: 'Whether or not the bot should automatically reconnect when disconnected'
-	})
+
+	// Storage
 	.option('storage', {
 		type: 'string',
 		default: 'rpbot-storage',
 		alias: 's',
 		describe: 'Path to storage directory'
 	})
+
+	// discord.js
+	.option('auto-reconnect', {
+		type: 'boolean',
+		alias: ['reconnect', 'r', 'ar'],
+		describe: 'Whether or not the bot should automatically reconnect when disconnected'
+	})
+
+	// Logging
 	.option('log', {
 		type: 'string',
 		default: 'rpbot.log',
@@ -74,9 +82,11 @@ const config = yargs
 	})
 	.alias('config', 'c')
 	.describe('config', 'Path to JSON/YAML config file')
+
+	// General Winston
 	.help()
 	.alias('help', 'h')
 	.wrap(yargs.terminalWidth())
-	.argv;
+.argv;
 
 export default config;
