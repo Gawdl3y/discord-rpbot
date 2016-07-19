@@ -1,4 +1,5 @@
 # Discord RPBot
+[![Discord](https://img.shields.io/badge/Discord-RPBot-blue.svg)](https://discord.gg/SZMhh2B)
 [![Downloads](https://img.shields.io/npm/dt/discord-rpbot.svg)](https://www.npmjs.com/package/discord-rpbot)
 [![Version](https://img.shields.io/npm/v/discord-rpbot.svg)](https://www.npmjs.com/package/discord-rpbot)
 [![Dependency status](https://david-dm.org/Gawdl3y/discord-rpbot.svg)](https://david-dm.org/Gawdl3y/discord-rpbot)
@@ -6,6 +7,8 @@
 
 This is a simple Discord bot that contains commands useful for roleplaying.
 It is written in ECMAScript 6 using Babel, and is built with [discord.js](https://github.com/hydrabolt/discord.js) and Node.js.
+
+[Discord server](https://discord.gg/SZMhh2B)
 
 ## Install
 ### Global bot
