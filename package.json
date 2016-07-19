@@ -30,7 +30,9 @@
 		"dice-expression-evaluator": "^0.1.2",
 		"yargs": "^4.8.0",
 		"winston": "^2.2.0",
-		"node-localstorage": "^1.3.0"
+		"node-localstorage": "^1.3.0",
+		"request": "^2.73.0",
+		"semver": "^5.1.0"
 	},
 	"devDependencies": {
 		"eslint": "^3.0.0",

@@ -5,9 +5,10 @@
 import Discord from 'discord.js';
 import config from './config';
 import logger from './logger';
+import checkForUpdate from './update-check';
 
 // Version info
-export const VERSION = { code: 10200, string: '1.2.0' };
+export const VERSION = { code: 10200, string: '1.1.0' };
 
 // Commands
 import HelpCommand from './commands/help';
@@ -33,6 +34,7 @@ export const commands = [
 
 logger.info('RPBot v' + VERSION.string + ' (' + VERSION.code + ') is starting...');
 logger.debug('Configuration:', config);
+checkForUpdate(VERSION.string);
 
 // Verify that the credentials are usable
 if(!config.token && (!config.email || !config.password)) {
