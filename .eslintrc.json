@@ -7,6 +7,7 @@
 	"extends": "eslint:recommended",
 	"rules": {
 		"indent": ["error", "tab", { "SwitchCase": 1 }],
+		"semi": ["error", "always"],
 		"keyword-spacing": ["error", {
 			"overrides": {
 				"if": { "after": false },

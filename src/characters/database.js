@@ -67,26 +67,29 @@ export default class CharacterDatabase {
 		return true;
 	}
 
-	static findCharactersInServer(server) {
-		if(!server) throw new Error('A server must be specified.');
-		if(!this.serversMap) this.loadDatabase();
-		return this.serversMap[server] ? this.serversMap[server] : [];
-	}
-
-	static findCharacters(name, server) {
-		if(!name) throw new Error('A name must be specified.');
+	static findCharactersInServer(server, search = null) {
 		if(!server) throw new Error('A server must be specified.');
 		if(!this.serversMap) this.loadDatabase();
 		if(!this.serversMap[server]) return [];
-		const lowercaseName = name.toLowerCase();
+		let characters;
 
-		// Find all characters that contain the name
-		let characters = this.serversMap[server].filter(element => element.name.toLowerCase().indexOf(lowercaseName) >= 0);
+		if(search) {
+			const lowercaseSearch = search.toLowerCase();
 
-		// See if one of the characters is an exact match
-		if(characters.length > 1) {
-			const character = characters.find(element => element.name.toLowerCase() === lowercaseName);
-			if(character) characters = [character];
+			// Find all characters that match the search string
+			if(search.length === 1) {
+				characters = this.serversMap[server].filter(element => element.name.toLowerCase().startsWith(lowercaseSearch));
+			} else {
+				characters = this.serversMap[server].filter(element => element.name.toLowerCase().includes(lowercaseSearch));
+			}
+
+			// See if one of the characters is an exact match
+			if(characters.length > 1) {
+				const character = characters.find(element => element.name.toLowerCase() === lowercaseSearch);
+				if(character) characters = [character];
+			}
+		} else {
+			characters = this.serversMap[server];
 		}
 
 		// Make sure they're all Character instances
@@ -97,8 +100,8 @@ export default class CharacterDatabase {
 		return characters;
 	}
 
-	static findCharacter(name, server) {
-		const characters = this.findCharacters(name, server)
+	static findCharacterInServer(server, search) {
+		const characters = this.findCharacters(server, search);
 		return characters.length > 0 ? characters[0] : null;
 	}
 }

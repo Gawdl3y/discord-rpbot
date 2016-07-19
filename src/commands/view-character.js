@@ -2,6 +2,7 @@
 'use strict';
 
 import database from '../characters/database';
+import sendCharacterDisambiguation from '../characters/disambiguation';
 
 export default class ViewCharacterCommand {
 	static get information() {
@@ -10,7 +11,7 @@ export default class ViewCharacterCommand {
 			description: 'Views a character\'s information.',
 			usage: '!character <name>',
 			details: 'The name can be the whole name of the character, or just a part of it.',
-			examples: ['!character Billy McBillface']
+			examples: ['!character Billy McBillface', '!character bill']
 		};
 	}
 
@@ -21,15 +22,13 @@ export default class ViewCharacterCommand {
 	}
 
 	static run(message, matches) {
-		const characters = database.findCharacters(matches[1], message.server.id);
+		const characters = database.findCharactersInServer(message.server.id, matches[1]);
 		if(characters.length === 1) {
 			const owner = message.client.users.get('id', characters[0].owner);
 			const ownerName = owner ? owner.name + '#' + owner.discriminator : 'Unknown';
 			message.client.reply(message, 'Character **' + characters[0].name + '** (created by ' + ownerName + '):\n' + characters[0].info);
 		} else if(characters.length > 1) {
-			let characterList = '';
-			for(const character of characters) characterList += (characterList ? ',   ' : '') + '"' + character.name.replace(/ /g, '\xa0') + '"';
-			message.client.reply(message, 'Multiple characters found, please be more specific: ' + characterList);
+			sendCharacterDisambiguation(characters, message);
 		} else {
 			message.client.reply(message, 'Unable to find character "' + matches[1] + '". Use !characters to see the list of characters.');
 		}
