@@ -5,10 +5,8 @@
 import Discord from 'discord.js';
 import config from './config';
 import logger from './logger';
+import version from './version';
 import checkForUpdate from './update-check';
-
-// Version info
-export const VERSION = '1.4.0';
 
 // Commands
 import HelpCommand from './commands/help';
@@ -32,8 +30,8 @@ export const commands = [
 	DeleteCharacterCommand
 ];
 
-logger.info('RPBot v' + VERSION + ' is starting...');
-checkForUpdate(VERSION);
+logger.info('RPBot v' + version + ' is starting...');
+checkForUpdate();
 
 // Output safe config
 const debugConfig = Object.assign({}, config);

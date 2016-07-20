@@ -1,7 +1,7 @@
 'use babel';
 'use strict';
 
-import { VERSION } from '../rpbot';
+import version from '../version';
 
 export default class AboutCommand {
 	static get information() {
@@ -23,6 +23,6 @@ export default class AboutCommand {
 	}
 
 	static run(message) {
-		message.client.reply(message, '**RPBot** v' + VERSION + ' created by Schuyler Cebulskie (Gawdl3y). https://github.com/Gawdl3y/discord-rpbot');
+		message.client.reply(message, '**RPBot** v' + version + ' created by Schuyler Cebulskie (Gawdl3y). https://github.com/Gawdl3y/discord-rpbot');
 	}
 }
