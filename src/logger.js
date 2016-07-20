@@ -12,7 +12,8 @@ const logger = new winston.Logger({
 			timestamp: true,
 			handleExceptions: true
 		})
-	]
+	],
+	exitOnError: false
 });
 
 if(config.log) {
