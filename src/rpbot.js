@@ -75,8 +75,8 @@ client.on('disconnected', () => {
 client.on('message', message => {
 	if(message.author !== client.user) {
 		commandLoop: for(const command of commands) {
-			for(const match of command.triggers) {
-				const matches = match.exec(message.content);
+			for(const trigger of command.triggers) {
+				const matches = trigger.exec(message.content);
 				if(matches) {
 					logger.info('Running ' + command.name + '.', {
 						message: message.toString(),
