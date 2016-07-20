@@ -21,6 +21,10 @@ export default class MinDiceRollCommand {
 		];
 	}
 
+	static isRunnable() {
+		return true;
+	}
+
 	static run(message, matches) {
 		try {
 			const minRoll = new DiceExpression(matches[1]).min();

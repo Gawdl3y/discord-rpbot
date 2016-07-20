@@ -21,6 +21,10 @@ export default class MaxDiceRollCommand {
 		];
 	}
 
+	static isRunnable() {
+		return true;
+	}
+
 	static run(message, matches) {
 		try {
 			const maxRoll = new DiceExpression(matches[1]).max();

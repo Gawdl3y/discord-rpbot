@@ -19,6 +19,10 @@ export default class HelpCommand {
 		];
 	}
 
+	static isRunnable() {
+		return true;
+	}
+
 	static run(message, matches) {
 		if(matches[1]) {
 			const lowercaseSearch = matches[1].toLowerCase();

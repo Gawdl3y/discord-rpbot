@@ -21,6 +21,10 @@ export default class ListCharactersCommand {
 		];
 	}
 
+	static isRunnable(message) {
+		return !!message.server;
+	}
+
 	static run(message, matches) {
 		const characters = database.findCharactersInServer(message.server.id, matches[1]);
 		if(characters.length > 0) {

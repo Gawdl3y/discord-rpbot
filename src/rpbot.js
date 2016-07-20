@@ -78,15 +78,22 @@ client.on('message', message => {
 			for(const trigger of command.triggers) {
 				const matches = trigger.exec(message.content);
 				if(matches) {
-					logger.info('Running ' + command.name + '.', {
+					const logInfo = {
 						message: message.toString(),
 						matches: matches.toString(),
 						user: message.author.username + '#' + message.author.discriminator,
 						userID: message.author.id,
 						server: message.server ? message.server.toString() : null,
 						serverID: message.server ? message.server.id : null
-					});
-					command.run(message, matches);
+					};
+
+					if(command.isRunnable(message)) {
+						logger.info('Running ' + command.name + '.', logInfo);
+						command.run(message, matches);
+					} else {
+						logger.info('Not running ' + command.name + '; not runnable.', logInfo);
+					}
+					
 					break commandLoop;
 				}
 			}

@@ -23,6 +23,10 @@ export default class DiceRollCommand {
 		];
 	}
 
+	static isRunnable() {
+		return true;
+	}
+
 	static run(message, matches) {
 		try {
 			const rollResult = new DiceExpression(matches[1]).roll();

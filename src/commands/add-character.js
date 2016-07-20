@@ -24,6 +24,10 @@ export default class AddCharacterCommand {
 		];
 	}
 
+	static isRunnable(message) {
+		return !!message.server;
+	}
+
 	static run(message, matches) {
 		if(disallowedPattern.test(matches[1]) || disallowedPattern.test(matches[2])) {
 			message.client.reply(message, 'Please do not use mentions in your character name or information.');

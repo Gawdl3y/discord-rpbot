@@ -18,6 +18,10 @@ export default class AboutCommand {
 		];
 	}
 
+	static isRunnable() {
+		return true;
+	}
+
 	static run(message) {
 		message.client.reply(message, '**RPBot** v' + VERSION + ' created by Schuyler Cebulskie (Gawdl3y). https://github.com/Gawdl3y/discord-rpbot');
 	}
