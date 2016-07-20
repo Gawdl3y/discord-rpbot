@@ -19,7 +19,7 @@ export default class CharacterDatabase {
 		storage.setItem('characters', JSON.stringify(this.serversMap));
 	}
 
-	static saveCharacter(character) {
+	static saveCharacter(character, allowNonOwner = false) {
 		if(!character) throw new Error('A character must be specified.');
 		if(!this.serversMap) this.loadDatabase();
 		if(!this.serversMap[character.server]) this.serversMap[character.server] = [];
@@ -27,7 +27,7 @@ export default class CharacterDatabase {
 
 		const characterIndex = serverCharacters.findIndex(element => element.name === character.name);
 		if(characterIndex >= 0) {
-			if(character.owner === serverCharacters[characterIndex].owner) {
+			if(allowNonOwner || character.owner === serverCharacters[characterIndex].owner) {
 				serverCharacters[characterIndex] = character;
 				logger.info('Updated existing character.', { character: character });
 			} else {
@@ -43,7 +43,7 @@ export default class CharacterDatabase {
 		return true;
 	}
 
-	static deleteCharacter(character) {
+	static deleteCharacter(character, allowNonOwner = false) {
 		if(!character) throw new Error('A character must be specified.');
 		if(!this.serversMap) this.loadDatabase();
 		if(!this.serversMap[character.server]) return false;
@@ -51,7 +51,7 @@ export default class CharacterDatabase {
 
 		const characterIndex = serverCharacters.findIndex(element => element.name === character.name);
 		if(characterIndex >= 0) {
-			if(character.owner === serverCharacters[characterIndex].owner) {
+			if(allowNonOwner || character.owner === serverCharacters[characterIndex].owner) {
 				serverCharacters.splice(characterIndex, 1);
 				logger.info('Removed character.', { character: character });
 			} else {

@@ -35,7 +35,8 @@ export default class AddCharacterCommand {
 		}
 
 		const character = new Character(matches[1], matches[2], message.author.id, message.server.id);
-		if(database.saveCharacter(character)) {
+		const permissionOverride = message.server.rolesOfUser(message.author).some(role => role.hasPermission('manageMessages') || role.hasPermission('administrator'));
+		if(database.saveCharacter(character, permissionOverride)) {
 			message.client.reply(message, 'Saved character "' + character.name + '".');
 		} else {
 			message.client.reply(message, 'Unable to update character "' + character.name + '". You are not the owner.');

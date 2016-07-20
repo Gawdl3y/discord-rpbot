@@ -29,7 +29,8 @@ export default class DeleteCharacterCommand {
 	static run(message, matches) {
 		const characters = database.findCharactersInServer(message.server.id, matches[1]);
 		if(characters.length === 1) {
-			if(database.deleteCharacter(characters[0])) {
+			const permissionOverride = message.server.rolesOfUser(message.author).some(role => role.hasPermission('manageMessages') || role.hasPermission('administrator'));
+			if(database.deleteCharacter(characters[0], permissionOverride)) {
 				message.client.reply(message, 'Deleted character "' + characters[0].name + '".');
 			} else {
 				message.client.reply(message, 'Unable to delete character "' + characters[0].name + '". You are not the owner.');
