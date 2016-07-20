@@ -79,7 +79,6 @@ client.on('message', message => {
 				const matches = trigger.exec(message.content);
 				if(matches) {
 					const logInfo = {
-						message: message.toString(),
 						matches: matches.toString(),
 						user: message.author.username + '#' + message.author.discriminator,
 						userID: message.author.id,
@@ -93,7 +92,7 @@ client.on('message', message => {
 					} else {
 						logger.info('Not running ' + command.name + '; not runnable.', logInfo);
 					}
-					
+
 					break commandLoop;
 				}
 			}
