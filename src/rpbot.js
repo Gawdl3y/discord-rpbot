@@ -55,21 +55,11 @@ if(!config.token && (!config.email || !config.password)) {
 const clientOptions = { autoReconnect: config.autoReconnect, forceFetchUsers: true, disableEveryone: true };
 export const client = new Discord.Client(clientOptions);
 logger.info('Client created.', clientOptions);
-client.on('ready', () => {
-	logger.info('Bot is ready; logged in as ' + client.user.username + '#' + client.user.discriminator + ' (ID ' + client.user.id + ')');
-});
-client.on('error', e => {
-	logger.error(e);
-});
-client.on('warn', e => {
-	logger.warn(e);
-});
-client.on('debug', e => {
-	logger.debug(e);
-});
-client.on('disconnected', () => {
-	logger.error('Disconnected.');
-});
+client.on('ready', () => { logger.info('Bot is ready; logged in as ' + client.user.username + '#' + client.user.discriminator + ' (ID ' + client.user.id + ')'); });
+client.on('error', e => { logger.error(e); });
+client.on('warn', e => { logger.warn(e); });
+client.on('debug', e => { logger.debug(e); });
+client.on('disconnected', () => { logger.error('Disconnected.'); });
 
 // Set up command recognition
 client.on('message', message => {
