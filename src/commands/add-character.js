@@ -32,7 +32,7 @@ export default class AddCharacterCommand {
 
 		const character = new Character(matches[1], matches[2], message.author.id, message.server.id);
 		if(database.saveCharacter(character)) {
-			message.client.reply(message, 'Added/updated character "' + character.name + '".');
+			message.client.reply(message, 'Saved character "' + character.name + '".');
 		} else {
 			message.client.reply(message, 'Unable to update character "' + character.name + '". You are not the owner.');
 		}
