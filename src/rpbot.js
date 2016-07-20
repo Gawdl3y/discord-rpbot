@@ -8,7 +8,7 @@ import logger from './logger';
 import checkForUpdate from './update-check';
 
 // Version info
-export const VERSION = '1.3.0';
+export const VERSION = '1.4.0';
 
 // Commands
 import HelpCommand from './commands/help';
