@@ -95,9 +95,7 @@ client.on('message', message => {
 });
 
 // Log in
-const loginCallback = e => {
-	if(e) logger.error('Failed to login.', e);
-};
+const loginCallback = e => { if(e) logger.error('Failed to login.', e); };
 if(config.token) {
 	logger.info('Logging in with token...');
 	client.loginWithToken(config.token, config.email, config.password, loginCallback);
