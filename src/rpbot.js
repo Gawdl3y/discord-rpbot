@@ -83,8 +83,8 @@ client.on('message', message => {
 						matches: matches.toString(),
 						user: message.author.username + '#' + message.author.discriminator,
 						userID: message.author.id,
-						server: message.server.toString(),
-						serverID: message.server.id
+						server: message.server ? message.server.toString() : null,
+						serverID: message.server ? message.server.id : null
 					});
 					command.run(message, matches);
 					break commandLoop;
@@ -97,7 +97,7 @@ client.on('message', message => {
 // Log in
 const loginCallback = e => {
 	if(e) logger.error('Failed to login.', e);
-}
+};
 if(config.token) {
 	logger.info('Logging in with token...');
 	client.loginWithToken(config.token, config.email, config.password, loginCallback);
