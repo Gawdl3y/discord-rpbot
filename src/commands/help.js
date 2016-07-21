@@ -8,7 +8,7 @@ export default class HelpCommand {
 		return {
 			label: 'help',
 			description: 'Displays a list of available commands, or detailed information for a specified command.',
-			usage: '!help <command (optional)>',
+			usage: '!help [command]',
 			examples: ['!help', '!help roll']
 		};
 	}
