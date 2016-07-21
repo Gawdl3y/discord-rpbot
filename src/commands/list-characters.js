@@ -8,7 +8,7 @@ export default class ListCharactersCommand {
 		return {
 			label: 'characters',
 			aliases: ['listcharacters', 'chars'],
-			description: 'Lists characters in the database.',
+			description: 'Lists/searches characters in the database.',
 			usage: '!characters <search (optional)>',
 			details: 'If no search string is specified, all characters will be listed. If the search string is only one letter long, characters that start with that character will be listed. If the search string is more than one letter, all characters that contain that string will be listed.',
 			examples: ['!characters', '!characters c', '!characters bill']

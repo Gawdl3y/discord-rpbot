@@ -22,14 +22,16 @@ Run `sudo npm install -g discord-rpbot --no-optional`.
 | Command           | Description                                                                                                   |
 |-------------------|---------------------------------------------------------------------------------------------------------------|
 | !help             | Displays a list of available commands, or detailed information for a specified command.                       |
-| !about            | Displays information about the bot                                                                            |
+| !about            | Displays information about the bot.                                                                           |
 | !roll             | Rolls specified dice. (Uses [dice-expression-evaluator](https://github.com/dbkang/dice-expression-evaluator)) |
 | !maxroll          | Calculates the maximum possible roll for a dice expression.                                                   |
 | !minroll          | Calculates the minimum possible roll for a dice expression.                                                   |
-| !character        | View a character's information.                                                                               |
-| !characters       | Lists all of the characters in the database.                                                                  |
-| !addcharacter     | Adds a character to the database.                                                                             |
+| !character        | Views a character's information.                                                                              |
+| !characters       | Lists/searches characters in the database.                                                                    |
+| !addcharacter     | Adds a character to the database, or updates the existing one.                                                |
 | !deletecharacter  | Deletes a character from the database.                                                                        |
+
+Characters in the database may only be updated/deleted by the owner of the character, as well as users with the "Administrator" or "Manage Messages" permissions.
 
 ## Configure
 Configuration can be specified on the command line, or in a JSON or YAML config file.
