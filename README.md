@@ -30,10 +30,10 @@ Run `sudo npm install -g discord-rpbot --no-optional`.
 | !characters       | Lists/searches characters in the database.                                                                    |
 | !addcharacter     | Adds a character to the database, or updates the existing one.                                                |
 | !deletecharacter  | Deletes a character from the database.                                                                        |
-| !roles            | Lists all server roles.                                                                                       |
-| !modroles         | Lists all moderator roles.                                                                                    |
-| !addmodrole       | Adds a moderator role.                                                                                        |
-| !deletemodrole    | Deletes a moderator role.                                                                                     |
+| !roles            | Lists all server roles. (administrator only)                                                                  |
+| !modroles         | Lists all moderator roles. (administrator only)                                                               |
+| !addmodrole       | Adds a moderator role. (administrator only)                                                                   |
+| !deletemodrole    | Deletes a moderator role. (administrator only)                                                                |
 
 Characters in the database may only be updated/deleted by the owner of the character, and moderators.
 If a user has the "administrator" permission, they are automatically considered a moderator.
