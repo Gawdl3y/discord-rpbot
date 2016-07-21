@@ -46,9 +46,11 @@ export default class HelpCommand {
 		} else {
 			let commandList = '';
 			for(const command of commands) {
-				if(commandList) commandList += '\n';
-				const info = command.information;
-				commandList += info.label + ' - ' + info.description;
+				if(command.isRunnable(message)) {
+					if(commandList) commandList += '\n';
+					const info = command.information;
+					commandList += info.label + ' - ' + info.description;
+				}
 			}
 			message.client.reply(message, 'Available commands (use "!help <command>" for more info):\n' + commandList);
 		}
