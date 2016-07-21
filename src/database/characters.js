@@ -1,12 +1,11 @@
 'use babel';
 'use strict';
 
-import { LocalStorage } from 'node-localstorage';
 import Character from './character';
-import config from '../config';
-import logger from '../logger';
-
-export const storage = new LocalStorage(config.storage);
+import ModRolesDatabase from './mod-roles';
+import storage from './local-storage';
+import search from '../util/search';
+import logger from '../util/logger';
 
 export default class CharacterDatabase {
 	static loadDatabase() {
@@ -15,7 +14,7 @@ export default class CharacterDatabase {
 	}
 
 	static saveDatabase() {
-		logger.debug('Saving database...', this.serversMap);
+		logger.debug('Saving characters database...', this.serversMap);
 		storage.setItem('characters', JSON.stringify(this.serversMap));
 	}
 
@@ -67,29 +66,16 @@ export default class CharacterDatabase {
 		return true;
 	}
 
-	static findCharactersInServer(server, search = null) {
+	static findCharactersInServer(server, searchString = null) {
 		if(!server) throw new Error('A server must be specified.');
 		if(!this.serversMap) this.loadDatabase();
-		if(!this.serversMap[server]) return [];
+		if(!this.serversMap[server.id]) return [];
 		let characters;
 
 		if(search) {
-			const lowercaseSearch = search.toLowerCase();
-
-			// Find all characters that match the search string
-			if(search.length === 1) {
-				characters = this.serversMap[server].filter(element => element.name.toLowerCase().startsWith(lowercaseSearch));
-			} else {
-				characters = this.serversMap[server].filter(element => element.name.toLowerCase().includes(lowercaseSearch));
-			}
-
-			// See if one of the characters is an exact match
-			if(characters.length > 1) {
-				const character = characters.find(element => element.name.toLowerCase() === lowercaseSearch);
-				if(character) characters = [character];
-			}
+			characters = search(this.serversMap[server.id], searchString, true);
 		} else {
-			characters = this.serversMap[server];
+			characters = this.serversMap[server.id];
 		}
 
 		// Make sure they're all Character instances
@@ -100,8 +86,11 @@ export default class CharacterDatabase {
 		return characters;
 	}
 
-	static findCharacterInServer(server, search) {
-		const characters = this.findCharacters(server, search);
-		return characters.length > 0 ? characters[0] : null;
+	static userCanModerateInServer(server, user) {
+		if(!user) throw new Error('A user must be specified.');
+		const userRoles = server.rolesOfUser(user);
+		if(userRoles.some(role => role.hasPermission('administrator'))) return true;
+		if(!ModRolesDatabase.serverHasRoles(server)) return userRoles.some(role => role.hasPermission('manageMessages'));
+		return ModRolesDatabase.findRolesInServer(server).some(element => userRoles.some(element2 => element.id === element2.id));
 	}
 }

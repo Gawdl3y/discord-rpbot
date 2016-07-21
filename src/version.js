@@ -3,5 +3,5 @@
 
 import { readFileSync } from 'fs';
 
-const version = JSON.parse(readFileSync(__dirname + '/../package.json')).version;
+export const version = JSON.parse(readFileSync(__dirname + '/../package.json')).version;
 export default version;

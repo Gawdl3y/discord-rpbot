@@ -4,9 +4,9 @@
 
 import Discord from 'discord.js';
 import config from './config';
-import logger from './logger';
 import version from './version';
-import checkForUpdate from './update-check';
+import logger from './util/logger';
+import checkForUpdate from './util/update-check';
 
 // Commands
 import HelpCommand from './commands/help';
@@ -18,6 +18,10 @@ import ViewCharacterCommand from './commands/view-character';
 import ListCharactersCommand from './commands/list-characters';
 import AddCharacterCommand from './commands/add-character';
 import DeleteCharacterCommand from './commands/delete-character';
+import ListRolesCommand from './commands/list-roles';
+import ListModRolesCommand from './commands/list-mod-roles';
+import AddModRoleCommand from './commands/add-mod-role';
+import DeleteModRoleCommand from './commands/delete-mod-role';
 export const commands = [
 	HelpCommand,
 	AboutCommand,
@@ -27,7 +31,11 @@ export const commands = [
 	ViewCharacterCommand,
 	ListCharactersCommand,
 	AddCharacterCommand,
-	DeleteCharacterCommand
+	DeleteCharacterCommand,
+	ListRolesCommand,
+	ListModRolesCommand,
+	AddModRoleCommand,
+	DeleteModRoleCommand
 ];
 
 logger.info('RPBot v' + version + ' is starting...');

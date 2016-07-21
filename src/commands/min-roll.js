@@ -2,7 +2,7 @@
 'use strict';
 
 import DiceExpression from 'dice-expression-evaluator';
-import logger from '../logger';
+import logger from '../util/logger';
 
 export default class MinDiceRollCommand {
 	static get information() {

@@ -1,7 +1,7 @@
 'use babel';
 'use strict';
 
-import database from '../characters/database';
+import database from '../database/characters';
 
 export default class ListCharactersCommand {
 	static get information() {
@@ -26,7 +26,7 @@ export default class ListCharactersCommand {
 	}
 
 	static run(message, matches) {
-		const characters = database.findCharactersInServer(message.server.id, matches[1]);
+		const characters = database.findCharactersInServer(message.server, matches[1]);
 		if(characters.length > 0) {
 			characters.sort((a, b) => a.name < b.name ? -1 : (a.name > b.name ? 1 : 0));
 			const characterList = characters.map(element => element.name).join('\n');

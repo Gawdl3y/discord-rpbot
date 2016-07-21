@@ -1,8 +1,8 @@
 'use babel';
 'use strict';
 
-import Character from '../characters/character';
-import database from '../characters/database';
+import Character from '../database/character';
+import database from '../database/characters';
 
 const disallowedPattern = /@everyone|@here|<@&?[0-9]+>/i;
 
@@ -35,7 +35,8 @@ export default class AddCharacterCommand {
 		}
 
 		const character = new Character(matches[1], matches[2], message.author.id, message.server.id);
-		const permissionOverride = message.server.rolesOfUser(message.author).some(role => role.hasPermission('manageMessages') || role.hasPermission('administrator'));
+		const permissionOverride = database.userCanModerateInServer(message.server, message.author);
+		console.log(permissionOverride);
 		if(database.saveCharacter(character, permissionOverride)) {
 			message.client.reply(message, 'Saved character "' + character.name + '".');
 		} else {

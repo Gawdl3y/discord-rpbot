@@ -4,7 +4,7 @@
 import request from 'request';
 import semver from 'semver';
 import logger from './logger';
-import version from './version';
+import version from '../version';
 
 const packageURL = 'https://raw.githubusercontent.com/Gawdl3y/discord-rpbot/master/package.json';
 

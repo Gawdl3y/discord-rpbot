@@ -1,8 +1,8 @@
 'use babel';
 'use strict';
 
-import database from '../characters/database';
-import sendCharacterDisambiguation from '../characters/disambiguation';
+import database from '../database/characters';
+import sendDisambiguationMessage from '../util/disambiguation';
 
 export default class DeleteCharacterCommand {
 	static get information() {
@@ -27,16 +27,16 @@ export default class DeleteCharacterCommand {
 	}
 
 	static run(message, matches) {
-		const characters = database.findCharactersInServer(message.server.id, matches[1]);
+		const characters = database.findCharactersInServer(message.server, matches[1]);
 		if(characters.length === 1) {
-			const permissionOverride = message.server.rolesOfUser(message.author).some(role => role.hasPermission('manageMessages') || role.hasPermission('administrator'));
+			const permissionOverride = database.userCanModerateInServer(message.server, message.author);
 			if(database.deleteCharacter(characters[0], permissionOverride)) {
 				message.client.reply(message, 'Deleted character "' + characters[0].name + '".');
 			} else {
 				message.client.reply(message, 'Unable to delete character "' + characters[0].name + '". You are not the owner.');
 			}
 		} else if(characters.length > 1) {
-			sendCharacterDisambiguation(characters, message);
+			sendDisambiguationMessage(message, 'characters', characters);
 		} else {
 			message.client.reply(message, 'Unable to find character "' + matches[1] + '". Use !characters to see the list of characters.');
 		}
