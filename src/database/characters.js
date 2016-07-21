@@ -28,6 +28,7 @@ export default class CharacterDatabase {
 		const characterIndex = serverCharacters.findIndex(element => element.name.toLowerCase() === lowercaseName);
 		if(characterIndex >= 0) {
 			if(allowNonOwner || character.owner === serverCharacters[characterIndex].owner) {
+				character.owner = serverCharacters[characterIndex].owner;
 				serverCharacters[characterIndex] = character;
 				logger.info('Updated existing character.', { character: character });
 			} else {
