@@ -12,13 +12,13 @@ export default class DeleteModRoleCommand {
 			description: 'Deletes a moderator role.',
 			usage: '!deletemodrole <role>',
 			details: 'The role must be the ID of a role, or a role mention. Only administrators may use this command.',
-			examples: ['!deletemodrole 0123456789', '!deletemodrole @CoolPeopleRole']
+			examples: ['!deletemodrole cool', '!deletemodrole 205536402341888001', '!deletemodrole @CoolPeopleRole']
 		};
 	}
 
 	static get triggers() {
 		return [
-			/^!(?:deletemodrole|removemodrole|delmodrole|removemod|deletemod|delmod)\s+(?:(?:<@&)?([0-9a-z _-]+)>?)\s*$/i
+			/^!(?:deletemodrole|removemodrole|delmodrole|removemod|deletemod|delmod)\s+(?:(?:<@&)?(.+?)>?)\s*$/i
 		];
 	}
 

@@ -13,13 +13,13 @@ export default class AddModRoleCommand {
 			description: 'Adds a moderator role.',
 			usage: '!addmodrole <role>',
 			details: 'The role must be the name or ID of a role, or a role mention. Only administrators may use this command.',
-			examples: ['!addmodrole 0123456789', '!addmodrole @CoolPeopleRole']
+			examples: ['!addmodrole cool', '!addmodrole 205536402341888001', '!addmodrole @CoolPeopleRole']
 		};
 	}
 
 	static get triggers() {
 		return [
-			/^!(?:addmodrole|addmod)\s+(?:(?:<@&)?([0-9a-z _-]+)>?)\s*$/i
+			/^!(?:addmodrole|addmod)\s+(?:(?:<@&)?(.+?)>?)\s*$/i
 		];
 	}
 
