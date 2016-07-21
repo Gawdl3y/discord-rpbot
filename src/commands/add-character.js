@@ -36,7 +36,6 @@ export default class AddCharacterCommand {
 
 		const character = new Character(matches[1], matches[2], message.author.id, message.server.id);
 		const permissionOverride = database.userCanModerateInServer(message.server, message.author);
-		console.log(permissionOverride);
 		if(database.saveCharacter(character, permissionOverride)) {
 			message.client.reply(message, 'Saved character "' + character.name + '".');
 		} else {
