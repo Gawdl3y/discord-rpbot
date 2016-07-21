@@ -24,7 +24,8 @@ export default class CharacterDatabase {
 		if(!this.serversMap[character.server]) this.serversMap[character.server] = [];
 		const serverCharacters = this.serversMap[character.server];
 
-		const characterIndex = serverCharacters.findIndex(element => element.name === character.name);
+		const lowercaseName = character.name.toLowerCase();
+		const characterIndex = serverCharacters.findIndex(element => element.name.toLowerCase() === lowercaseName);
 		if(characterIndex >= 0) {
 			if(allowNonOwner || character.owner === serverCharacters[characterIndex].owner) {
 				serverCharacters[characterIndex] = character;

@@ -20,7 +20,7 @@ export default class AddCharacterCommand {
 
 	static get triggers() {
 		return [
-			/^!(?:addcharacter|addchar)\s+"(.+?)"\s+((?:.|\n)+?)\s*$/i
+			/^!(?:addcharacter|addchar)\s+"\s*(.+?)\s*"\s+((?:.|\n)+?)\s*$/i
 		];
 	}
 
