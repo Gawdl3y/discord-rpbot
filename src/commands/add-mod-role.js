@@ -41,7 +41,7 @@ export default class AddModRoleCommand {
 		} else if(roles.length > 1) {
 			message.client.reply(message, disambiguation(roles, 'roles'));
 		} else {
-			message.client.reply(message, 'Unable to identify role.');
+			message.client.reply(message, 'Unable to identify role. Use `!roles` to view all of the server roles.');
 		}
 	}
 }

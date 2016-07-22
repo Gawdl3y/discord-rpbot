@@ -40,7 +40,7 @@ export default class DeleteModRoleCommand {
 		} else if(roles.length > 1) {
 			message.client.reply(message, disambiguation(roles, 'roles'));
 		} else {
-			message.client.reply(message, 'Unable to identify role.');
+			message.client.reply(message, 'Unable to identify role. Use `!modroles` to view the the moderator roles, and `!roles` to view all of the server roles.');
 		}
 	}
 }
