@@ -10,7 +10,8 @@ export const logger = new winston.Logger({
 			level: config.consoleLevel,
 			colorize: true,
 			timestamp: true,
-			handleExceptions: true
+			handleExceptions: true,
+			humanReadableUnhandledException: true
 		})
 	],
 	exitOnError: false
@@ -24,7 +25,8 @@ if(config.log) {
 		maxFiles: config.logMaxFiles,
 		tailable: true,
 		json: false,
-		handleExceptions: true
+		handleExceptions: true,
+		humanReadableUnhandledException: true
 	});
 }
 
