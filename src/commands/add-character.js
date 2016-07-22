@@ -33,7 +33,6 @@ export default class AddCharacterCommand {
 			message.client.reply(message, 'Please do not use mentions in your character name or information.');
 			return;
 		}
-
 		if(matches[1].length > 60) {
 			message.client.reply(message, 'A character\'s name may not be longer than 60 characters.');
 			return;
