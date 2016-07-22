@@ -2,7 +2,7 @@
 'use strict';
 
 import { commands } from '../rpbot';
-import nbsp from '../util/nbsp';
+import * as nbsp from '../util/nbsp';
 
 export default class HelpCommand {
 	static get information() {
@@ -33,16 +33,16 @@ export default class HelpCommand {
 			if(command) {
 				const info = command.information;
 				let help = 'Command "' + info.label + '": ' + info.description;
-				help += '\n**Usage:** `' + nbsp(info.usage) + '`';
+				help += '\n**Usage:** `' + nbsp.convert(info.usage) + '`';
 				if(info.aliases) help += '\n**Aliases:** ' + info.aliases.join(', ');
 				help += info.details ? '\n**Details:** ' + info.details : '';
 				if(info.examples) {
 					help += '\n**Examples:**';
-					for(const example of info.examples) help += '\n' + nbsp(example);
+					for(const example of info.examples) help += '\n' + nbsp.convert(example);
 				}
 				message.client.reply(message, help);
 			} else {
-				message.client.reply(message, 'Invalid command specified. Use ``!help` to view the list of all commands.');
+				message.client.reply(message, 'Invalid command specified. Use `!help` to view the list of all commands.');
 			}
 		} else {
 			let commandList = '';
@@ -53,7 +53,7 @@ export default class HelpCommand {
 					commandList += info.label + ' - ' + info.description;
 				}
 			}
-			message.client.reply(message, 'Available commands (use `' + nbsp('!help <command>') + '` for more info):\n' + commandList);
+			message.client.reply(message, 'Available commands (use `!help' + nbsp.character + '<command>` for more info):\n' + commandList);
 		}
 	}
 }
