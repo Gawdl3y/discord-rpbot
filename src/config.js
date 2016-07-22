@@ -37,6 +37,7 @@ const config = yargs
 	// discord.js
 	.option('auto-reconnect', {
 		type: 'boolean',
+		default: true,
 		alias: ['reconnect', 'r', 'ar'],
 		describe: 'Whether or not the bot should automatically reconnect when disconnected'
 	})
