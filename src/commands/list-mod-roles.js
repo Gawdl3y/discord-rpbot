@@ -28,7 +28,7 @@ export default class ListModRolesCommand {
 	static run(message) {
 		const roles = database.findRolesInServer(message.server);
 		if(roles.length > 0) {
-			message.client.reply(message, 'Moderator roles:\n' + roles.map(element => element.name + ' (' + element.id + ')').join('\n'));
+			message.client.reply(message, 'Moderator roles:\n' + roles.map(element => element.name + ' (ID ' + element.id + ')').join('\n'));
 		} else {
 			message.client.reply(message, 'There are no moderator roles.');
 		}
