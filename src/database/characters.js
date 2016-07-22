@@ -30,14 +30,14 @@ export default class CharacterDatabase {
 			if(allowNonOwner || character.owner === serverCharacters[characterIndex].owner) {
 				character.owner = serverCharacters[characterIndex].owner;
 				serverCharacters[characterIndex] = character;
-				logger.info('Updated existing character.', { character: character });
+				logger.info('Updated existing character.', character);
 			} else {
 				logger.info('Not updating existing character, because the owner isn\'t the original owner.', { character: character, original: serverCharacters[characterIndex] });
 				return false;
 			}
 		} else {
 			serverCharacters.push(character);
-			logger.info('Added new character.', { character: character });
+			logger.info('Added new character.', character);
 		}
 
 		this.saveDatabase();
@@ -54,13 +54,13 @@ export default class CharacterDatabase {
 		if(characterIndex >= 0) {
 			if(allowNonOwner || character.owner === serverCharacters[characterIndex].owner) {
 				serverCharacters.splice(characterIndex, 1);
-				logger.info('Removed character.', { character: character });
+				logger.info('Removed character.', character);
 			} else {
 				logger.info('Not removing character, because the owner isn\'t the original owner.', { character: character, original: serverCharacters[characterIndex] });
 				return false;
 			}
 		} else {
-			logger.info('Not removing character, because it doesn\'t exist.', { character: character });
+			logger.info('Not removing character, because it doesn\'t exist.', character);
 			return false;
 		}
 
