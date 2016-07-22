@@ -4,7 +4,7 @@
 import winston from 'winston';
 import config from '../config';
 
-const logger = new winston.Logger({
+export const logger = new winston.Logger({
 	transports: [
 		new (winston.transports.Console)({
 			level: config.consoleLevel,
