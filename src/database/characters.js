@@ -25,7 +25,6 @@ export default class CharacterDatabase {
 		const serverCharacters = this.serversMap[character.server];
 
 		const normalizedName = character.name.normalize('NFKD').toLowerCase();
-		logger.debug(normalizedName);
 		const characterIndex = serverCharacters.findIndex(element => element.name.normalize('NFKD').toLowerCase() === normalizedName);
 		if(characterIndex >= 0) {
 			if(allowNonOwner || character.owner === serverCharacters[characterIndex].owner) {
