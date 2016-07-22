@@ -48,6 +48,11 @@ const config = yargs
 		default: 15,
 		describe: 'Number of items per page in paginated commands'
 	})
+	.option('update-check', {
+		type: 'number',
+		default: 60,
+		describe: 'How frequently to check for an update (in minutes, use 0 to disable)'
+	})
 
 	// Logging
 	.option('log', {

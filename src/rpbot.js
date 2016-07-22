@@ -40,7 +40,7 @@ export const commands = [
 
 logger.info('RPBot v' + version + ' is starting...');
 checkForUpdate();
-setInterval(checkForUpdate, 60 * 60 * 1000);
+if(config.updateCheck > 0) setInterval(checkForUpdate, config.updateCheck * 60 * 1000);
 
 // Output safe config
 const debugConfig = Object.assign({}, config);
