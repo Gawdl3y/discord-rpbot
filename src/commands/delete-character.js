@@ -38,7 +38,7 @@ export default class DeleteCharacterCommand {
 		} else if(characters.length > 1) {
 			message.client.reply(message, disambiguation(characters, 'characters'));
 		} else {
-			message.client.reply(message, 'Unable to find character "' + matches[1] + '". Use !characters to see the list of characters.');
+			message.client.reply(message, 'Unable to find character "' + matches[1] + '". Use `!characters` to see the list of characters.');
 		}
 	}
 }

@@ -36,8 +36,8 @@ export default class ListCharactersCommand {
 
 			let messageText = matches[1] ? (matches[1].length === 1 ? 'Characters that begin with' : 'Characters that contain') + '"' + matches[1] + '"' : 'Character list';
 			messageText += ', ' + paginated.pageText + ':';
-			messageText += paginated.maxPage > 1 ? '\nUse "!characters' + (matches[1] ? ' ' + matches[1] : '') + ' [page]" to view a specific page.' : '';
-			messageText += '\nUse "!character <name>" to view information about one.';
+			messageText += paginated.maxPage > 1 ? '\nUse `!characters' + (matches[1] ? ' ' + matches[1] : '') + ' [page]` to view a specific page.' : '';
+			messageText += '\nUse `!character <name>` to view information about one.';
 			messageText += '\n\n' + characters.map(element => element.name).join('\n');
 			message.client.reply(message, messageText);
 		} else {
