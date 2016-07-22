@@ -18,6 +18,12 @@ It is written in ECMAScript 6 using Babel, and is built with [discord.js](https:
 You must be running Node.js 6.0.0 or newer.  
 Run `sudo npm install -g discord-rpbot --no-optional`.
 
+**Note:** Anonymous analytics are enabled by default.
+There is no identifiable or potentially private/unsafe information sent whatsoever.
+The only things that are being shared is the name of commands being run (no message contents), and an event for the bot starting up.
+This is so that I know how many people are using the bot, and what commands are being used the most.
+If you don't want anything being sent at all, use the `analytics` configuration option.
+
 ## Chat commands
 | Command           | Description                                                                                                   |
 |-------------------|---------------------------------------------------------------------------------------------------------------|
@@ -54,6 +60,7 @@ The settings:
 | auto-reconnect   | Whether or not the bot should automatically reconnect when disconnected          |
 | pagination-items | Number of items per page in paginated commands                                   |
 | update-check     | How frequently to check for an update (in minutes, use 0 to disable)             |
+| analytics        | Whether or not to enable anonymous, non-unique, non-identifiable analytics       |
 | log              | Path to the log file to output to                                                |
 | log-max-size     | Maximum size of a single log file                                                |
 | log-max-files    | Maximum log files to keep                                                        |
