@@ -52,7 +52,7 @@ export default class HelpCommand {
 					commandList += info.label + ' - ' + info.description;
 				}
 			}
-			message.client.reply(message, 'Available commands (use "!help <command>" for more info):\n' + commandList);
+			message.client.reply(message, 'Available commands (use `!help <command>` for more info):\n' + commandList);
 		}
 	}
 }
