@@ -4,6 +4,7 @@
 import database from '../database/characters';
 import config from '../config';
 import paginate from '../util/pagination';
+import nbsp from '../util/nbsp';
 
 export default class ListCharactersCommand {
 	static get information() {
@@ -35,9 +36,9 @@ export default class ListCharactersCommand {
 			characters = paginated.items;
 
 			let messageText = matches[1] ? (matches[1].length === 1 ? 'Characters that begin with' : 'Characters that contain') + '"' + matches[1] + '"' : 'Character list';
-			messageText += ', ' + paginated.pageText + ':';
-			messageText += paginated.maxPage > 1 ? '\nUse `!characters' + (matches[1] ? ' ' + matches[1] : '') + ' [page]` to view a specific page.' : '';
-			messageText += '\nUse `!character <name>` to view information about one.';
+			messageText += ', ' + paginated.pageText + ' (Use ';
+			if(paginated.maxPage > 1) messageText += nbsp('`!characters' + (matches[1] ? ' ' + matches[1] : '') + ' <page>`') + ' to view a specific page, or ';
+			messageText += nbsp('`!character <name>`') + ' to view information about a character):';
 			messageText += '\n\n' + characters.map(element => element.name).join('\n');
 			message.client.reply(message, messageText);
 		} else {

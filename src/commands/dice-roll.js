@@ -2,6 +2,7 @@
 'use strict';
 
 import DiceExpression from 'dice-expression-evaluator';
+import nbsp from '../util/nbsp';
 import logger from '../util/logger';
 
 export default class DiceRollCommand {
@@ -37,7 +38,7 @@ export default class DiceRollCommand {
 			if(rollResult.diceRaw.length > 1 || (rollResult.diceRaw.length > 0 && rollResult.diceRaw[0].length > 1)) {
 				for(const [index, diceResults] of rollResult.diceRaw.entries()) {
 					if(diceList) diceList += ',   ';
-					diceList += diceResults.length > 1 ? diceResults.join('\xa0+\xa0') + '\xa0=\xa0' + rollResult.diceSums[index] : diceResults[0];
+					diceList += nbsp(diceResults.length > 1 ? diceResults.join(' + ') + ' = ' + rollResult.diceSums[index] : diceResults[0]);
 				}
 			}
 
