@@ -3,7 +3,7 @@
 
 import database from '../database/mod-roles';
 import search from '../util/search';
-import sendDisambiguationMessage from '../util/disambiguation';
+import disambiguation from '../util/disambiguation';
 
 export default class AddModRoleCommand {
 	static get information() {
@@ -39,7 +39,7 @@ export default class AddModRoleCommand {
 				message.client.reply(message, 'Unable to add "' + roles[0].name + '" to the moderator roles. It already is one.');
 			}
 		} else if(roles.length > 1) {
-			sendDisambiguationMessage(message, 'roles', roles);
+			message.client.reply(message, disambiguation(roles, 'roles'));
 		} else {
 			message.client.reply(message, 'Unable to identify role.');
 		}

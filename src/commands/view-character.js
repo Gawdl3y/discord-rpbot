@@ -2,7 +2,7 @@
 'use strict';
 
 import database from '../database/characters';
-import sendDisambiguationMessage from '../util/disambiguation';
+import disambiguation from '../util/disambiguation';
 
 export default class ViewCharacterCommand {
 	static get information() {
@@ -33,7 +33,7 @@ export default class ViewCharacterCommand {
 			const ownerName = owner ? owner.name + '#' + owner.discriminator : 'Unknown';
 			message.client.reply(message, 'Character **' + characters[0].name + '** (created by ' + ownerName + '):\n' + characters[0].info);
 		} else if(characters.length > 1) {
-			sendDisambiguationMessage(message, 'characters', characters);
+			message.client.reply(message, disambiguation(characters, 'characters'));
 		} else {
 			message.client.reply(message, 'Unable to find character "' + matches[1] + '". Use !characters to see the list of characters.');
 		}

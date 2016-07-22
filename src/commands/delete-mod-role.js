@@ -2,7 +2,7 @@
 'use strict';
 
 import database from '../database/mod-roles';
-import sendDisambiguationMessage from '../util/disambiguation';
+import disambiguation from '../util/disambiguation';
 
 export default class DeleteModRoleCommand {
 	static get information() {
@@ -38,7 +38,7 @@ export default class DeleteModRoleCommand {
 				message.client.reply(message, 'Unable to remove "' + roles[0].name + '" from the moderator roles. It isn\'t one.');
 			}
 		} else if(roles.length > 1) {
-			sendDisambiguationMessage(message, 'roles', roles);
+			message.client.reply(message, disambiguation(roles, 'roles'));
 		} else {
 			message.client.reply(message, 'Unable to identify role.');
 		}
