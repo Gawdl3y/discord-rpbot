@@ -3,6 +3,7 @@
 
 import winston from 'winston';
 import config from '../config';
+import * as analytics from './analytics';
 
 export const logger = new winston.Logger({
 	transports: [
@@ -14,7 +15,10 @@ export const logger = new winston.Logger({
 			humanReadableUnhandledException: true
 		})
 	],
-	exitOnError: false
+	exitOnError: (e) => {
+		analytics.sendException(e);
+		return true;
+	}
 });
 
 if(config.log) {

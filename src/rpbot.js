@@ -7,6 +7,7 @@ import config from './config';
 import version from './version';
 import logger from './util/logger';
 import checkForUpdate from './util/update-check';
+import * as analytics from './util/analytics';
 
 // Commands
 import HelpCommand from './commands/help';
@@ -41,6 +42,7 @@ export const commands = [
 logger.info('RPBot v' + version + ' is starting...');
 checkForUpdate();
 if(config.updateCheck > 0) setInterval(checkForUpdate, config.updateCheck * 60 * 1000);
+analytics.sendEvent('Bot', 'started');
 
 // Output safe config
 const debugConfig = Object.assign({}, config);
@@ -85,6 +87,7 @@ client.on('message', message => {
 
 					if(command.isRunnable(message)) {
 						logger.info('Running ' + command.name + '.', logInfo);
+						analytics.sendEvent('Command', 'run', command.name);
 						command.run(message, matches);
 					} else {
 						logger.info('Not running ' + command.name + '; not runnable.', logInfo);

@@ -53,6 +53,11 @@ const config = yargs
 		default: 60,
 		describe: 'How frequently to check for an update (in minutes, use 0 to disable)'
 	})
+	.option('analytics', {
+		type: 'boolean',
+		default: true,
+		describe: 'Whether or not to enable anonymous, non-unique, non-identifiable analytics'
+	})
 
 	// Logging
 	.option('log', {
