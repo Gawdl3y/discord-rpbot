@@ -31,17 +31,18 @@ export default class CharacterDatabase {
 				character.owner = serverCharacters[characterIndex].owner;
 				serverCharacters[characterIndex] = character;
 				logger.info('Updated existing character.', character);
+				this.saveDatabase();
+				return 2;
 			} else {
 				logger.info('Not updating existing character, because the owner isn\'t the original owner.', { character: character, original: serverCharacters[characterIndex] });
-				return false;
+				return 0;
 			}
 		} else {
 			serverCharacters.push(character);
 			logger.info('Added new character.', character);
+			this.saveDatabase();
+			return 1;
 		}
-
-		this.saveDatabase();
-		return true;
 	}
 
 	static deleteCharacter(character, allowNonOwner = false) {
