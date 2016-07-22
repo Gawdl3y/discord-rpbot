@@ -13,7 +13,7 @@ export default class AddCharacterCommand {
 			aliases: ['addchar'],
 			description: 'Adds a character to the database, or updates the existing one.',
 			usage: '!addcharacter "<name>" <info>',
-			details: 'The character name *must* be surrounded by quotes. The information doesn\'t have to be a single line. Only the owner of the character and users with the "manage messages" permission may update it.',
+			details: 'The character name *must* be surrounded by quotes. The information doesn\'t have to be a single line. Only the owner of the character and administrators/moderators may update it.',
 			examples: ['!addcharacter "Billy McBillface" A really cool guy who enjoys his chicken tendies.']
 		};
 	}

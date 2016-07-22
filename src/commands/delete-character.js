@@ -11,7 +11,7 @@ export default class DeleteCharacterCommand {
 			aliases: ['removecharacter', 'delchar', 'rmchar'],
 			description: 'Deletes a character from the database.',
 			usage: '!deletecharacter <name>',
-			details: 'The name can be the whole name of the character, or just a part of it. Only the owner of the character and users with the "manage messages" permission may delete it.',
+			details: 'The name can be the whole name of the character, or just a part of it. Only the owner of the character and administrators/moderators may delete it.',
 			examples: ['!deletecharacter Billy McBillface', '!deletecharacter bill']
 		};
 	}
