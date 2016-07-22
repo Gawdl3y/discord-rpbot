@@ -2,6 +2,7 @@
 'use strict';
 
 import database from '../database/characters';
+import config from '../config';
 import paginate from '../util/pagination';
 
 export default class ListCharactersCommand {
@@ -30,7 +31,7 @@ export default class ListCharactersCommand {
 		let characters = database.findCharactersInServer(message.server, matches[1], false);
 		if(characters.length > 0) {
 			characters.sort((a, b) => a.name < b.name ? -1 : (a.name > b.name ? 1 : 0));
-			const paginated = paginate(characters, matches[2] ? parseInt(matches[2]) : 1);
+			const paginated = paginate(characters, matches[2] ? parseInt(matches[2]) : 1, Math.floor(config.paginationItems));
 			characters = paginated.items;
 
 			let messageText = matches[1] ? (matches[1].length === 1 ? 'Characters that begin with' : 'Characters that contain') + '"' + matches[1] + '"' : 'Character list';

@@ -45,18 +45,19 @@ Configuration can be specified on the command line, or in a JSON or YAML config 
 Specify the config file with `--config=(FILE PATH)`.
 The settings:
 
-| Setting        | Description                                                                      |        
-|----------------|----------------------------------------------------------------------------------|
-| token          | API token for the bot account                                                    |
-| email          | Email of the Discord account for the bot to use (not needed if using `token`)    |
-| password       | Password of the Discord account for the bot to use (not needed if using `token`) |
-| storage        | Path to the storage directory                                                    |
-| auto-reconnect | Whether or not the bot should automatically reconnect when disconnected          |
-| log            | Path to the log file to output to                                                |
-| log-max-size   | Maximum size of a single log file                                                |
-| log-max-files  | Maximum log files to keep                                                        |
-| log-level      | Log level to output to the log file (error, warn, info, verbose, debug)          |
-| console-level  | Log level to output to the console (error, warn, info, verbose, debug)           |
+| Setting          | Description                                                                      |        
+|------------------|----------------------------------------------------------------------------------|
+| token            | API token for the bot account                                                    |
+| email            | Email of the Discord account for the bot to use (not needed if using `token`)    |
+| password         | Password of the Discord account for the bot to use (not needed if using `token`) |
+| storage          | Path to the storage directory                                                    |
+| auto-reconnect   | Whether or not the bot should automatically reconnect when disconnected          |
+| pagination-items | Number of items per page in paginated commands                                   |
+| log              | Path to the log file to output to                                                |
+| log-max-size     | Maximum size of a single log file                                                |
+| log-max-files    | Maximum log files to keep                                                        |
+| log-level        | Log level to output to the log file (error, warn, info, verbose, debug)          |
+| console-level    | Log level to output to the console (error, warn, info, verbose, debug)           |
 
 ## Usage
 Run `rpbot` on the command-line.

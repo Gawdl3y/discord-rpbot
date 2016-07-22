@@ -41,6 +41,13 @@ const config = yargs
 		describe: 'Whether or not the bot should automatically reconnect when disconnected'
 	})
 
+	// General
+	.option('pagination-items', {
+		type: 'number',
+		default: 15,
+		describe: 'Number of items per page in paginated commands'
+	})
+
 	// Logging
 	.option('log', {
 		type: 'string',
