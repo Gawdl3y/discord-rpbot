@@ -4,7 +4,7 @@
 import Character from '../database/character';
 import database from '../database/characters';
 
-const disallowedPattern = /@everyone|@here|<@&?[0-9]+>/i;
+const mentionsPattern = /@everyone|@here|<@&?[0-9]+>/i;
 
 export default class AddCharacterCommand {
 	static get information() {
@@ -13,7 +13,7 @@ export default class AddCharacterCommand {
 			aliases: ['addchar'],
 			description: 'Adds a character to the database, or updates the existing one.',
 			usage: '!addcharacter "<name>" <info>',
-			details: 'The character name *must* be surrounded by quotes. The information doesn\'t have to be a single line. Only the owner of the character and administrators/moderators may update it.',
+			details: 'The character name *must* be surrounded by quotes, and can be a maximum of 60 characters long. The information doesn\'t have to be a single line. Only the owner of the character and administrators/moderators may update it.',
 			examples: ['!addcharacter "Billy McBillface" A really cool guy who enjoys his chicken tendies.']
 		};
 	}
@@ -29,8 +29,13 @@ export default class AddCharacterCommand {
 	}
 
 	static run(message, matches) {
-		if(disallowedPattern.test(matches[1]) || disallowedPattern.test(matches[2])) {
+		if(mentionsPattern.test(matches[1]) || mentionsPattern.test(matches[2])) {
 			message.client.reply(message, 'Please do not use mentions in your character name or information.');
+			return;
+		}
+
+		if(matches[1].length > 60) {
+			message.client.reply(message, 'A character\'s name may not be longer than 60 characters.');
 			return;
 		}
 
