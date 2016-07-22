@@ -27,32 +27,20 @@ export default class HelpCommand {
 	static run(message, matches) {
 		if(matches[1]) {
 			const lowercaseSearch = matches[1].toLowerCase();
-			const command = commands.find(command => {
-				return command.information.label === lowercaseSearch || (command.information.aliases && command.information.aliases.includes(lowercaseSearch));
-			});
+			const command = commands.find(c => c.information.label === lowercaseSearch || (c.information.aliases && c.information.aliases.includes(lowercaseSearch)));
 			if(command) {
 				const info = command.information;
 				let help = 'Command **' + info.label + '**: ' + info.description;
 				help += '\n**Usage:** `' + nbsp.convert(info.usage) + '`';
 				if(info.aliases) help += '\n**Aliases:** ' + info.aliases.join(', ');
 				help += info.details ? '\n**Details:** ' + info.details : '';
-				if(info.examples) {
-					help += '\n**Examples:**';
-					for(const example of info.examples) help += '\n' + nbsp.convert(example);
-				}
+				if(info.examples) help += '\n**Examples:**\n' + info.examples.join('\n');
 				message.client.reply(message, help);
 			} else {
 				message.client.reply(message, 'Invalid command specified. Use `!help` to view the list of all commands.');
 			}
 		} else {
-			let commandList = '';
-			for(const command of commands) {
-				if(command.isRunnable(message)) {
-					if(commandList) commandList += '\n';
-					const info = command.information;
-					commandList += info.label + ' - ' + info.description;
-				}
-			}
+			const commandList = commands.filter(c => c.isRunnable(message)).map(c => c.information.label + ' - ' + c.information.description).join('\n');
 			message.client.reply(message, 'Available commands (use `!help' + nbsp.character + '<command>` for more info):\n' + commandList);
 		}
 	}

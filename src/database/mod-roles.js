@@ -56,14 +56,8 @@ export default class ModRolesDatabase {
 		if(!this.serversMap) this.loadDatabase();
 		if(!this.serversMap[server.id]) return [];
 
-		// Find all of the server's roles that match, then match them up with the saved mod roles
-		const roles = [];
-		const searchedRoles = search(server.roles, searchString);
-		for(const modRole of this.serversMap[server.id]) {
-			const role = searchedRoles.find(element => element.id === modRole);
-			if(role) roles.push(role);
-		}
-
+		// Find all of the server's roles that match, and filter them to ones that are mod roles
+		const roles = search(server.roles, searchString).filter(r => this.serversMap[server.id].includes(r.id));
 		return roles;
 	}
 

@@ -4,7 +4,6 @@
 import nbsp from './nbsp';
 
 export default function disambiguation(items, label, property = 'name') {
-	let objectList = '';
-	for(const item of items) objectList += (objectList ? ',   ' : '') + '"' + nbsp(property ? item[property] : item.toString()) + '"';
-	return 'Multiple ' + label + ' found, please be more specific: ' + objectList;
+	const itemList = items.map(item => '"' + nbsp(property ? item[property] : item.toString()) + '"' ).join(',   ');
+	return 'Multiple ' + label + ' found, please be more specific: ' + itemList;
 }
