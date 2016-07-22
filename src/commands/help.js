@@ -32,7 +32,7 @@ export default class HelpCommand {
 			});
 			if(command) {
 				const info = command.information;
-				let help = 'Command "' + info.label + '": ' + info.description;
+				let help = 'Command **' + info.label + '**: ' + info.description;
 				help += '\n**Usage:** `' + nbsp.convert(info.usage) + '`';
 				if(info.aliases) help += '\n**Aliases:** ' + info.aliases.join(', ');
 				help += info.details ? '\n**Details:** ' + info.details : '';
