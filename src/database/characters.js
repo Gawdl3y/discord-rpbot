@@ -68,14 +68,14 @@ export default class CharacterDatabase {
 		return true;
 	}
 
-	static findCharactersInServer(server, searchString = null) {
+	static findCharactersInServer(server, searchString = null, searchExact = true) {
 		if(!server) throw new Error('A server must be specified.');
 		if(!this.serversMap) this.loadDatabase();
 		if(!this.serversMap[server.id]) return [];
 		let characters;
 
 		if(search) {
-			characters = search(this.serversMap[server.id], searchString, true);
+			characters = search(this.serversMap[server.id], searchString, { useStartsWith: true, searchExact: searchExact });
 		} else {
 			characters = this.serversMap[server.id];
 		}

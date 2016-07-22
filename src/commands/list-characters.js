@@ -27,7 +27,7 @@ export default class ListCharactersCommand {
 	}
 
 	static run(message, matches) {
-		let characters = database.findCharactersInServer(message.server, matches[1]);
+		let characters = database.findCharactersInServer(message.server, matches[1], false);
 		if(characters.length > 0) {
 			characters.sort((a, b) => a.name < b.name ? -1 : (a.name > b.name ? 1 : 0));
 			const paginated = paginate(characters, matches[2] ? parseInt(matches[2]) : 1);
