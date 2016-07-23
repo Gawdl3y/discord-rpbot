@@ -35,7 +35,7 @@ export default class ListCharactersCommand {
 			const paginated = paginate(characters, matches[2] ? parseInt(matches[2]) : 1, Math.floor(config.paginationItems));
 			characters = paginated.items;
 
-			let messageText = matches[1] ? (matches[1].length === 1 ? 'Characters that begin with' : 'Characters that contain') + '"' + matches[1] + '"' : 'Character list';
+			let messageText = matches[1] ? (matches[1].length === 1 ? 'Characters that begin with' : 'Characters that contain') + ' "' + matches[1] + '"' : 'Character list';
 			messageText += ', ' + paginated.pageText + ' (Use ';
 			if(paginated.maxPage > 1) messageText += nbsp.convert('`!characters' + (matches[1] ? ' ' + matches[1] : '') + ' <page>`') + ' to view a specific page, or ';
 			messageText += '`!character' + nbsp.character + '<name>` to view information about a character):';
