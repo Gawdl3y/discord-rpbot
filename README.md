@@ -8,7 +8,9 @@
 This is a simple Discord bot that contains commands useful for roleplaying.
 It is written in ECMAScript 6 using Babel, and is built with [discord.js](https://github.com/hydrabolt/discord.js) and Node.js.
 
-[Discord server](https://discord.gg/SZMhh2B)
+Have any questions/feedback?
+Join the [Discord server](https://discord.gg/SZMhh2B).
+If you find any bugs or have suggestions, feel free to [create an issue](/../../issues).
 
 ## Install
 ### Global bot
