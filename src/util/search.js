@@ -6,15 +6,21 @@ export default function search(items, searchString, options) {
 	if(!searchString) return items;
 	if(!options) options = {};
 	if(typeof options.property === 'undefined') options.property = 'name';
+	if(typeof options.searchInexact === 'undefined') options.searchInexact = true;
 	if(typeof options.searchExact === 'undefined') options.searchExact = true;
 
-	// Find all items that match the search string
 	const lowercaseSearch = searchString.toLowerCase();
 	let matchedItems;
-	if(options.useStartsWith && searchString.length === 1) {
-		matchedItems = items.filter(element => (options.property ? element[options.property] : element.toString()).normalize('NFKD').toLowerCase().startsWith(lowercaseSearch));
+
+	// Find all items that start with or include the search string
+	if(options.searchInexact) {
+		if(options.useStartsWith && searchString.length === 1) {
+			matchedItems = items.filter(element => (options.property ? element[options.property] : element.toString()).normalize('NFKD').toLowerCase().startsWith(lowercaseSearch));
+		} else {
+			matchedItems = items.filter(element => (options.property ? element[options.property] : element.toString()).normalize('NFKD').toLowerCase().includes(lowercaseSearch));
+		}
 	} else {
-		matchedItems = items.filter(element => (options.property ? element[options.property] : element.toString()).normalize('NFKD').toLowerCase().includes(lowercaseSearch));
+		matchedItems = items;
 	}
 
 	// See if any are an exact match
