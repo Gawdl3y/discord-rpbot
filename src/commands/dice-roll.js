@@ -36,19 +36,15 @@ export default class DiceRollCommand {
 			// Build the list of dice
 			let diceList = '';
 			if(rollResult.diceRaw.length > 1 || (rollResult.diceRaw.length > 0 && rollResult.diceRaw[0].length > 1)) {
-				for(const [index, diceResults] of rollResult.diceRaw.entries()) {
-					if(diceList) diceList += ',   ';
-					diceList += nbsp(diceResults.length > 1 ? diceResults.join(' + ') + ' = ' + rollResult.diceSums[index] : diceResults[0]);
-				}
+				diceList = rollResult.diceRaw.map((r, i) => nbsp(r.length > 1 ? r.join(' + ') + ' = ' + rollResult.diceSums[i] : r[0])).join(',   ');
 			}
 
-			const operator = matches[2];
-			if(operator) {
+			if(matches[2]) {
 				// Determine whether or not the target is met
 				const target = parseInt(matches[3]);
 				let success = false;
-				let targetMessage = '';
-				if(operator === '>') {
+				let targetMessage;
+				if(matches[2] === '>') {
 					success = rollResult.roll > target;
 					targetMessage = (!success ? 'not ' : '') + 'greater than ' + target;
 				} else {
