@@ -4,11 +4,9 @@
 import version from '../version';
 
 export default {
-	information: {
-		name: 'about',
-		description: 'Displays information about the bot.',
-		usage: '!about'
-	},
+	name: 'about',
+	description: 'Displays information about the bot.',
+	usage: '!about',
 
 	triggers: [
 		/^!about(?:\s.*)?$/i

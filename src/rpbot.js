@@ -57,7 +57,7 @@ client.on('message', message => {
 					};
 
 					if(command.isRunnable(message)) {
-						logger.info(`Running ${command.information.name}.`, logInfo);
+						logger.info(`Running ${command.name}.`, logInfo);
 						analytics.sendEvent('Command', 'run', command.name);
 						command.run(message, matches);
 					} else {

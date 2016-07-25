@@ -4,14 +4,12 @@
 import database from '../../database/mod-roles';
 
 export default {
-	information: {
-		name: 'modroles',
-		aliases: ['listmodroles', 'mods'],
-		description: 'Lists all moderator roles.',
-		usage: '!modroles',
-		details: 'Only administrators may use this command.',
-		examples: ['!modroles']
-	},
+	name: 'modroles',
+	aliases: ['listmodroles', 'mods'],
+	description: 'Lists all moderator roles.',
+	usage: '!modroles',
+	details: 'Only administrators may use this command.',
+	examples: ['!modroles'],
 
 	triggers: [
 		/^!(?:modroles|listmodroles|mods)(?:\s.*)?$/i

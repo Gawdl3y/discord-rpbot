@@ -5,13 +5,11 @@ import DiceExpression from 'dice-expression-evaluator';
 import logger from '../../util/logger';
 
 export default {
-	information: {
-		name: 'minroll',
-		description: 'Calculates the minimum possible roll for a dice expression.',
-		usage: '!minroll <dice expression>',
-		details: 'The dice expression follows the same rules as !roll, but targets (< or >) cannot be used.',
-		examples: ['!minroll 2d20', '!minroll 3d20 - d10 + 6']
-	},
+	name: 'minroll',
+	description: 'Calculates the minimum possible roll for a dice expression.',
+	usage: '!minroll <dice expression>',
+	details: 'The dice expression follows the same rules as !roll, but targets (< or >) cannot be used.',
+	examples: ['!minroll 2d20', '!minroll 3d20 - d10 + 6'],
 
 	triggers: [
 		/^!minroll\s+(.+?)\s*$/i

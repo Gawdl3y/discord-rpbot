@@ -6,14 +6,12 @@ import search from '../../util/search';
 import disambiguation from '../../util/disambiguation';
 
 export default {
-	information: {
-		name: 'addmodrole',
-		aliases: ['addmod'],
-		description: 'Adds a moderator role.',
-		usage: '!addmodrole <role>',
-		details: 'The role must be the name or ID of a role, or a role mention. Only administrators may use this command.',
-		examples: ['!addmodrole cool', '!addmodrole 205536402341888001', '!addmodrole @CoolPeopleRole']
-	},
+	name: 'addmodrole',
+	aliases: ['addmod'],
+	description: 'Adds a moderator role.',
+	usage: '!addmodrole <role>',
+	details: 'The role must be the name or ID of a role, or a role mention. Only administrators may use this command.',
+	examples: ['!addmodrole cool', '!addmodrole 205536402341888001', '!addmodrole @CoolPeopleRole'],
 
 	triggers: [
 		/^!(?:addmodrole|addmod)\s+(?:(?:<@&)?(.+?)>?)\s*$/i

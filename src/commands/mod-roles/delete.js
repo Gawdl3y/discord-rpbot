@@ -5,14 +5,12 @@ import database from '../../database/mod-roles';
 import disambiguation from '../../util/disambiguation';
 
 export default {
-	information: {
-		name: 'deletemodrole',
-		aliases: ['removemodrole', 'delmodrole', 'removemod', 'deletemod', 'delmod'],
-		description: 'Deletes a moderator role.',
-		usage: '!deletemodrole <role>',
-		details: 'The role must be the ID of a role, or a role mention. Only administrators may use this command.',
-		examples: ['!deletemodrole cool', '!deletemodrole 205536402341888001', '!deletemodrole @CoolPeopleRole']
-	},
+	name: 'deletemodrole',
+	aliases: ['removemodrole', 'delmodrole', 'removemod', 'deletemod', 'delmod'],
+	description: 'Deletes a moderator role.',
+	usage: '!deletemodrole <role>',
+	details: 'The role must be the ID of a role, or a role mention. Only administrators may use this command.',
+	examples: ['!deletemodrole cool', '!deletemodrole 205536402341888001', '!deletemodrole @CoolPeopleRole'],
 
 	triggers: [
 		/^!(?:deletemodrole|removemodrole|delmodrole|removemod|deletemod|delmod)\s+(?:(?:<@&)?(.+?)>?)\s*$/i

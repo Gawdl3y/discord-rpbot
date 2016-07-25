@@ -5,14 +5,12 @@ import database from '../../database/characters';
 import disambiguation from '../../util/disambiguation';
 
 export default {
-	information: {
-		name: 'deletecharacter',
-		aliases: ['removecharacter', 'delchar', 'rmchar'],
-		description: 'Deletes a character from the database.',
-		usage: '!deletecharacter <name>',
-		details: 'The name can be the whole name of the character, or just a part of it. Only the owner of the character and administrators/moderators may delete it.',
-		examples: ['!deletecharacter Billy McBillface', '!deletecharacter bill']
-	},
+	name: 'deletecharacter',
+	aliases: ['removecharacter', 'delchar', 'rmchar'],
+	description: 'Deletes a character from the database.',
+	usage: '!deletecharacter <name>',
+	details: 'The name can be the whole name of the character, or just a part of it. Only the owner of the character and administrators/moderators may delete it.',
+	examples: ['!deletecharacter Billy McBillface', '!deletecharacter bill'],
 
 	triggers: [
 		/^!(?:deletecharacter|removecharacter|delchar|rmchar)\s+"?(.+?)"?\s*$/i,

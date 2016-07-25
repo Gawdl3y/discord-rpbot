@@ -5,14 +5,12 @@ import database from '../../database/characters';
 import disambiguation from '../../util/disambiguation';
 
 export default {
-	information: {
-		name: 'character',
-		aliases: ['viewcharacter', 'char'],
-		description: 'Views a character\'s information.',
-		usage: '!character <name>',
-		details: 'The name can be the whole name of the character, or just a part of it.',
-		examples: ['!character Billy McBillface', '!character bill']
-	},
+	name: 'character',
+	aliases: ['viewcharacter', 'char'],
+	description: 'Views a character\'s information.',
+	usage: '!character <name>',
+	details: 'The name can be the whole name of the character, or just a part of it.',
+	examples: ['!character Billy McBillface', '!character bill'],
 
 	triggers: [
 		/^!(?:character|viewcharacter|char)\s+"?(.+?)"?\s*$/i
