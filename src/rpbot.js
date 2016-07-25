@@ -35,7 +35,7 @@ if(!config.token && (!config.email || !config.password)) {
 const clientOptions = { autoReconnect: config.autoReconnect, forceFetchUsers: true, disableEveryone: true };
 export const client = new Discord.Client(clientOptions);
 logger.info('Client created.', clientOptions);
-client.on('ready', () => { logger.info('Bot is ready; logged in as ' + client.user.username + '#' + client.user.discriminator + ' (ID ' + client.user.id + ')'); });
+client.on('ready', () => { logger.info(`Bot is ready; logged in as ${client.user.username}#${client.user.discriminator} (ID ${client.user.id})`); });
 client.on('error', e => { logger.error(e); });
 client.on('warn', e => { logger.warn(e); });
 client.on('debug', e => { logger.debug(e); });
@@ -57,11 +57,11 @@ client.on('message', message => {
 					};
 
 					if(command.isRunnable(message)) {
-						logger.info('Running ' + command.name + '.', logInfo);
+						logger.info(`Running ${command.name}.`, logInfo);
 						analytics.sendEvent('Command', 'run', command.name);
 						command.run(message, matches);
 					} else {
-						logger.info('Not running ' + command.name + '; not runnable.', logInfo);
+						logger.info(`Not running ${command.name}; not runnable.`, logInfo);
 					}
 
 					break commandLoop;

@@ -46,22 +46,21 @@ export default class DiceRollCommand {
 				let targetMessage;
 				if(matches[2] === '>') {
 					success = rollResult.roll > target;
-					targetMessage = (!success ? 'not ' : '') + 'greater than ' + target;
+					targetMessage = `${!success ? 'not' : ''} greater than ${target}`;
 				} else {
 					success = rollResult.roll < target;
-					targetMessage = (!success ? 'not ' : '') + 'less than ' + target;
+					targetMessage = `${!success ? 'not' : ''} less than ${target}`;
 				}
 
-				// Send message
-				let messageText = success ? ' has **succeeded**.' : ' has **failed**.';
-				messageText += ' (Rolled ' + rollResult.roll + ', ' + targetMessage + (diceList ? ';   ' + diceList : '') + ')';
-				message.client.sendMessage(message, message.author + messageText);
+				const diceInfo = diceList ? `;   ${diceList}` : '';
+				message.client.sendMessage(message, `${message.author} has **${success ? 'succeeded' : 'failed'}**. (Rolled ${rollResult.roll}, ${targetMessage}${diceInfo})`);
 			} else {
-				message.client.sendMessage(message, message.author + ' rolled **' + rollResult.roll + '**.' + (diceList ? ' (' + diceList + ')' : ''));
+				const diceInfo = diceList ? ` (${diceList})` : '';
+				message.client.sendMessage(message, `${message.author} rolled **${rollResult.roll}**.${diceInfo}`);
 			}
 		} catch(e) {
 			logger.error(e);
-			message.client.sendMessage(message, message.author + ' specified an invalid dice expression.');
+			message.client.sendMessage(message, `${message.author} specified an invalid dice expression.`);
 			return;
 		}
 	}

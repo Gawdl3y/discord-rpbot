@@ -42,9 +42,9 @@ export default class AddCharacterCommand {
 		const permissionOverride = database.userCanModerateInServer(message.server, message.author);
 		const result = database.saveCharacter(character, permissionOverride);
 		if(result) {
-			message.client.reply(message, (result === 1 ? 'Added' : 'Updated') + ' character "' + character.name + '".');
+			message.client.reply(message, `${result === 1 ? 'Added' : 'Updated'} character "${character.name}".`);
 		} else {
-			message.client.reply(message, 'Unable to update character "' + character.name + '". You are not the owner.');
+			message.client.reply(message, `Unable to update character "${character.name}". You are not the owner.`);
 		}
 	}
 }

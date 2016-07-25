@@ -31,14 +31,14 @@ export default class DeleteCharacterCommand {
 		if(characters.length === 1) {
 			const permissionOverride = database.userCanModerateInServer(message.server, message.author);
 			if(database.deleteCharacter(characters[0], permissionOverride)) {
-				message.client.reply(message, 'Deleted character "' + characters[0].name + '".');
+				message.client.reply(message, `Deleted character "${characters[0].name}."`);
 			} else {
-				message.client.reply(message, 'Unable to delete character "' + characters[0].name + '". You are not the owner.');
+				message.client.reply(message, `Unable to delete character "${characters[0].name}". You are not the owner.`);
 			}
 		} else if(characters.length > 1) {
 			message.client.reply(message, disambiguation(characters, 'characters'));
 		} else {
-			message.client.reply(message, 'Unable to find character "' + matches[1] + '". Use `!characters` to see the list of characters.');
+			message.client.reply(message, 'Unable to find character. Use `!characters` to see the list of characters.');
 		}
 	}
 }

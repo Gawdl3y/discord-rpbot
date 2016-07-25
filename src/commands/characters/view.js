@@ -31,11 +31,11 @@ export default class ViewCharacterCommand {
 		if(characters.length === 1) {
 			const owner = message.client.users.get('id', characters[0].owner);
 			const ownerName = owner ? owner.name + '#' + owner.discriminator : 'Unknown';
-			message.client.reply(message, 'Character **' + characters[0].name + '** (created by ' + ownerName + '):\n' + characters[0].info);
+			message.client.reply(message, `Character **${characters[0].name}** (created by ${ownerName}):\n${characters[0].info}`);
 		} else if(characters.length > 1) {
 			message.client.reply(message, disambiguation(characters, 'characters'));
 		} else {
-			message.client.reply(message, 'Unable to find character "' + matches[1] + '". Use `!characters` to see the list of characters.');
+			message.client.reply(message, 'Unable to find character. Use `!characters` to see the list of characters.');
 		}
 	}
 }

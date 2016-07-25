@@ -28,7 +28,7 @@ export default class MaxDiceRollCommand {
 	static run(message, matches) {
 		try {
 			const maxRoll = new DiceExpression(matches[1]).max();
-			message.client.reply(message, 'The maximum possible roll is **' + maxRoll + '**.');
+			message.client.reply(message, `The maximum possible roll is **${maxRoll}**.`);
 		} catch(e) {
 			logger.error(e);
 			message.client.reply(message, 'Invalid dice expression specified.');

@@ -34,9 +34,9 @@ export default class AddModRoleCommand {
 
 		if(roles.length === 1) {
 			if(database.saveRole(roles[0])) {
-				message.client.reply(message, 'Added "' + roles[0].name + '" to the moderator roles.');
+				message.client.reply(message, `Added "${roles[0].name}" to the moderator roles.`);
 			} else {
-				message.client.reply(message, 'Unable to add "' + roles[0].name + '" to the moderator roles. It already is one.');
+				message.client.reply(message, `Unable to add "${roles[0].name}" to the moderator roles. It already is one.`);
 			}
 		} else if(roles.length > 1) {
 			message.client.reply(message, disambiguation(roles, 'roles'));

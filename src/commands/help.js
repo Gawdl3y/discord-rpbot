@@ -33,7 +33,7 @@ export default class HelpCommand {
 				let help = 'Command **' + info.label + '**: ' + info.description;
 				help += '\n**Usage:** `' + nbsp.convert(info.usage) + '`';
 				if(info.aliases) help += '\n**Aliases:** ' + info.aliases.join(', ');
-				help += info.details ? '\n**Details:** ' + info.details : '';
+				if(info.details) help += '\n**Details:** ' + info.details;
 				if(info.examples) help += '\n**Examples:**\n' + info.examples.join('\n');
 				message.client.reply(message, help);
 			} else {
@@ -41,7 +41,7 @@ export default class HelpCommand {
 			}
 		} else {
 			const commandList = commands.filter(c => c.isRunnable(message)).map(c => c.information.label + ' - ' + c.information.description).join('\n');
-			message.client.reply(message, 'Available commands (use `!help' + nbsp.character + '<command>` for more info):\n' + commandList);
+			message.client.reply(message, `Available commands (use \`!help${nbsp.character}<command>\` for more info):\n${commandList}`);
 		}
 	}
 }

@@ -33,9 +33,9 @@ export default class DeleteModRoleCommand {
 
 		if(roles.length === 1) {
 			if(database.deleteRole(roles[0])) {
-				message.client.reply(message, 'Removed "' + roles[0].name + '" from the moderator roles.');
+				message.client.reply(message, `Removed "${roles[0].name}" from the moderator roles.`);
 			} else {
-				message.client.reply(message, 'Unable to remove "' + roles[0].name + '" from the moderator roles. It isn\'t one.');
+				message.client.reply(message, `Unable to remove "${roles[0].name}" from the moderator roles. It isn\'t one.`);
 			}
 		} else if(roles.length > 1) {
 			message.client.reply(message, disambiguation(roles, 'roles'));

@@ -11,6 +11,6 @@ export default function paginate(items, page, pageLength = 15) {
 		page: page,
 		maxPage: maxPage,
 		pageLength: 20,
-		pageText: 'page ' + page + ' of ' + maxPage
+		pageText: `page ${page} of ${maxPage}`
 	};
 }
