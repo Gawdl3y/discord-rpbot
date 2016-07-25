@@ -1,10 +1,10 @@
 'use babel';
 'use strict';
 
-import database from '../database/characters';
-import config from '../config';
-import paginate from '../util/pagination';
-import * as nbsp from '../util/nbsp';
+import database from '../../database/characters';
+import config from '../../config';
+import paginate from '../../util/pagination';
+import * as nbsp from '../../util/nbsp';
 
 export default class ListCharactersCommand {
 	static get information() {

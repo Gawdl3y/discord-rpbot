@@ -1,7 +1,7 @@
 'use babel';
 'use strict';
 
-import { commands } from '../rpbot';
+import commands from '../commands';
 import * as nbsp from '../util/nbsp';
 
 export default class HelpCommand {

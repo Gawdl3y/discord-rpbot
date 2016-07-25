@@ -2,22 +2,22 @@
 'use strict';
 
 import DiceExpression from 'dice-expression-evaluator';
-import logger from '../util/logger';
+import logger from '../../util/logger';
 
-export default class MaxDiceRollCommand {
+export default class MinDiceRollCommand {
 	static get information() {
 		return {
-			label: 'maxroll',
-			description: 'Calculates the maximum possible roll for a dice expression.',
-			usage: '!maxroll <dice expression>',
+			label: 'minroll',
+			description: 'Calculates the minimum possible roll for a dice expression.',
+			usage: '!minroll <dice expression>',
 			details: 'The dice expression follows the same rules as !roll, but targets (< or >) cannot be used.',
-			examples: ['!maxroll 2d20', '!maxroll 3d20 - d10 + 6']
+			examples: ['!minroll 2d20', '!minroll 3d20 - d10 + 6']
 		};
 	}
 
 	static get triggers() {
 		return [
-			/^!maxroll\s+(.+?)\s*$/i
+			/^!minroll\s+(.+?)\s*$/i
 		];
 	}
 
@@ -27,8 +27,8 @@ export default class MaxDiceRollCommand {
 
 	static run(message, matches) {
 		try {
-			const maxRoll = new DiceExpression(matches[1]).max();
-			message.client.reply(message, 'The maximum possible roll is **' + maxRoll + '**.');
+			const minRoll = new DiceExpression(matches[1]).min();
+			message.client.reply(message, 'The minimum possible roll is **' + minRoll + '**.');
 		} catch(e) {
 			logger.error(e);
 			message.client.reply(message, 'Invalid dice expression specified.');

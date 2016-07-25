@@ -1,9 +1,9 @@
 'use babel';
 'use strict';
 
-import database from '../database/mod-roles';
-import search from '../util/search';
-import disambiguation from '../util/disambiguation';
+import database from '../../database/mod-roles';
+import search from '../../util/search';
+import disambiguation from '../../util/disambiguation';
 
 export default class AddModRoleCommand {
 	static get information() {

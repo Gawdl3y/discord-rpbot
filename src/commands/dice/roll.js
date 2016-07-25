@@ -2,8 +2,8 @@
 'use strict';
 
 import DiceExpression from 'dice-expression-evaluator';
-import nbsp from '../util/nbsp';
-import logger from '../util/logger';
+import nbsp from '../../util/nbsp';
+import logger from '../../util/logger';
 
 export default class DiceRollCommand {
 	static get information() {

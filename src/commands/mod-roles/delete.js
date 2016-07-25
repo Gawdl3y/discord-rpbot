@@ -1,8 +1,8 @@
 'use babel';
 'use strict';
 
-import database from '../database/mod-roles';
-import disambiguation from '../util/disambiguation';
+import database from '../../database/mod-roles';
+import disambiguation from '../../util/disambiguation';
 
 export default class DeleteModRoleCommand {
 	static get information() {

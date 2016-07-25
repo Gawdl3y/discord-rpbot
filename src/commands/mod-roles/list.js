@@ -1,7 +1,7 @@
 'use babel';
 'use strict';
 
-import database from '../database/mod-roles';
+import database from '../../database/mod-roles';
 
 export default class ListModRolesCommand {
 	static get information() {

@@ -1,8 +1,8 @@
 'use babel';
 'use strict';
 
-import database from '../database/characters';
-import disambiguation from '../util/disambiguation';
+import database from '../../database/characters';
+import disambiguation from '../../util/disambiguation';
 
 export default class DeleteCharacterCommand {
 	static get information() {

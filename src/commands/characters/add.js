@@ -1,8 +1,8 @@
 'use babel';
 'use strict';
 
-import Character from '../database/character';
-import database from '../database/characters';
+import Character from '../../database/character';
+import database from '../../database/characters';
 
 const mentionsPattern = /@everyone|@here|<@&?[0-9]+>/i;
 
