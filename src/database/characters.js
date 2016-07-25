@@ -73,13 +73,8 @@ export default class CharacterDatabase {
 		if(!server) throw new Error('A server must be specified.');
 		if(!this.serversMap) this.loadDatabase();
 		if(!this.serversMap[server.id]) return [];
-		let characters;
 
-		if(search) {
-			characters = search(this.serversMap[server.id], searchString, { useStartsWith: true, searchExact: searchExact });
-		} else {
-			characters = this.serversMap[server.id];
-		}
+		const characters = search(this.serversMap[server.id], searchString, { useStartsWith: true, searchExact: searchExact });
 
 		// Make sure they're all Character instances
 		for(const [index, character] of characters.entries()) {
