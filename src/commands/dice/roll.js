@@ -9,7 +9,7 @@ export default class DiceRollCommand {
 	static get information() {
 		return {
 			label: 'roll',
-			aliases: ['rolldice', 'diceroll', '(roll: xxxx)'],
+			aliases: ['dice', 'rolldice', 'diceroll', '(roll: xxxx)'],
 			description: 'Rolls specified dice.',
 			usage: '!roll <dice expression>',
 			details: 'Dice expressions can contain the standard representations of dice in text form (e.g. 2d20 is two 20-sided dice), with addition and subtraction allowed. You may also use a single greater-than (>) or less-than (<) symbol at the end of the expression to add a target - if that target is met, a success message is displayed. Otherwise, a failure message is shown.',
@@ -19,8 +19,8 @@ export default class DiceRollCommand {
 
 	static get triggers() {
 		return [
-			/^!(?:roll|rolldice|diceroll)\s+(.+?)(?:(>|<)\s*([0-9]+?))?\s*$/i,
-			/\(\s*(?:roll|rolldice|diceroll):\s*(.+?)(?:(>|<)\s*([0-9]+?))?\s*\)/i
+			/^!(?:roll|dice|rolldice|diceroll)\s+(.+?)(?:(>|<)\s*([0-9]+?))?\s*$/i,
+			/\(\s*(?:roll|dice|rolldice|diceroll):\s*(.+?)(?:(>|<)\s*([0-9]+?))?\s*\)/i
 		];
 	}
 
