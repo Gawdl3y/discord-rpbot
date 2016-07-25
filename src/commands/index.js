@@ -43,11 +43,11 @@ export function findCommands(searchString = null, message = null) {
 
 	// Find all matches
 	const lowercaseSearch = searchString.toLowerCase();
-	const matchedCommands = commands.filter(c => c.name.includes(lowercaseSearch) || (c.aliases ? c.aliases.some(a => a.includes(lowercaseSearch)) : false));
+	const matchedCommands = commands.filter(c => c.name.includes(lowercaseSearch) || (c.aliases && c.aliases.some(a => a.includes(lowercaseSearch))));
 
 	// See if there's an exact match
 	for(const command of matchedCommands) {
-		if(command.name === lowercaseSearch) return [command];
+		if(command.name === lowercaseSearch || (command.aliases && command.aliases.some(a => a === lowercaseSearch))) return [command];
 	}
 
 	return message ? matchedCommands.filter(c => c.isRunnable(message)) : matchedCommands;
