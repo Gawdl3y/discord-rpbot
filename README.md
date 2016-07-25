@@ -61,10 +61,10 @@ The settings:
 | storage          | Path to the storage directory                                                    |
 | auto-reconnect   | Whether or not the bot should automatically reconnect when disconnected          |
 | pagination-items | Number of items per page in paginated commands                                   |
-| update-check     | How frequently to check for an update (in minutes, use 0 to disable)             |
+| update-check     | How frequently to check for an update (in minutes - use 0 to disable)            |
 | analytics        | Whether or not to enable anonymous, non-unique, non-identifiable analytics       |
 | log              | Path to the log file to output to                                                |
-| log-max-size     | Maximum size of a single log file                                                |
+| log-max-size     | Maximum size of a single log file (in bytes)                                     |
 | log-max-files    | Maximum log files to keep                                                        |
 | log-level        | Log level to output to the log file (error, warn, info, verbose, debug)          |
 | console-level    | Log level to output to the console (error, warn, info, verbose, debug)           |
