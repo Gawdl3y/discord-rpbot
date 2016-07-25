@@ -4,29 +4,25 @@
 import database from '../../database/mod-roles';
 import disambiguation from '../../util/disambiguation';
 
-export default class DeleteModRoleCommand {
-	static get information() {
-		return {
-			label: 'deletemodrole',
-			aliases: ['removemodrole', 'delmodrole', 'removemod', 'deletemod', 'delmod'],
-			description: 'Deletes a moderator role.',
-			usage: '!deletemodrole <role>',
-			details: 'The role must be the ID of a role, or a role mention. Only administrators may use this command.',
-			examples: ['!deletemodrole cool', '!deletemodrole 205536402341888001', '!deletemodrole @CoolPeopleRole']
-		};
-	}
+export default {
+	information: {
+		name: 'deletemodrole',
+		aliases: ['removemodrole', 'delmodrole', 'removemod', 'deletemod', 'delmod'],
+		description: 'Deletes a moderator role.',
+		usage: '!deletemodrole <role>',
+		details: 'The role must be the ID of a role, or a role mention. Only administrators may use this command.',
+		examples: ['!deletemodrole cool', '!deletemodrole 205536402341888001', '!deletemodrole @CoolPeopleRole']
+	},
 
-	static get triggers() {
-		return [
-			/^!(?:deletemodrole|removemodrole|delmodrole|removemod|deletemod|delmod)\s+(?:(?:<@&)?(.+?)>?)\s*$/i
-		];
-	}
+	triggers: [
+		/^!(?:deletemodrole|removemodrole|delmodrole|removemod|deletemod|delmod)\s+(?:(?:<@&)?(.+?)>?)\s*$/i
+	],
 
-	static isRunnable(message) {
+	isRunnable(message) {
 		return message.server && message.server.rolesOfUser(message.author).some(role => role.hasPermission('administrator'));
-	}
+	},
 
-	static run(message, matches) {
+	run(message, matches) {
 		let roles;
 		const idRole = message.server.roles.get('id', matches[1]);
 		if(idRole) roles = [idRole]; else roles = database.findRolesInServer(message.server, matches[1]);
@@ -43,4 +39,4 @@ export default class DeleteModRoleCommand {
 			message.client.reply(message, 'Unable to identify role. Use `!modroles` to view the the moderator roles, and `!roles` to view all of the server roles.');
 		}
 	}
-}
+};

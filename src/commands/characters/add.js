@@ -6,29 +6,25 @@ import database from '../../database/characters';
 
 const mentionsPattern = /@everyone|@here|<@&?[0-9]+>/i;
 
-export default class AddCharacterCommand {
-	static get information() {
-		return {
-			label: 'addcharacter',
-			aliases: ['addchar'],
-			description: 'Adds a character to the database, or updates the existing one.',
-			usage: '!addcharacter "<name>" <info>',
-			details: 'The character name *must* be surrounded by quotes, and can be a maximum of 60 characters long. The information doesn\'t have to be a single line. Only the owner of the character and administrators/moderators may update it.',
-			examples: ['!addcharacter "Billy McBillface" A really cool guy who enjoys his chicken tendies.']
-		};
-	}
+export default {
+	information: {
+		name: 'addcharacter',
+		aliases: ['addchar'],
+		description: 'Adds a character to the database, or updates the existing one.',
+		usage: '!addcharacter "<name>" <info>',
+		details: 'The character name *must* be surrounded by quotes, and can be a maximum of 60 characters long. The information doesn\'t have to be a single line. Only the owner of the character and administrators/moderators may update it.',
+		examples: ['!addcharacter "Billy McBillface" A really cool guy who enjoys his chicken tendies.']
+	},
 
-	static get triggers() {
-		return [
-			/^!(?:addcharacter|addchar)\s+"\s*(.+?)\s*"\s+((?:.|\n)+?)\s*$/i
-		];
-	}
+	triggers: [
+		/^!(?:addcharacter|addchar)\s+"\s*(.+?)\s*"\s+((?:.|\n)+?)\s*$/i
+	],
 
-	static isRunnable(message) {
+	isRunnable(message) {
 		return !!message.server;
-	}
+	},
 
-	static run(message, matches) {
+	run(message, matches) {
 		if(mentionsPattern.test(matches[1]) || mentionsPattern.test(matches[2])) {
 			message.client.reply(message, 'Please do not use mentions in your character name or information.');
 			return;
@@ -47,4 +43,4 @@ export default class AddCharacterCommand {
 			message.client.reply(message, `Unable to update character "${character.name}". You are not the owner.`);
 		}
 	}
-}
+};

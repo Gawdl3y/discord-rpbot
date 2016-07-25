@@ -52,12 +52,12 @@ client.on('message', message => {
 						matches: matches.toString(),
 						user: message.author.username + '#' + message.author.discriminator,
 						userID: message.author.id,
-						server: message.server ? message.server.toString() : null,
+						server: message.server ? message.server.name : null,
 						serverID: message.server ? message.server.id : null
 					};
 
 					if(command.isRunnable(message)) {
-						logger.info(`Running ${command.name}.`, logInfo);
+						logger.info(`Running ${command.information.name}.`, logInfo);
 						analytics.sendEvent('Command', 'run', command.name);
 						command.run(message, matches);
 					} else {

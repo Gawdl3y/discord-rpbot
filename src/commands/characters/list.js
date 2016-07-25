@@ -6,29 +6,25 @@ import config from '../../config';
 import paginate from '../../util/pagination';
 import * as nbsp from '../../util/nbsp';
 
-export default class ListCharactersCommand {
-	static get information() {
-		return {
-			label: 'characters',
-			aliases: ['listcharacters', 'chars'],
-			description: 'Lists/searches characters in the database.',
-			usage: '!characters [search] [page]',
-			details: 'If no search string is specified, all characters will be listed. If the search string is only one letter long, characters that start with that character will be listed. If the search string is more than one letter, all characters that contain that string will be listed.',
-			examples: ['!characters', '!characters c', '!characters bill']
-		};
-	}
+export default {
+	information:  {
+		name: 'characters',
+		aliases: ['listcharacters', 'chars'],
+		description: 'Lists/searches characters in the database.',
+		usage: '!characters [search] [page]',
+		details: 'If no search string is specified, all characters will be listed. If the search string is only one letter long, characters that start with that character will be listed. If the search string is more than one letter, all characters that contain that string will be listed.',
+		examples: ['!characters', '!characters c', '!characters bill']
+	},
 
-	static get triggers() {
-		return [
-			/^!(?:characters|listcharacters|chars)(?:\s+(.+?))??(?:\s+([0-9]+))?\s*$/i
-		];
-	}
+	triggers: [
+		/^!(?:characters|listcharacters|chars)(?:\s+(.+?))??(?:\s+([0-9]+))?\s*$/i
+	],
 
-	static isRunnable(message) {
+	isRunnable(message) {
 		return !!message.server;
-	}
+	},
 
-	static run(message, matches) {
+	run(message, matches) {
 		let characters = database.findCharactersInServer(message.server, matches[1], false);
 		if(characters.length > 0) {
 			characters.sort((a, b) => a.name < b.name ? -1 : (a.name > b.name ? 1 : 0));
@@ -46,4 +42,4 @@ export default class ListCharactersCommand {
 			message.client.reply(message, messageText);
 		}
 	}
-}
+};

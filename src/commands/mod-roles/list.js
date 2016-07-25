@@ -3,29 +3,25 @@
 
 import database from '../../database/mod-roles';
 
-export default class ListModRolesCommand {
-	static get information() {
-		return {
-			label: 'modroles',
-			aliases: ['listmodroles', 'mods'],
-			description: 'Lists all moderator roles.',
-			usage: '!modroles',
-			details: 'Only administrators may use this command.',
-			examples: ['!modroles']
-		};
-	}
+export default {
+	information: {
+		name: 'modroles',
+		aliases: ['listmodroles', 'mods'],
+		description: 'Lists all moderator roles.',
+		usage: '!modroles',
+		details: 'Only administrators may use this command.',
+		examples: ['!modroles']
+	},
 
-	static get triggers() {
-		return [
-			/^!(?:modroles|listmodroles|mods)(?:\s.*)?$/i
-		];
-	}
+	triggers: [
+		/^!(?:modroles|listmodroles|mods)(?:\s.*)?$/i
+	],
 
-	static isRunnable(message) {
+	isRunnable(message) {
 		return message.server && message.server.rolesOfUser(message.author).some(role => role.hasPermission('administrator'));
-	}
+	},
 
-	static run(message) {
+	run(message) {
 		const roles = database.findRolesInServer(message.server);
 		if(roles.length > 0) {
 			message.client.reply(message, 'Moderator roles:\n' + roles.map(element => element.name + ' (ID ' + element.id + ')').join('\n'));
@@ -33,4 +29,4 @@ export default class ListModRolesCommand {
 			message.client.reply(message, 'There are no moderator roles.');
 		}
 	}
-}
+};
