@@ -8,6 +8,8 @@ import logger from '../../util/logger';
 export default {
 	name: 'roll',
 	aliases: ['dice', 'rolldice', 'diceroll', '(roll: xxxx)'],
+	group: 'dice',
+	groupName: 'roll',
 	description: 'Rolls specified dice.',
 	usage: '!roll <dice expression>',
 	details: 'Dice expressions can contain the standard representations of dice in text form (e.g. 2d20 is two 20-sided dice), with addition and subtraction allowed. You may also use a single greater-than (>) or less-than (<) symbol at the end of the expression to add a target - if that target is met, a success message is displayed. Otherwise, a failure message is shown.',

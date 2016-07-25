@@ -57,11 +57,11 @@ client.on('message', message => {
 					};
 
 					if(command.isRunnable(message)) {
-						logger.info(`Running ${command.name}.`, logInfo);
-						analytics.sendEvent('Command', 'run', command.name);
+						logger.info(`Running ${command.group}:${command.groupName}.`, logInfo);
+						analytics.sendEvent('Command', 'run', command.group + ':' + command.groupName);
 						command.run(message, matches);
 					} else {
-						logger.info(`Not running ${command.name}; not runnable.`, logInfo);
+						logger.info(`Not running ${command.group}:${command.groupName}; not runnable.`, logInfo);
 					}
 
 					break commandLoop;

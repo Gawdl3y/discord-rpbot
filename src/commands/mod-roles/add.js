@@ -8,6 +8,8 @@ import disambiguation from '../../util/disambiguation';
 export default {
 	name: 'addmodrole',
 	aliases: ['addmod'],
+	group: 'mod-roles',
+	groupName: 'add',
 	description: 'Adds a moderator role.',
 	usage: '!addmodrole <role>',
 	details: 'The role must be the name or ID of a role, or a role mention. Only administrators may use this command.',

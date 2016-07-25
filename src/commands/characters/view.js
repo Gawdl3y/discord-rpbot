@@ -7,6 +7,8 @@ import disambiguation from '../../util/disambiguation';
 export default {
 	name: 'character',
 	aliases: ['viewcharacter', 'char'],
+	group: 'characters',
+	groupName: 'view',
 	description: 'Views a character\'s information.',
 	usage: '!character <name>',
 	details: 'The name can be the whole name of the character, or just a part of it.',

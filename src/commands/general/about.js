@@ -1,10 +1,12 @@
 'use babel';
 'use strict';
 
-import version from '../version';
+import version from '../../version';
 
 export default {
 	name: 'about',
+	group: 'general',
+	groupName: 'about',
 	description: 'Displays information about the bot.',
 	usage: '!about',
 

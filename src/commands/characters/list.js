@@ -8,14 +8,16 @@ import * as nbsp from '../../util/nbsp';
 
 export default {
 	name: 'characters',
-	aliases: ['listcharacters', 'chars'],
+	aliases: ['listcharacters', 'listchars', 'chars'],
+	group: 'characters',
+	groupName: 'list',
 	description: 'Lists/searches characters in the database.',
 	usage: '!characters [search] [page]',
 	details: 'If no search string is specified, all characters will be listed. If the search string is only one letter long, characters that start with that character will be listed. If the search string is more than one letter, all characters that contain that string will be listed.',
 	examples: ['!characters', '!characters c', '!characters bill'],
 
 	triggers: [
-		/^!(?:characters|listcharacters|chars)(?:\s+(.+?))??(?:\s+([0-9]+))?\s*$/i
+		/^!(?:characters|listcharacters|listchars|chars)(?:\s+(.+?))??(?:\s+([0-9]+))?\s*$/i
 	],
 
 	isRunnable(message) {

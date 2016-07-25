@@ -6,6 +6,8 @@ import logger from '../../util/logger';
 
 export default {
 	name: 'minroll',
+	group: 'dice',
+	groupName: 'min',
 	description: 'Calculates the minimum possible roll for a dice expression.',
 	usage: '!minroll <dice expression>',
 	details: 'The dice expression follows the same rules as !roll, but targets (< or >) cannot be used.',

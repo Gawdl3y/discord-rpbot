@@ -7,6 +7,8 @@ import disambiguation from '../../util/disambiguation';
 export default {
 	name: 'deletecharacter',
 	aliases: ['removecharacter', 'delchar', 'rmchar'],
+	group: 'characters',
+	groupName: 'delete',
 	description: 'Deletes a character from the database.',
 	usage: '!deletecharacter <name>',
 	details: 'The name can be the whole name of the character, or just a part of it. Only the owner of the character and administrators/moderators may delete it.',

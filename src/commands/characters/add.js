@@ -9,6 +9,8 @@ const mentionsPattern = /@everyone|@here|<@&?[0-9]+>/i;
 export default {
 	name: 'addcharacter',
 	aliases: ['addchar'],
+	group: 'characters',
+	groupName: 'add',
 	description: 'Adds a character to the database, or updates the existing one.',
 	usage: '!addcharacter "<name>" <info>',
 	details: 'The character name *must* be surrounded by quotes, and can be a maximum of 60 characters long. The information doesn\'t have to be a single line. Only the owner of the character and administrators/moderators may update it.',

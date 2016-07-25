@@ -7,6 +7,8 @@ import disambiguation from '../../util/disambiguation';
 export default {
 	name: 'deletemodrole',
 	aliases: ['removemodrole', 'delmodrole', 'removemod', 'deletemod', 'delmod'],
+	group: 'mod-roles',
+	groupName: 'delete',
 	description: 'Deletes a moderator role.',
 	usage: '!deletemodrole <role>',
 	details: 'The role must be the ID of a role, or a role mention. Only administrators may use this command.',

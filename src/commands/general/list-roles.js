@@ -4,6 +4,8 @@
 export default {
 	name: 'roles',
 	aliases: ['listroles'],
+	group: 'general',
+	groupName: 'list-roles',
 	description: 'Lists all server roles.',
 	usage: '!roles',
 	details: 'Only administrators may use this command.',

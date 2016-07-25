@@ -6,6 +6,8 @@ import database from '../../database/mod-roles';
 export default {
 	name: 'modroles',
 	aliases: ['listmodroles', 'mods'],
+	group: 'mod-roles',
+	groupName: 'list',
 	description: 'Lists all moderator roles.',
 	usage: '!modroles',
 	details: 'Only administrators may use this command.',
