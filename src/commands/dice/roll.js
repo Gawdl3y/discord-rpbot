@@ -33,7 +33,7 @@ export default {
 
 			// Restrict the maximum dice count
 			const totalDice = dice.dice.reduce((prev, d) => prev + d.diceCount, 0);
-			if(totalDice > 200) {
+			if(totalDice > 1000) {
 				message.client.sendMessage(message, `${message.author} might hurt themselves by rolling that many dice at once!`);
 				return;
 			}
