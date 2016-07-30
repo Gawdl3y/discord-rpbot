@@ -5,7 +5,7 @@ import config from '../config';
 import ModRolesDatabase from '../database/mod-roles';
 
 export function isModerator(server, user) {
-	if(!server || !user) throw new Error('A server and a user must be specified.');
+	if(!server || !user) throw new Error('A server and user must be specified.');
 	if(user.id === config.owner) return true;
 	const userRoles = server.rolesOfUser(user);
 	if(userRoles.some(role => role.hasPermission('administrator'))) return true;
