@@ -27,7 +27,7 @@ logger.debug('Configuration:', debugConfig);
 
 // Verify that the credentials are usable
 if(!config.token && (!config.email || !config.password)) {
-	logger.error('Both "email" and "password" must be specified if not using a token.');
+	logger.error('Invalid credentials; either "token" or both "email" and "password" must be specified.');
 	process.exit(1);
 }
 
