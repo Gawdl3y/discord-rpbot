@@ -23,7 +23,7 @@ export default {
 		if(args[0]) {
 			if(commands.length === 1) {
 				let help = 'Command **' + commands[0].name + '**: ' + commands[0].description;
-				help += '\n**Usage:** ' + usage.long(commands[0].usage ? commands[0].usage : commands[0].name);
+				help += '\n**Usage:** ' + usage.long(commands[0].usage ? commands[0].usage : commands[0].name, message.server);
 				if(commands[0].aliases) help += '\n**Aliases:** ' + commands[0].aliases.join(', ');
 				if(commands[0].details) help += '\n**Details:** ' + commands[0].details;
 				if(commands[0].examples) help += '\n**Examples:**\n' + commands[0].examples.join('\n');
