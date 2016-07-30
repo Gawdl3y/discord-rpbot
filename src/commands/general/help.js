@@ -12,7 +12,7 @@ export default {
 	description: 'Displays a list of available commands, or detailed information for a specified command.',
 	usage: 'help [command]',
 	details: 'The command may be part of a command name or a whole command name. If it isn\'t specified, all available commands will be listed.',
-	examples: ['help', 'help roll'],
+	examples: ['!help', '!help roll'],
 
 	isRunnable() {
 		return true;
