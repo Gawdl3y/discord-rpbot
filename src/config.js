@@ -48,6 +48,10 @@ const config = yargs
 		alias: 'o',
 		describe: 'Discord user ID of the bot owner'
 	})
+	.option('unknown-only-mention', {
+		type: 'boolean',
+		describe: 'Whether or not to output unknown command response only for mentions'
+	})
 	.option('pagination-items', {
 		type: 'number',
 		default: 15,

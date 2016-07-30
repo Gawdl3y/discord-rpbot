@@ -9,6 +9,7 @@ import version from './version';
 import commands from './commands';
 import logger from './util/logger';
 import checkForUpdate from './util/update-check';
+import * as usage from './util/command-usage';
 import * as analytics from './util/analytics';
 
 logger.info('RPBot v' + version + ' is starting...');
@@ -68,13 +69,14 @@ client.on('message', message => {
 	}
 
 	// Find the command to run with default command handling
+	let defaultMatches;
 	if(!runCommand) {
-		const matches = defaultCommandPattern.exec(message.content);
-		if(matches) {
-			const commandName = matches[2].toLowerCase();
+		defaultMatches = defaultCommandPattern.exec(message.content);
+		if(defaultMatches) {
+			const commandName = defaultMatches[2].toLowerCase();
 			const command = commands.find(command => command.name === commandName || (command.aliases && command.aliases.some(alias => alias === commandName)));
 			if(command && !command.disableDefault) {
-				const argString = message.content.substring(matches[1].length + matches[2].length);
+				const argString = message.content.substring(defaultMatches[1].length + defaultMatches[2].length);
 				runCommand = command;
 				runArgs = !command.singleArgument ? stringArgv(argString) : [argString.trim()];
 			}
@@ -99,6 +101,8 @@ client.on('message', message => {
 		} else {
 			logger.info(`Not running ${runCommand.group}:${runCommand.groupName}; not runnable.`, logInfo);
 		}
+	} else if(defaultMatches) {
+		if(!config.unknownOnlyMention || defaultMatches[1].startsWith('<@')) client.reply(message, `Unknown command. Use ${usage.long('help')} to view the list of all commands.`);
 	}
 });
 
