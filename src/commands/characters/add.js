@@ -4,7 +4,7 @@
 import Character from '../../database/character';
 import database from '../../database/characters';
 
-const mentionsPattern = /@everyone|@here|<@&?[0-9]+>/i;
+const mentionsPattern = /@everyone|@here|<@!?&?[0-9]+>/i;
 
 export default {
 	name: 'addcharacter',
