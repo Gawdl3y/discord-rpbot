@@ -36,7 +36,7 @@ export default {
 		// Extract the name and info
 		const newlinesReplaced = args[0].replace(newlinesPattern, newlinesReplacement);
 		const argv = stringArgv(newlinesReplaced);
-		const name = argv.shift();
+		const name = argv.shift().trim();
 		const info = argv.join(' ').replace(newlinesReplacementPattern, '\n').replace(extraNewlinesPattern, '\n\n');
 
 		// Apply some restrictions
