@@ -12,8 +12,6 @@ import checkForUpdate from './util/update-check';
 import * as analytics from './util/analytics';
 
 logger.info('RPBot v' + version + ' is starting...');
-checkForUpdate();
-if(config.updateCheck > 0) setInterval(checkForUpdate, config.updateCheck * 60 * 1000);
 analytics.sendEvent('Bot', 'started');
 
 // Output safe config
@@ -43,6 +41,8 @@ client.on('disconnected', () => { logger.error('Disconnected.'); });
 client.on('ready', () => {
 	logger.info(`Bot is ready; logged in as ${client.user.username}#${client.user.discriminator} (ID: ${client.user.id})`);
 	defaultCommandPattern = new RegExp(`^(!|<@!?${client.user.id}>\\s+!?)([^\\s]+)`);
+	checkForUpdate();
+	if(config.updateCheck > 0) setInterval(checkForUpdate, config.updateCheck * 60 * 1000);
 });
 
 // Set up command recognition
