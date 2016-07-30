@@ -2,7 +2,6 @@
 'use strict';
 
 import Character from './character';
-import ModRolesDatabase from './mod-roles';
 import storage from './local-storage';
 import search from '../util/search';
 import logger from '../util/logger';
@@ -82,13 +81,5 @@ export default class CharacterDatabase {
 		}
 
 		return characters;
-	}
-
-	static userCanModerateInServer(server, user) {
-		if(!user) throw new Error('A user must be specified.');
-		const userRoles = server.rolesOfUser(user);
-		if(userRoles.some(role => role.hasPermission('administrator'))) return true;
-		if(!ModRolesDatabase.serverHasRoles(server)) return userRoles.some(role => role.hasPermission('manageMessages'));
-		return ModRolesDatabase.findRolesInServer(server).some(element => userRoles.some(element2 => element.id === element2.id));
 	}
 }

@@ -2,6 +2,7 @@
 'use strict';
 
 import database from '../../database/mod-roles';
+import * as permissions from '../../util/permissions';
 
 export default {
 	name: 'modroles',
@@ -14,7 +15,7 @@ export default {
 	examples: ['!modroles'],
 
 	isRunnable(message) {
-		return message.server && message.server.rolesOfUser(message.author).some(role => role.hasPermission('administrator'));
+		return message.server && permissions.isAdministrator(message.server, message.author);
 	},
 
 	run(message) {

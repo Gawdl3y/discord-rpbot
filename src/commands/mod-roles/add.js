@@ -5,6 +5,7 @@ import database from '../../database/mod-roles';
 import search from '../../util/search';
 import disambiguation from '../../util/disambiguation';
 import * as usage from '../../util/command-usage';
+import * as permissions from '../../util/permissions';
 
 const pattern = /^(?:<@&)?(.+?)>?$/;
 
@@ -20,7 +21,7 @@ export default {
 	singleArgument: true,
 
 	isRunnable(message) {
-		return message.server && message.server.rolesOfUser(message.author).some(role => role.hasPermission('administrator'));
+		return message.server && permissions.isAdministrator(message.server, message.author);
 	},
 
 	run(message, args) {

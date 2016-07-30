@@ -4,6 +4,7 @@
 import database from '../../database/characters';
 import disambiguation from '../../util/disambiguation';
 import * as usage from '../../util/command-usage';
+import * as permissions from '../../util/permissions';
 
 export default {
 	name: 'deletecharacter',
@@ -24,8 +25,7 @@ export default {
 		if(!args[0]) return false;
 		const characters = database.findCharactersInServer(message.server, args[0]);
 		if(characters.length === 1) {
-			const permissionOverride = database.userCanModerateInServer(message.server, message.author);
-			if(database.deleteCharacter(characters[0], permissionOverride)) {
+			if(database.deleteCharacter(characters[0], permissions.isModerator(message.server, message.author))) {
 				message.client.reply(message, `Deleted character "${characters[0].name}."`);
 			} else {
 				message.client.reply(message, `Unable to delete character "${characters[0].name}". You are not the owner.`);

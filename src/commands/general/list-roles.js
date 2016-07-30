@@ -1,6 +1,8 @@
 'use babel';
 'use strict';
 
+import * as permissions from '../../util/permissions';
+
 export default {
 	name: 'roles',
 	aliases: ['listroles'],
@@ -11,7 +13,7 @@ export default {
 	examples: ['!roles'],
 
 	isRunnable(message) {
-		return message.server && message.server.rolesOfUser(message.author).some(role => role.hasPermission('administrator'));
+		return message.server && permissions.isAdministrator(message.server, message.author);
 	},
 
 	run(message) {
