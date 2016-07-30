@@ -5,6 +5,7 @@ import Character from './character';
 import storage from './local-storage';
 import search from '../util/search';
 import logger from '../util/logger';
+import * as permissions from '../util/permissions';
 
 export default class CharacterDatabase {
 	static loadDatabase() {
@@ -17,7 +18,7 @@ export default class CharacterDatabase {
 		storage.setItem('characters', JSON.stringify(this.serversMap));
 	}
 
-	static saveCharacter(character, allowNonOwner = false) {
+	static saveCharacter(character) {
 		if(!character) throw new Error('A character must be specified.');
 		if(!this.serversMap) this.loadDatabase();
 		if(!this.serversMap[character.server]) this.serversMap[character.server] = [];
@@ -26,7 +27,7 @@ export default class CharacterDatabase {
 		const normalizedName = character.name.normalize('NFKD').toLowerCase();
 		const characterIndex = serverCharacters.findIndex(element => element.name.normalize('NFKD').toLowerCase() === normalizedName);
 		if(characterIndex >= 0) {
-			if(allowNonOwner || character.owner === serverCharacters[characterIndex].owner) {
+			if(character.owner === serverCharacters[characterIndex].owner || permissions.isModerator(character.server, character.owner)) {
 				character.owner = serverCharacters[characterIndex].owner;
 				serverCharacters[characterIndex] = character;
 				logger.info('Updated existing character.', character);
@@ -44,7 +45,7 @@ export default class CharacterDatabase {
 		}
 	}
 
-	static deleteCharacter(character, allowNonOwner = false) {
+	static deleteCharacter(character) {
 		if(!character) throw new Error('A character must be specified.');
 		if(!this.serversMap) this.loadDatabase();
 		if(!this.serversMap[character.server]) return false;
@@ -52,7 +53,7 @@ export default class CharacterDatabase {
 
 		const characterIndex = serverCharacters.findIndex(element => element.name === character.name);
 		if(characterIndex >= 0) {
-			if(allowNonOwner || character.owner === serverCharacters[characterIndex].owner) {
+			if(character.owner === serverCharacters[characterIndex].owner || permissions.isModerator(character.server, character.owner)) {
 				serverCharacters.splice(characterIndex, 1);
 				logger.info('Removed character.', character);
 			} else {

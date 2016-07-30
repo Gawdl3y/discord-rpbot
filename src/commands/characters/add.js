@@ -4,7 +4,6 @@
 import stringArgv from 'string-argv';
 import Character from '../../database/character';
 import database from '../../database/characters';
-import * as permissions from '../../util/permissions';
 
 const newlinesPattern = /\n/g;
 const newlinesReplacement = '{!~NL~!}';
@@ -53,7 +52,7 @@ export default {
 
 		// Add or update the character
 		const character = new Character(name, info, message.author.id, message.server.id);
-		const result = database.saveCharacter(character, permissions.isModerator(message.server, message.author));
+		const result = database.saveCharacter(character);
 		if(result) {
 			message.client.reply(message, `${result === 1 ? 'Added' : 'Updated'} character "${character.name}".`);
 		} else {
