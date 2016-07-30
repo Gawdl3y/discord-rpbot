@@ -14,7 +14,7 @@ export default {
 	description: 'Lists/searches characters in the database.',
 	usage: 'characters [search] [page]',
 	details: 'If no search string is specified, all characters will be listed. If the search string is only one letter long, characters that start with that character will be listed. If the search string is more than one letter, all characters that contain that string will be listed. If the search string contains spaces, it must be surrounded by quotes.',
-	examples: ['!characters', '!characters c', '!characters bill'],
+	examples: ['characters', 'characters c', 'characters bill'],
 
 	isRunnable(message) {
 		return !!message.server;

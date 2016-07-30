@@ -10,9 +10,7 @@ export default {
 	group: 'mod-roles',
 	groupName: 'list',
 	description: 'Lists all moderator roles.',
-	usage: 'modroles',
 	details: 'Only administrators may use this command.',
-	examples: ['!modroles'],
 
 	isRunnable(message) {
 		return message.server && permissions.isAdministrator(message.server, message.author);

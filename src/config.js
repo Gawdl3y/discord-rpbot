@@ -48,6 +48,11 @@ const config = yargs
 		alias: 'o',
 		describe: 'Discord user ID of the bot owner'
 	})
+	.option('command-prefix', {
+		type: 'string',
+		default: '!',
+		describe: 'Default command prefix (blank to use only mentions)'
+	})
 	.option('unknown-only-mention', {
 		type: 'boolean',
 		describe: 'Whether or not to output unknown command response only for mentions'

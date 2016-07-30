@@ -12,7 +12,7 @@ export default {
 	description: 'Displays a list of available commands, or detailed information for a specified command.',
 	usage: 'help [command]',
 	details: 'The command may be part of a command name or a whole command name. If it isn\'t specified, all available commands will be listed.',
-	examples: ['!help', '!help roll'],
+	examples: ['help', 'help roll'],
 
 	isRunnable() {
 		return true;
@@ -31,10 +31,10 @@ export default {
 			} else if(commands.length > 1) {
 				message.client.reply(message, disambiguation(commands, 'commands'));
 			} else {
-				message.client.reply(message, `Unable to identify command. Use ${usage.long('help')} to view the list of all commands.`);
+				message.client.reply(message, `Unable to identify command. Use ${usage.long('help', message.server)} to view the list of all commands.`);
 			}
 		} else {
-			const info = `To use a command, use ${usage.long('command')}. For example, ${usage.long('roll d20')}.`;
+			const info = `To use a command, use ${usage.long('command', message.server)}. For example, ${usage.long('roll d20', message.server)}.`;
 			const commandList = commands.map(c => `${c.name} - ${c.description}`).join('\n');
 			message.client.reply(message, `${info}\n\nAvailable commands (use ${usage.short('help <command>', false)} for more info):\n${commandList}`);
 		}

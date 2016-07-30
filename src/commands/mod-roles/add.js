@@ -17,7 +17,7 @@ export default {
 	description: 'Adds a moderator role.',
 	usage: 'addmodrole <role>',
 	details: 'The role must be the name or ID of a role, or a role mention. Only administrators may use this command.',
-	examples: ['!addmodrole cool', '!addmodrole 205536402341888001', '!addmodrole @CoolPeopleRole'],
+	examples: ['addmodrole cool', 'addmodrole 205536402341888001', 'addmodrole @CoolPeopleRole'],
 	singleArgument: true,
 
 	isRunnable(message) {
@@ -40,7 +40,7 @@ export default {
 		} else if(roles.length > 1) {
 			message.client.reply(message, disambiguation(roles, 'roles'));
 		} else {
-			message.client.reply(message, `Unable to identify role. Use ${usage.long('roles')} to view all of the server roles.`);
+			message.client.reply(message, `Unable to identify role. Use ${usage.long('roles', message.server)} to view all of the server roles.`);
 		}
 	}
 };

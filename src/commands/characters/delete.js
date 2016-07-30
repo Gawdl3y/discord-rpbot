@@ -13,7 +13,7 @@ export default {
 	description: 'Deletes a character from the database.',
 	usage: 'deletecharacter <name>',
 	details: 'The name can be the whole name of the character, or just a part of it. Only the owner of the character and administrators/moderators may delete it.',
-	examples: ['!deletecharacter Billy McBillface', '!deletecharacter bill'],
+	examples: ['deletecharacter Billy McBillface', 'deletecharacter bill'],
 	singleArgument: true,
 
 	isRunnable(message) {
@@ -32,7 +32,7 @@ export default {
 		} else if(characters.length > 1) {
 			message.client.reply(message, disambiguation(characters, 'characters'));
 		} else {
-			message.client.reply(message, `Unable to find character. Use ${usage.long('characters')} to view the list of characters.`);
+			message.client.reply(message, `Unable to find character. Use ${usage.long('characters', message.server)} to view the list of characters.`);
 		}
 	}
 };

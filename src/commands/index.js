@@ -4,6 +4,7 @@
 import HelpCommand from './general/help';
 import AboutCommand from './general/about';
 import ListRolesCommand from './general/list-roles';
+import PrefixCommand from './general/prefix';
 
 import DiceRollCommand from './dice/roll';
 import MaxDiceRollCommand from './dice/max';
@@ -22,6 +23,7 @@ export const commands = [
 	HelpCommand,
 	AboutCommand,
 	ListRolesCommand,
+	PrefixCommand,
 
 	DiceRollCommand,
 	MaxDiceRollCommand,

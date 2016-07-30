@@ -8,6 +8,7 @@ import config from './config';
 import version from './version';
 import commands from './commands';
 import logger from './util/logger';
+import buildCommandPattern from './util/command-pattern';
 import checkForUpdate from './util/update-check';
 import * as usage from './util/command-usage';
 import * as analytics from './util/analytics';
@@ -41,13 +42,12 @@ client.on('debug', e => { logger.debug(e); });
 client.on('disconnected', () => { logger.error('Disconnected.'); });
 client.on('ready', () => {
 	logger.info(`Bot is ready; logged in as ${client.user.username}#${client.user.discriminator} (ID: ${client.user.id})`);
-	defaultCommandPattern = new RegExp(`^(!|<@!?${client.user.id}>\\s+!?)([^\\s]+)`);
 	checkForUpdate();
 	if(config.updateCheck > 0) setInterval(checkForUpdate, config.updateCheck * 60 * 1000);
 });
 
 // Set up command recognition
-let defaultCommandPattern;
+export const serverCommandPatterns = {};
 client.on('message', message => {
 	if(message.author === client.user) return;
 	let runCommand;
@@ -69,9 +69,10 @@ client.on('message', message => {
 	}
 
 	// Find the command to run with default command handling
+	if(!serverCommandPatterns[message.server.id]) serverCommandPatterns[message.server.id] = buildCommandPattern(message.server, client.user);
 	let defaultMatches;
 	if(!runCommand) {
-		defaultMatches = defaultCommandPattern.exec(message.content);
+		defaultMatches = serverCommandPatterns[message.server.id].exec(message.content);
 		if(defaultMatches) {
 			const commandName = defaultMatches[2].toLowerCase();
 			const command = commands.find(command => command.name === commandName || (command.aliases && command.aliases.some(alias => alias === commandName)));
@@ -102,7 +103,7 @@ client.on('message', message => {
 			logger.info(`Not running ${runCommand.group}:${runCommand.groupName}; not runnable.`, logInfo);
 		}
 	} else if(defaultMatches) {
-		if(!config.unknownOnlyMention || defaultMatches[1].startsWith('<@')) client.reply(message, `Unknown command. Use ${usage.long('help')} to view the list of all commands.`);
+		if(!config.unknownOnlyMention || defaultMatches[1].startsWith('<@')) client.reply(message, `Unknown command. Use ${usage.long('help', message.server)} to view the list of all commands.`);
 	}
 });
 

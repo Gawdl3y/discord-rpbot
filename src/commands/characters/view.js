@@ -13,7 +13,7 @@ export default {
 	description: 'Views a character\'s information.',
 	usage: 'character <name>',
 	details: 'The name can be the whole name of the character, or just a part of it.',
-	examples: ['!character Billy McBillface', '!character bill'],
+	examples: ['character Billy McBillface', 'character bill'],
 	singleArgument: true,
 
 	isRunnable(message) {
@@ -30,7 +30,7 @@ export default {
 		} else if(characters.length > 1) {
 			message.client.reply(message, disambiguation(characters, 'characters'));
 		} else {
-			message.client.reply(message, `Unable to find character. Use ${usage.long('characters')} to view the list of characters.`);
+			message.client.reply(message, `Unable to find character. Use ${usage.long('characters', message.server)} to view the list of characters.`);
 		}
 	}
 };

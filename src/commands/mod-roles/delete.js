@@ -16,7 +16,7 @@ export default {
 	description: 'Deletes a moderator role.',
 	usage: 'deletemodrole <role>',
 	details: 'The role must be the ID of a role, or a role mention. Only administrators may use this command.',
-	examples: ['!deletemodrole cool', '!deletemodrole 205536402341888001', '!deletemodrole @CoolPeopleRole'],
+	examples: ['deletemodrole cool', 'deletemodrole 205536402341888001', 'deletemodrole @CoolPeopleRole'],
 	singleArgument: true,
 
 	isRunnable(message) {
@@ -39,7 +39,7 @@ export default {
 		} else if(roles.length > 1) {
 			message.client.reply(message, disambiguation(roles, 'roles'));
 		} else {
-			message.client.reply(message, `Unable to identify role. Use ${usage.long('modroles')} to view the the moderator roles, and ${usage.long('roles')} to view all of the server roles.`);
+			message.client.reply(message, `Unable to identify role. Use ${usage.long('modroles', message.server)} to view the the moderator roles, and ${usage.long('roles', message.server)} to view all of the server roles.`);
 		}
 	}
 };
