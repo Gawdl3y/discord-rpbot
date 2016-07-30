@@ -30,6 +30,10 @@ export default {
 			message.client.reply(message, 'A character\'s name may not be longer than 60 characters.');
 			return;
 		}
+		if(args[0].includes('\n')) {
+			message.client.reply(message, 'A character\'s name may not have multiple lines.');
+			return;
+		}
 
 		const character = new Character(args[0], args[1], message.author.id, message.server.id);
 		const permissionOverride = database.userCanModerateInServer(message.server, message.author);
