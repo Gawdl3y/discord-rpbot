@@ -27,21 +27,25 @@ This is so that I know how many people are using the bot, and what commands are 
 If you don't want anything being sent at all, use the `analytics` configuration option.
 
 ## Chat commands
-| Command           | Description                                                                                                   |
-|-------------------|---------------------------------------------------------------------------------------------------------------|
-| !help             | Displays a list of available commands, or detailed information for a specified command.                       |
-| !about            | Displays information about the bot.                                                                           |
-| !roll             | Rolls specified dice. (Uses [dice-expression-evaluator](https://github.com/dbkang/dice-expression-evaluator)) |
-| !maxroll          | Calculates the maximum possible roll for a dice expression.                                                   |
-| !minroll          | Calculates the minimum possible roll for a dice expression.                                                   |
-| !character        | Views a character's information.                                                                              |
-| !characters       | Lists/searches characters in the database.                                                                    |
-| !addcharacter     | Adds a character to the database, or updates the existing one.                                                |
-| !deletecharacter  | Deletes a character from the database.                                                                        |
-| !roles            | Lists all server roles. (administrator only)                                                                  |
-| !modroles         | Lists all moderator roles. (administrator only)                                                               |
-| !addmodrole       | Adds a moderator role. (administrator only)                                                                   |
-| !deletemodrole    | Deletes a moderator role. (administrator only)                                                                |
+| Command          | Description                                                                                                   |
+|------------------|---------------------------------------------------------------------------------------------------------------|
+| help             | Displays a list of available commands, or detailed information for a specified command.                       |
+| about            | Displays information about the bot.                                                                           |
+| roll             | Rolls specified dice. (Uses [dice-expression-evaluator](https://github.com/dbkang/dice-expression-evaluator)) |
+| maxroll          | Calculates the maximum possible roll for a dice expression.                                                   |
+| minroll          | Calculates the minimum possible roll for a dice expression.                                                   |
+| character        | Views a character's information.                                                                              |
+| characters       | Lists/searches characters in the database.                                                                    |
+| addcharacter     | Adds a character to the database, or updates the existing one.                                                |
+| deletecharacter  | Deletes a character from the database.                                                                        |
+| roles            | Lists all server roles. (administrator only)                                                                  |
+| modroles         | Lists all moderator roles. (administrator only)                                                               |
+| addmodrole       | Adds a moderator role. (administrator only)                                                                   |
+| deletemodrole    | Deletes a moderator role. (administrator only)                                                                |
+
+You may use a command by prefixing it with `!` or the bot's mention (e.g. `@RPBot#4161`).
+Use `!help` or `@RPBot#4161 help`, for example.
+You may also DM the bot for many commands.
 
 Characters in the database may only be updated/deleted by the owner of the character, and moderators.
 If a user has the "administrator" permission, they are automatically considered a moderator.
