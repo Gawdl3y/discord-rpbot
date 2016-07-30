@@ -29,7 +29,17 @@ export default {
 		if(!args[0]) return false;
 		try {
 			const matches = fromPattern ? args : pattern.exec(args[0]);
-			const rollResult = new DiceExpression(matches[1]).roll();
+			const dice = new DiceExpression(matches[1]);
+
+			// Restrict the maximum dice count
+			const totalDice = dice.dice.reduce((prev, d) => prev + d.diceCount, 0);
+			if(totalDice > 100) {
+				message.client.sendMessage(message, `${message.author} might hurt himself by rolling that many dice at once!`);
+				return;
+			}
+
+			// Roll the dice
+			const rollResult = dice.roll();
 			logger.debug(rollResult);
 
 			// Build the list of dice
