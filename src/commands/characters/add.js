@@ -12,7 +12,7 @@ export default {
 	group: 'characters',
 	groupName: 'add',
 	description: 'Adds a character to the database, or updates the existing one.',
-	usage: '!addcharacter <name> <info>',
+	usage: 'addcharacter <name> <info>',
 	details: 'The character name can be a maximum of 60 characters long. Both the name and information must be surrouned by quotes if they contain spaces. The information doesn\'t have to be a single line. Only the owner of the character and administrators/moderators may update it.',
 	examples: ['!addcharacter "Billy McBillface" A really cool guy who enjoys his chicken tendies.'],
 

@@ -4,6 +4,7 @@
 import database from '../../database/mod-roles';
 import search from '../../util/search';
 import disambiguation from '../../util/disambiguation';
+import * as usage from '../../util/command-usage';
 
 const pattern = /^(?:<@&)?(.+?)>?$/;
 
@@ -13,7 +14,7 @@ export default {
 	group: 'mod-roles',
 	groupName: 'add',
 	description: 'Adds a moderator role.',
-	usage: '!addmodrole <role>',
+	usage: 'addmodrole <role>',
 	details: 'The role must be the name or ID of a role, or a role mention. Only administrators may use this command.',
 	examples: ['!addmodrole cool', '!addmodrole 205536402341888001', '!addmodrole @CoolPeopleRole'],
 	singleArgument: true,
@@ -38,7 +39,7 @@ export default {
 		} else if(roles.length > 1) {
 			message.client.reply(message, disambiguation(roles, 'roles'));
 		} else {
-			message.client.reply(message, 'Unable to identify role. Use `!roles` to view all of the server roles.');
+			message.client.reply(message, `Unable to identify role. Use ${usage.long('roles')} to view all of the server roles.`);
 		}
 	}
 };

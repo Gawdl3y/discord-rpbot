@@ -3,6 +3,7 @@
 
 import database from '../../database/mod-roles';
 import disambiguation from '../../util/disambiguation';
+import * as usage from '../../util/command-usage';
 
 const pattern = /^(?:<@&)?(.+?)>?$/;
 
@@ -12,7 +13,7 @@ export default {
 	group: 'mod-roles',
 	groupName: 'delete',
 	description: 'Deletes a moderator role.',
-	usage: '!deletemodrole <role>',
+	usage: 'deletemodrole <role>',
 	details: 'The role must be the ID of a role, or a role mention. Only administrators may use this command.',
 	examples: ['!deletemodrole cool', '!deletemodrole 205536402341888001', '!deletemodrole @CoolPeopleRole'],
 	singleArgument: true,
@@ -37,7 +38,7 @@ export default {
 		} else if(roles.length > 1) {
 			message.client.reply(message, disambiguation(roles, 'roles'));
 		} else {
-			message.client.reply(message, 'Unable to identify role. Use `!modroles` to view the the moderator roles, and `!roles` to view all of the server roles.');
+			message.client.reply(message, `Unable to identify role. Use ${usage.long('modroles')} to view the the moderator roles, and ${usage.long('roles')} to view all of the server roles.`);
 		}
 	}
 };

@@ -7,7 +7,6 @@ export default {
 	group: 'general',
 	groupName: 'list-roles',
 	description: 'Lists all server roles.',
-	usage: '!roles',
 	details: 'Only administrators may use this command.',
 	examples: ['!roles'],
 

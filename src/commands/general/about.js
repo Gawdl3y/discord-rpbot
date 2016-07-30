@@ -9,7 +9,6 @@ export default {
 	group: 'general',
 	groupName: 'about',
 	description: 'Displays information about the bot.',
-	usage: '!about',
 
 	isRunnable() {
 		return true;

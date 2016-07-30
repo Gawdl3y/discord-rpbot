@@ -3,6 +3,7 @@
 
 import database from '../../database/characters';
 import disambiguation from '../../util/disambiguation';
+import * as usage from '../../util/command-usage';
 
 export default {
 	name: 'character',
@@ -10,7 +11,7 @@ export default {
 	group: 'characters',
 	groupName: 'view',
 	description: 'Views a character\'s information.',
-	usage: '!character <name>',
+	usage: 'character <name>',
 	details: 'The name can be the whole name of the character, or just a part of it.',
 	examples: ['!character Billy McBillface', '!character bill'],
 	singleArgument: true,
@@ -29,7 +30,7 @@ export default {
 		} else if(characters.length > 1) {
 			message.client.reply(message, disambiguation(characters, 'characters'));
 		} else {
-			message.client.reply(message, 'Unable to find character. Use `!characters` to view the list of characters.');
+			message.client.reply(message, `Unable to find character. Use ${usage.long('characters')} to view the list of characters.`);
 		}
 	}
 };

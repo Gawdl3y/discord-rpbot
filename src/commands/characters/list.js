@@ -4,7 +4,7 @@
 import database from '../../database/characters';
 import config from '../../config';
 import paginate from '../../util/pagination';
-import * as nbsp from '../../util/nbsp';
+import * as usage from '../../util/command-usage';
 
 export default {
 	name: 'characters',
@@ -12,7 +12,7 @@ export default {
 	group: 'characters',
 	groupName: 'list',
 	description: 'Lists/searches characters in the database.',
-	usage: '!characters [search] [page]',
+	usage: 'characters [search] [page]',
 	details: 'If no search string is specified, all characters will be listed. If the search string is only one letter long, characters that start with that character will be listed. If the search string is more than one letter, all characters that contain that string will be listed. If the search string contains spaces, it must be surrounded by quotes.',
 	examples: ['!characters', '!characters c', '!characters bill'],
 
@@ -31,8 +31,8 @@ export default {
 
 			let messageText = search ? (search.length === 1 ? 'Characters that begin with' : 'Characters that contain') + ' "' + search + '"' : 'Character list';
 			messageText += ', ' + paginated.pageText + ' (Use ';
-			if(paginated.maxPage > 1) messageText += nbsp.convert('`!characters' + (search ? ' ' + search : '') + ' <page>`') + ' to view a specific page, or ';
-			messageText += '`!character' + nbsp.character + '<name>` to view information about a character):';
+			if(paginated.maxPage > 1) messageText += usage.short('characters' + (search ? ' ' + search : '') + ' <page>') + ' to view a specific page, or ';
+			messageText += usage.short('character <name>') + ' to view information about a character):';
 			messageText += '\n\n' + characters.map(element => element.name).join('\n');
 			message.client.reply(message, messageText);
 		} else {

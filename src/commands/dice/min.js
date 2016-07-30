@@ -9,7 +9,7 @@ export default {
 	group: 'dice',
 	groupName: 'min',
 	description: 'Calculates the minimum possible roll for a dice expression.',
-	usage: '!minroll <dice expression>',
+	usage: 'minroll <dice expression>',
 	details: 'The dice expression follows the same rules as !roll, but targets (< or >) cannot be used.',
 	examples: ['!minroll 2d20', '!minroll 3d20 - d10 + 6'],
 	singleArgument: true,
