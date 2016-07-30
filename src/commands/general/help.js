@@ -34,7 +34,7 @@ export default {
 				message.client.reply(message, `Unable to identify command. Use ${usage.long('help', message.server)} to view the list of all commands.`);
 			}
 		} else {
-			const info = `To use a command, use ${usage.long('command', message.server)}. For example, ${usage.long('roll d20', message.server)}.`;
+			const info = `To run a command, use ${usage.long('command', message.server)}. For example, ${usage.long('roll d20', message.server)}.`;
 			const commandList = commands.map(c => `${c.name} - ${c.description}`).join('\n');
 			message.client.reply(message, `${info}\n\nAvailable commands (use ${usage.short('help <command>', false)} for more info):\n${commandList}`);
 		}
