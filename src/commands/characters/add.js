@@ -1,9 +1,14 @@
 'use babel';
 'use strict';
 
+import stringArgv from 'string-argv';
 import Character from '../../database/character';
 import database from '../../database/characters';
 
+const newlinesPattern = /\n/g;
+const newlinesReplacement = '{!~NL~!}';
+const newlinesReplacementPattern = new RegExp(newlinesReplacement, 'g');
+const extraNewlinesPattern = /\n{3,}/g;
 const mentionsPattern = /@everyone|@here|<@!?&?[0-9]+>/i;
 
 export default {
@@ -13,29 +18,40 @@ export default {
 	groupName: 'add',
 	description: 'Adds a character to the database, or updates the existing one.',
 	usage: 'addcharacter <name> <info>',
-	details: 'The character name can be a maximum of 60 characters long. Both the name and information must be surrouned by quotes if they contain spaces. The information doesn\'t have to be a single line. Only the owner of the character and administrators/moderators may update it.',
+	details: 'The character name can be a maximum of 60 characters long, and must be surrounded by quotes if it contains spaces. The information doesn\'t have to be a single line. Only the owner of the character and administrators/moderators may update it.',
 	examples: ['!addcharacter "Billy McBillface" A really cool guy who enjoys his chicken tendies.'],
+	singleArgument: true,
 
 	isRunnable(message) {
 		return !!message.server;
 	},
 
 	run(message, args) {
-		if(!args[0] || !args[1]) return false;
-		if(mentionsPattern.test(args[0]) || mentionsPattern.test(args[1])) {
+		if(!args[0]) return false;
+		if(mentionsPattern.test(args[0])) {
 			message.client.reply(message, 'Please do not use mentions in your character name or information.');
 			return;
 		}
-		if(args[0].length > 60) {
+
+		// Extract the name and info
+		const newlinesReplaced = args[0].replace(newlinesPattern, newlinesReplacement);
+		const argv = stringArgv(newlinesReplaced);
+		const name = argv.shift();
+		const info = argv.join(' ').replace(newlinesReplacementPattern, '\n').replace(extraNewlinesPattern, '\n\n');
+
+		// Apply some restrictions
+		if(!info) return false;
+		if(name.length > 60) {
 			message.client.reply(message, 'A character\'s name may not be longer than 60 characters.');
 			return;
 		}
-		if(args[0].includes('\n')) {
+		if(name.includes('\n')) {
 			message.client.reply(message, 'A character\'s name may not have multiple lines.');
 			return;
 		}
 
-		const character = new Character(args[0], args[1], message.author.id, message.server.id);
+		// Add or update the character
+		const character = new Character(name, info, message.author.id, message.server.id);
 		const permissionOverride = database.userCanModerateInServer(message.server, message.author);
 		const result = database.saveCharacter(character, permissionOverride);
 		if(result) {
