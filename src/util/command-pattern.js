@@ -7,9 +7,10 @@ import SettingsDatabase from '../database/settings';
 import logger from './logger';
 
 export function buildCommandPattern(server, user) {
-	const prefix = server ? SettingsDatabase.getSettingValue('command-prefix', config.commandPrefix, server) : config.commandPrefix;
+	let prefix = server ? SettingsDatabase.getSettingValue('command-prefix', config.commandPrefix, server) : config.commandPrefix;
+	if(prefix === 'none') prefix = '';
 	const escapedPrefix = escapeRegex(prefix);
-	const prefixPatternPiece = escapedPrefix ? escapedPrefix + '(?:\\s*)?|' : '';
+	const prefixPatternPiece = prefix ? escapedPrefix + '(?:\\s*)?|' : '';
 	const pattern = new RegExp(`^(${prefixPatternPiece}<@!?${user.id}>\\s+(?:${escapedPrefix})?)([^\\s]+)`, 'i');
 	logger.info(`Server command pattern built.`, { server: server ? server.name : null, serverID: server ? server.id : null, prefix: prefix, commandPattern: pattern });
 	return pattern;
