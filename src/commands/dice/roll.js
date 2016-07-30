@@ -33,8 +33,8 @@ export default {
 
 			// Restrict the maximum dice count
 			const totalDice = dice.dice.reduce((prev, d) => prev + d.diceCount, 0);
-			if(totalDice > 100) {
-				message.client.sendMessage(message, `${message.author} might hurt himself by rolling that many dice at once!`);
+			if(totalDice > 200) {
+				message.client.sendMessage(message, `${message.author} might hurt themselves by rolling that many dice at once!`);
 				return;
 			}
 
@@ -44,7 +44,7 @@ export default {
 
 			// Build the list of dice
 			let diceList = '';
-			if(rollResult.diceRaw.length > 1 || (rollResult.diceRaw.length > 0 && rollResult.diceRaw[0].length > 1)) {
+			if(totalDice <= 100 && (rollResult.diceRaw.length > 1 || (rollResult.diceRaw.length > 0 && rollResult.diceRaw[0].length > 1))) {
 				diceList = rollResult.diceRaw.map((r, i) => nbsp(r.length > 1 ? r.join(' + ') + ' = ' + rollResult.diceSums[i] : r[0])).join(',   ');
 			}
 
