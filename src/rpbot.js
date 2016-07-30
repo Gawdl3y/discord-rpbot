@@ -80,3 +80,9 @@ if(config.token) {
 	logger.info('Logging in with email and password...');
 	client.login(config.email, config.password, loginCallback);
 }
+
+// Exit on interrupt
+process.on('SIGINT', () => {
+	logger.info('Received interrupt signal; destroying client and exiting...');
+	client.destroy(() => { process.exit(0); });
+});
