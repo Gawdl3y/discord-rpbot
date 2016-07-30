@@ -5,6 +5,8 @@ import DiceExpression from 'dice-expression-evaluator';
 import nbsp from '../../util/nbsp';
 import logger from '../../util/logger';
 
+const pattern = /^(.+?)(?:(>|<)\s*([0-9]+?))?\s*$/;
+
 export default {
 	name: 'roll',
 	aliases: ['dice', 'rolldice', 'diceroll', '(roll: xxxx)'],
@@ -14,9 +16,8 @@ export default {
 	usage: '!roll <dice expression>',
 	details: 'Dice expressions can contain the standard representations of dice in text form (e.g. 2d20 is two 20-sided dice), with addition and subtraction allowed. You may also use a single greater-than (>) or less-than (<) symbol at the end of the expression to add a target - if that target is met, a success message is displayed. Otherwise, a failure message is shown.',
 	examples: ['!roll 2d20', '!roll 3d20 - d10 + 6', '!roll d20 > 10', 'Billy McBillface attempts to slay the dragon. (Roll: d20 > 10)'],
-
-	triggers: [
-		/^!(?:roll|dice|rolldice|diceroll)\s+(.+?)(?:(>|<)\s*([0-9]+?))?\s*$/i,
+	singleArgument: true,
+	patterns: [
 		/\(\s*(?:roll|dice|rolldice|diceroll):\s*(.+?)(?:(>|<)\s*([0-9]+?))?\s*\)/i
 	],
 
@@ -24,8 +25,10 @@ export default {
 		return true;
 	},
 
-	run(message, matches) {
+	run(message, args, fromPattern) {
+		if(!args[0]) return false;
 		try {
+			const matches = fromPattern ? args : pattern.exec(args[0]);
 			const rollResult = new DiceExpression(matches[1]).roll();
 			logger.debug(rollResult);
 

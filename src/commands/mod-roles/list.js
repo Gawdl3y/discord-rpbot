@@ -13,10 +13,6 @@ export default {
 	details: 'Only administrators may use this command.',
 	examples: ['!modroles'],
 
-	triggers: [
-		/^!(?:modroles|listmodroles|mods)(?:\s.*)?$/i
-	],
-
 	isRunnable(message) {
 		return message.server && message.server.rolesOfUser(message.author).some(role => role.hasPermission('administrator'));
 	},

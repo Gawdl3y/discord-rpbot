@@ -13,17 +13,15 @@ export default {
 	usage: '!deletecharacter <name>',
 	details: 'The name can be the whole name of the character, or just a part of it. Only the owner of the character and administrators/moderators may delete it.',
 	examples: ['!deletecharacter Billy McBillface', '!deletecharacter bill'],
-
-	triggers: [
-		/^!(?:deletecharacter|removecharacter|delchar|rmchar)\s+"?(.+?)"?\s*$/i,
-	],
+	singleArgument: true,
 
 	isRunnable(message) {
 		return !!message.server;
 	},
 
-	run(message, matches) {
-		const characters = database.findCharactersInServer(message.server, matches[1]);
+	run(message, args) {
+		if(!args[0]) return false;
+		const characters = database.findCharactersInServer(message.server, args[0]);
 		if(characters.length === 1) {
 			const permissionOverride = database.userCanModerateInServer(message.server, message.author);
 			if(database.deleteCharacter(characters[0], permissionOverride)) {

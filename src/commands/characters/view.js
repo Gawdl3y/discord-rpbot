@@ -13,17 +13,15 @@ export default {
 	usage: '!character <name>',
 	details: 'The name can be the whole name of the character, or just a part of it.',
 	examples: ['!character Billy McBillface', '!character bill'],
-
-	triggers: [
-		/^!(?:character|viewcharacter|char)\s+"?(.+?)"?\s*$/i
-	],
+	singleArgument: true,
 
 	isRunnable(message) {
 		return !!message.server;
 	},
 
-	run(message, matches) {
-		const characters = database.findCharactersInServer(message.server, matches[1]);
+	run(message, args) {
+		if(!args[0]) return false;
+		const characters = database.findCharactersInServer(message.server, args[0]);
 		if(characters.length === 1) {
 			const owner = message.client.users.get('id', characters[0].owner);
 			const ownerName = owner ? owner.name + '#' + owner.discriminator : 'Unknown';
@@ -31,7 +29,7 @@ export default {
 		} else if(characters.length > 1) {
 			message.client.reply(message, disambiguation(characters, 'characters'));
 		} else {
-			message.client.reply(message, 'Unable to find character. Use `!characters` to see the list of characters.');
+			message.client.reply(message, 'Unable to find character. Use `!characters` to view the list of characters.');
 		}
 	}
 };

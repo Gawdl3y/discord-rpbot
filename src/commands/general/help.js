@@ -14,17 +14,13 @@ export default {
 	details: 'The command may be part of a command name or a whole command name. If it isn\'t specified, all available commands will be listed.',
 	examples: ['!help', '!help roll'],
 
-	triggers: [
-		/^!help(?:\s+(.+?))?\s*$/i
-	],
-
 	isRunnable() {
 		return true;
 	},
 
-	run(message, matches) {
-		const commands = findCommands(matches[1], message);
-		if(matches[1]) {
+	run(message, args) {
+		const commands = findCommands(args[0], message);
+		if(args[0]) {
 			if(commands.length === 1) {
 				let help = 'Command **' + commands[0].name + '**: ' + commands[0].description;
 				help += '\n**Usage:** `' + nbsp.convert(commands[0].usage) + '`';

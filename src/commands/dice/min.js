@@ -12,18 +12,16 @@ export default {
 	usage: '!minroll <dice expression>',
 	details: 'The dice expression follows the same rules as !roll, but targets (< or >) cannot be used.',
 	examples: ['!minroll 2d20', '!minroll 3d20 - d10 + 6'],
-
-	triggers: [
-		/^!minroll\s+(.+?)\s*$/i
-	],
+	singleArgument: true,
 
 	isRunnable() {
 		return true;
 	},
 
-	run(message, matches) {
+	run(message, args) {
+		if(!args[0]) return false;
 		try {
-			const minRoll = new DiceExpression(matches[1]).min();
+			const minRoll = new DiceExpression(args[0]).min();
 			message.client.reply(message, `The minimum possible roll is **${minRoll}**.`);
 		} catch(e) {
 			logger.error(e);

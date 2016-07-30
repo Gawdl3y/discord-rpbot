@@ -10,10 +10,6 @@ export default {
 	description: 'Displays information about the bot.',
 	usage: '!about',
 
-	triggers: [
-		/^!about(?:\s.*)?$/i
-	],
-
 	isRunnable() {
 		return true;
 	},

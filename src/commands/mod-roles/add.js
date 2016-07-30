@@ -5,6 +5,8 @@ import database from '../../database/mod-roles';
 import search from '../../util/search';
 import disambiguation from '../../util/disambiguation';
 
+const pattern = /^(?:<@&)?(.+?)>?$/;
+
 export default {
 	name: 'addmodrole',
 	aliases: ['addmod'],
@@ -14,16 +16,15 @@ export default {
 	usage: '!addmodrole <role>',
 	details: 'The role must be the name or ID of a role, or a role mention. Only administrators may use this command.',
 	examples: ['!addmodrole cool', '!addmodrole 205536402341888001', '!addmodrole @CoolPeopleRole'],
-
-	triggers: [
-		/^!(?:addmodrole|addmod)\s+(?:(?:<@&)?(.+?)>?)\s*$/i
-	],
+	singleArgument: true,
 
 	isRunnable(message) {
 		return message.server && message.server.rolesOfUser(message.author).some(role => role.hasPermission('administrator'));
 	},
 
-	run(message, matches) {
+	run(message, args) {
+		if(!args[0]) return false;
+		const matches = pattern.exec(args[0]);
 		let roles;
 		const idRole = message.server.roles.get('id', matches[1]);
 		if(idRole) roles = [idRole]; else roles = search(message.server.roles, matches[1]);

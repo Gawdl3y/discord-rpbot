@@ -12,18 +12,16 @@ export default {
 	usage: '!maxroll <dice expression>',
 	details: 'The dice expression follows the same rules as !roll, but targets (< or >) cannot be used.',
 	examples: ['!maxroll 2d20', '!maxroll 3d20 - d10 + 6'],
-
-	triggers: [
-		/^!maxroll\s+(.+?)\s*$/i
-	],
+	singleArgument: true,
 
 	isRunnable() {
 		return true;
 	},
 
-	run(message, matches) {
+	run(message, args) {
+		if(!args[0]) return false;
 		try {
-			const maxRoll = new DiceExpression(matches[1]).max();
+			const maxRoll = new DiceExpression(args[0]).max();
 			message.client.reply(message, `The maximum possible roll is **${maxRoll}**.`);
 		} catch(e) {
 			logger.error(e);

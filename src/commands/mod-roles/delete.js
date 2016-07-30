@@ -4,6 +4,8 @@
 import database from '../../database/mod-roles';
 import disambiguation from '../../util/disambiguation';
 
+const pattern = /^(?:<@&)?(.+?)>?$/;
+
 export default {
 	name: 'deletemodrole',
 	aliases: ['removemodrole', 'delmodrole', 'removemod', 'deletemod', 'delmod'],
@@ -13,16 +15,15 @@ export default {
 	usage: '!deletemodrole <role>',
 	details: 'The role must be the ID of a role, or a role mention. Only administrators may use this command.',
 	examples: ['!deletemodrole cool', '!deletemodrole 205536402341888001', '!deletemodrole @CoolPeopleRole'],
-
-	triggers: [
-		/^!(?:deletemodrole|removemodrole|delmodrole|removemod|deletemod|delmod)\s+(?:(?:<@&)?(.+?)>?)\s*$/i
-	],
+	singleArgument: true,
 
 	isRunnable(message) {
 		return message.server && message.server.rolesOfUser(message.author).some(role => role.hasPermission('administrator'));
 	},
 
-	run(message, matches) {
+	run(message, args) {
+		if(!args[0]) return false;
+		const matches = pattern.exec(args[0]);
 		let roles;
 		const idRole = message.server.roles.get('id', matches[1]);
 		if(idRole) roles = [idRole]; else roles = database.findRolesInServer(message.server, matches[1]);

@@ -12,29 +12,26 @@ export default {
 	group: 'characters',
 	groupName: 'add',
 	description: 'Adds a character to the database, or updates the existing one.',
-	usage: '!addcharacter "<name>" <info>',
-	details: 'The character name *must* be surrounded by quotes, and can be a maximum of 60 characters long. The information doesn\'t have to be a single line. Only the owner of the character and administrators/moderators may update it.',
+	usage: '!addcharacter <name> <info>',
+	details: 'The character name can be a maximum of 60 characters long, and must be surrounded by quotes if it contains spaces. The information doesn\'t have to be a single line. Only the owner of the character and administrators/moderators may update it.',
 	examples: ['!addcharacter "Billy McBillface" A really cool guy who enjoys his chicken tendies.'],
-
-	triggers: [
-		/^!(?:addcharacter|addchar)\s+"\s*(.+?)\s*"\s+((?:.|\n)+?)\s*$/i
-	],
 
 	isRunnable(message) {
 		return !!message.server;
 	},
 
-	run(message, matches) {
-		if(mentionsPattern.test(matches[1]) || mentionsPattern.test(matches[2])) {
+	run(message, args) {
+		if(!args[0] || !args[1]) return false;
+		if(mentionsPattern.test(args[0]) || mentionsPattern.test(args[1])) {
 			message.client.reply(message, 'Please do not use mentions in your character name or information.');
 			return;
 		}
-		if(matches[1].length > 60) {
+		if(args[0].length > 60) {
 			message.client.reply(message, 'A character\'s name may not be longer than 60 characters.');
 			return;
 		}
 
-		const character = new Character(matches[1], matches[2], message.author.id, message.server.id);
+		const character = new Character(args[0], args[1], message.author.id, message.server.id);
 		const permissionOverride = database.userCanModerateInServer(message.server, message.author);
 		const result = database.saveCharacter(character, permissionOverride);
 		if(result) {
