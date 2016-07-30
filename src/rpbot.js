@@ -69,10 +69,11 @@ client.on('message', message => {
 	}
 
 	// Find the command to run with default command handling
-	if(!serverCommandPatterns[message.server.id]) serverCommandPatterns[message.server.id] = buildCommandPattern(message.server, client.user);
+	const patternIndex = message.server ? message.server.id : '-';
+	if(!serverCommandPatterns[patternIndex]) serverCommandPatterns[patternIndex] = buildCommandPattern(message.server, client.user);
 	let defaultMatches;
 	if(!runCommand) {
-		defaultMatches = serverCommandPatterns[message.server.id].exec(message.content);
+		defaultMatches = serverCommandPatterns[patternIndex].exec(message.content);
 		if(defaultMatches) {
 			const commandName = defaultMatches[2].toLowerCase();
 			const command = commands.find(command => command.name === commandName || (command.aliases && command.aliases.some(alias => alias === commandName)));

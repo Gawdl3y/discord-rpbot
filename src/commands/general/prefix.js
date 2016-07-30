@@ -19,12 +19,12 @@ export default {
 	examples: ['prefix', 'prefix -', 'prefix rp!', 'prefix default', 'prefix none'],
 	singleArgument: true,
 
-	isRunnable(message) {
-		return !!message.server;
+	isRunnable() {
+		return true;
 	},
 
 	run(message, args) {
-		if(args[0]) {
+		if(args[0] && message.server) {
 			// Only allow administrators
 			if(!permissions.isAdministrator(message.server, message.author)) {
 				message.client.reply(message, 'Only administrators may change the command prefix.');
@@ -49,7 +49,7 @@ export default {
 
 			message.client.reply(message, `${response} To run commands, use ${usage.long('command', message.server)}.`);
 		} else {
-			const prefix = SettingsDatabase.getSettingValue('command-prefix', config.commandPrefix, message.server);
+			const prefix = message.server ? SettingsDatabase.getSettingValue('command-prefix', config.commandPrefix, message.server) : config.commandPrefix;
 			const response = prefix ? `The command prefix is "${prefix}".` : 'There is no command prefix.';
 			message.client.reply(message, response + ` To run commands, use ${usage.long('command', message.server)}`);
 		}
