@@ -45,6 +45,7 @@ const config = yargs
 	// General
 	.option('owner', {
 		type: 'string',
+		alias: 'o',
 		describe: 'Discord user ID of the bot owner'
 	})
 	.option('pagination-items', {
