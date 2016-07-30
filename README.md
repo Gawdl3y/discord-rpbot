@@ -31,6 +31,7 @@ If you don't want anything being sent at all, use the `analytics` configuration 
 |------------------|---------------------------------------------------------------------------------------------------------------|
 | help             | Displays a list of available commands, or detailed information for a specified command.                       |
 | about            | Displays information about the bot.                                                                           |
+| prefix           | Shows or sets the command prefix.                                                                             |
 | roll             | Rolls specified dice. (Uses [dice-expression-evaluator](https://github.com/dbkang/dice-expression-evaluator)) |
 | maxroll          | Calculates the maximum possible roll for a dice expression.                                                   |
 | minroll          | Calculates the minimum possible roll for a dice expression.                                                   |
@@ -43,9 +44,10 @@ If you don't want anything being sent at all, use the `analytics` configuration 
 | addmodrole       | Adds a moderator role. (administrator only)                                                                   |
 | deletemodrole    | Deletes a moderator role. (administrator only)                                                                |
 
-You may use a command by prefixing it with `!` or the bot's mention (e.g. `@RPBot#4161`).
+You may use a command by prefixing it with the command prefix (default `!`) or the bot's mention (e.g. `@RPBot#4161`).
 Use `!help` or `@RPBot#4161 help`, for example.
-You may also DM the bot for many commands.
+The prefix is configurable on a server-by-server basis, with the `prefix` command.
+You may DM the bot for many commands.
 
 Characters in the database may only be updated/deleted by the owner of the character, and moderators.
 If a user has the "administrator" permission, they are automatically considered a moderator.
@@ -57,22 +59,24 @@ Configuration can be specified on the command line, or in a JSON or YAML config 
 Specify the config file with `--config=(FILE PATH)`.
 The settings:
 
-| Setting          | Description                                                                      |        
-|------------------|----------------------------------------------------------------------------------|
-| token            | API token for the bot account                                                    |
-| email            | Email of the Discord account for the bot to use (not needed if using `token`)    |
-| password         | Password of the Discord account for the bot to use (not needed if using `token`) |
-| storage          | Path to the storage directory                                                    |
-| auto-reconnect   | Whether or not the bot should automatically reconnect when disconnected          |
-| owner            | Discord user ID of the bot owner                                                 |
-| pagination-items | Number of items per page in paginated commands                                   |
-| update-check     | How frequently to check for an update (in minutes - use 0 to disable)            |
-| analytics        | Whether or not to enable anonymous, non-unique, non-identifiable analytics       |
-| log              | Path to the log file to output to                                                |
-| log-max-size     | Maximum size of a single log file (in bytes)                                     |
-| log-max-files    | Maximum log files to keep                                                        |
-| log-level        | Log level to output to the log file (error, warn, info, verbose, debug)          |
-| console-level    | Log level to output to the console (error, warn, info, verbose, debug)           |
+| Setting              | Description                                                                      |        
+|----------------------|----------------------------------------------------------------------------------|
+| token                | API token for the bot account                                                    |
+| email                | Email of the Discord account for the bot to use (not needed if using `token`)    |
+| password             | Password of the Discord account for the bot to use (not needed if using `token`) |
+| storage              | Path to the storage directory                                                    |
+| auto-reconnect       | Whether or not the bot should automatically reconnect when disconnected          |
+| owner                | Discord user ID of the bot owner                                                 |
+| command-prefix       | Default command prefix (blank to use only mentions)                              |
+| unknown-only-mention | Whether or not to output unknown command response only for mentions              |
+| pagination-items     | Number of items per page in paginated commands                                   |
+| update-check         | How frequently to check for an update (in minutes - use 0 to disable)            |
+| analytics            | Whether or not to enable anonymous, non-unique, non-identifiable analytics       |
+| log                  | Path to the log file to output to                                                |
+| log-max-size         | Maximum size of a single log file (in bytes)                                     |
+| log-max-files        | Maximum log files to keep                                                        |
+| log-level            | Log level to output to the log file (error, warn, info, verbose, debug)          |
+| console-level        | Log level to output to the console (error, warn, info, verbose, debug)           |
 
 ## Usage
 Run `rpbot` on the command-line.
