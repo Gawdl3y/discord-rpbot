@@ -46,6 +46,7 @@ client.on('ready', () => {
 
 // Set up command recognition
 export const serverCommandPatterns = {};
+export const unprefixedCommandPattern = /^([^\s]+)/i;
 client.on('message', message => {
 	if(message.author.equals(client.user)) return;
 	let runCommand;
@@ -70,6 +71,7 @@ client.on('message', message => {
 	const patternIndex = message.server ? message.server.id : '-';
 	if(!serverCommandPatterns[patternIndex]) serverCommandPatterns[patternIndex] = buildCommandPattern(message.server, client.user);
 	let defaultMatches;
+	let unprefixedMatches;
 	if(!runCommand) {
 		defaultMatches = serverCommandPatterns[patternIndex].exec(message.content);
 		if(defaultMatches) {
@@ -79,6 +81,17 @@ client.on('message', message => {
 				const argString = message.content.substring(defaultMatches[1].length + defaultMatches[2].length);
 				runCommand = command;
 				runArgs = !command.singleArgument ? stringArgv(argString) : [argString.trim()];
+			}
+		} else if(!message.server) {
+			unprefixedMatches = unprefixedCommandPattern.exec(message.content);
+			if(unprefixedMatches) {
+				const commandName = unprefixedMatches[1].toLowerCase();
+				const command = commands.find(command => command.name === commandName || (command.aliases && command.aliases.some(alias => alias === commandName)));
+				if(command && !command.disableDefault) {
+					const argString = message.content.substring(unprefixedMatches[1].length);
+					runCommand = command;
+					runArgs = !command.singleArgument ? stringArgv(argString) : [argString.trim()];
+				}
 			}
 		}
 	}
@@ -107,7 +120,7 @@ client.on('message', message => {
 		} else {
 			logger.info(`Not running ${runCommand.group}:${runCommand.groupName}; not runnable.`, logInfo);
 		}
-	} else if(defaultMatches) {
+	} else if(defaultMatches || unprefixedMatches) {
 		if(!config.unknownOnlyMention || defaultMatches[1].startsWith('<@')) message.reply(`Unknown command. Use ${usage.long('help', message.server)} to view the list of all commands.`);
 	}
 });
