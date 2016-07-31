@@ -42,6 +42,14 @@ export const commands = [
 ];
 export default commands;
 
+export const groups = [
+	{id: 'general', name: 'General', commands: []},
+	{id: 'dice', name: 'Dice', commands: []},
+	{id: 'characters', name: 'Characters', commands: []},
+	{id: 'mod-roles', name: 'Mod roles', commands: []}
+];
+for(const command of commands) groups.find(g => g.id === command.group).commands.push(command);
+
 export function findCommands(searchString = null, message = null) {
 	if(!searchString) return message ? commands.filter(c => c.isRunnable(message)) : commands;
 

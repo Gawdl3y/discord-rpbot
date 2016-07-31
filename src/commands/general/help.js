@@ -1,7 +1,8 @@
 'use babel';
 'use strict';
 
-import { findCommands } from '..';
+import { stripIndents } from 'common-tags';
+import { groups, findCommands } from '..';
 import disambiguation from '../../util/disambiguation';
 import * as usage from '../../util/command-usage';
 
@@ -22,21 +23,33 @@ export default {
 		const commands = findCommands(args[0], message);
 		if(args[0]) {
 			if(commands.length === 1) {
-				let help = 'Command **' + commands[0].name + '**: ' + commands[0].description;
-				help += '\n**Usage:** ' + usage.long(commands[0].usage ? commands[0].usage : commands[0].name, message.server);
-				if(commands[0].aliases) help += '\n**Aliases:** ' + commands[0].aliases.join(', ');
-				if(commands[0].details) help += '\n**Details:** ' + commands[0].details;
-				if(commands[0].examples) help += '\n**Examples:**\n' + commands[0].examples.join('\n');
-				message.reply(help);
+				let help = stripIndents`
+					Command **${commands[0].name}**: ${commands[0].description}
+
+					**Usage:** ${usage.long(commands[0].usage ? commands[0].usage : commands[0].name, message.server)}
+				`;
+				if(commands[0].aliases) help += `\n**Aliases:** ${commands[0].aliases.join(', ')}`;
+				if(commands[0].details) help += `\n**Details:** ${commands[0].details}`;
+				if(commands[0].examples) help += `\n**Examples:**\n${commands[0].examples.join('\n')}`;
+				message.client.sendMessage(message.author, help);
+				if(message.server) message.reply('Sent a DM to you with information.');
 			} else if(commands.length > 1) {
 				message.reply(disambiguation(commands, 'commands'));
 			} else {
 				message.reply(`Unable to identify command. Use ${usage.long('help', message.server)} to view the list of all commands.`);
 			}
 		} else {
-			const info = `To run a command, use ${usage.long('command', message.server)}. For example, ${usage.long('roll d20', message.server)}.`;
-			const commandList = commands.map(c => `${c.name} - ${c.description}`).join('\n');
-			message.reply(`${info}\n\nAvailable commands (use ${usage.short('help <command>', false)} for more info):\n${commandList}`);
+			message.client.sendMessage(message.author, stripIndents`
+				To run a command in ${message.server}, use ${usage.long('command', message.server)}. For example, ${usage.long('roll d20', message.server)}.
+				To run a command in this DM, you may simply use ${usage.short('command')} with no prefix.
+				Available commands (use ${usage.short('help <command>')} for more info):
+
+				${groups.map(g => stripIndents`
+					__${g.name}__
+					${g.commands.map(c => `**${c.name}:** ${c.description}`).join('\n')}
+				`).join('\n\n')}
+			`);
+			if(message.server) message.reply('Sent a DM to you with information.');
 		}
 	}
 };
