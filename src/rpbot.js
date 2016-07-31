@@ -47,7 +47,7 @@ client.on('ready', () => {
 // Set up command recognition
 export const serverCommandPatterns = {};
 client.on('message', message => {
-	if(message.author === client.user) return;
+	if(message.author.equals(client.user)) return;
 	let runCommand;
 	let runArgs;
 	let runFromPattern = false;
