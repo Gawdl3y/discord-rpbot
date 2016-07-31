@@ -1,11 +1,12 @@
 'use babel';
 'use strict';
 
+import { client } from '../rpbot';
 import config from '../config';
 import ModRolesDatabase from '../database/mod-roles';
 
 export function isModerator(server, user) {
-	if(!server || !user) throw new Error('A server and user must be specified.');
+	[server, user] = resolve(server, user);
 	if(user.id === config.owner) return true;
 	const userRoles = server.rolesOfUser(user);
 	if(userRoles.some(role => role.hasPermission('administrator'))) return true;
@@ -14,7 +15,16 @@ export function isModerator(server, user) {
 }
 
 export function isAdministrator(server, user) {
-	if(!server || !user) throw new Error('A server and a user must be specified.');
+	[server, user] = resolve(server, user);
 	if(user.id === config.owner) return true;
 	return server.rolesOfUser(user).some(role => role.hasPermission('administrator'));
+}
+
+function resolve(server, user) {
+	if(!server || !user) throw new Error('A server and a user must be specified.');
+	if(typeof server === 'string') server = client.servers.get('id', server);
+	if(!server || !server.id) throw new Error('Unable to identify server.');
+	if(typeof user === 'string') user = server.users.get('id', user);
+	if(!user || !user.id) throw new Error('Unable to identify user.');
+	return [server, user];
 }
