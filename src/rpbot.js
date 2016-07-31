@@ -19,11 +19,9 @@ analytics.sendEvent('Bot', 'started');
 // Output safe config
 const debugConfig = Object.assign({}, config);
 if(debugConfig.email) debugConfig.email = '--snip--';
-if(debugConfig.e) debugConfig.e = '--snip--';
 if(debugConfig.password) debugConfig.password = '--snip--';
-if(debugConfig.p) debugConfig.p = '--snip--';
 if(debugConfig.token) debugConfig.token = '--snip--';
-if(debugConfig.t) debugConfig.t = '--snip--';
+for(const key of Object.keys(debugConfig)) if(key.length === 1 || key.includes('-')) delete debugConfig[key];
 logger.debug('Configuration:', debugConfig);
 
 // Verify that the credentials are usable
