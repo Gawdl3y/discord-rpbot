@@ -9,9 +9,10 @@ import version from './version';
 
 const config = yargs
 	.usage('$0 [command] [options]')
-	.example('$0 --token SomeAPITokenGoesHere')
-	.example('$0 --email SomeGuy@SomeSite.com --password SomeCrazyPassword123')
-	.example('$0 --config settings.yml')
+	.example('$0 --token SomeAPITokenGoesHere', 'Starts the bot using a token')
+	.example('$0 --email SomeGuy@SomeSite.com --password SomeCrazyPassword123', 'Starts the bot using an email and password')
+	.example('$0 --config settings.yml', 'Starts the bot using a config file')
+	.example('$0 completion', 'Outputs Bash completion script')
 	.epilogue('RPBot by Schuyler Cebulskie (Gawdl3y): https://github.com/Gawdl3y/discord-rpbot/')
 
 	// Authentication
