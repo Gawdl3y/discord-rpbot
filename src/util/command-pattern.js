@@ -12,7 +12,7 @@ export function buildCommandPattern(server, user) {
 	const escapedPrefix = escapeRegex(prefix);
 	const prefixPatternPiece = prefix ? escapedPrefix + '(?:\\s*)?|' : '';
 	const pattern = new RegExp(`^(${prefixPatternPiece}<@!?${user.id}>\\s+(?:${escapedPrefix})?)([^\\s]+)`, 'i');
-	logger.info(`Server command pattern built.`, { server: server ? server.name : null, serverID: server ? server.id : null, prefix: prefix, commandPattern: pattern });
+	logger.info(`Server command pattern built.`, { server: server ? server.name : null, serverID: server ? server.id : null, prefix: prefix, pattern: pattern.source });
 	return pattern;
 }
 export default buildCommandPattern;
