@@ -7,7 +7,7 @@ import fs from 'fs';
 import path from 'path';
 
 const config = yargs
-	.usage('$0 [args]')
+	.usage('$0 [options]')
 
 	// Authentication
 	.option('token', {
@@ -25,6 +25,7 @@ const config = yargs
 		alias: 'p',
 		describe: 'Password of the Discord account for the bot to use'
 	})
+	.implies({ email: 'password', password: 'email' })
 
 	// General
 	.option('owner', {
@@ -75,7 +76,8 @@ const config = yargs
 		type: 'string',
 		default: 'rpbot-storage',
 		alias: 's',
-		describe: 'Path to storage directory'
+		describe: 'Path to storage directory',
+		normalize: true
 	})
 
 	// Logging
@@ -83,13 +85,15 @@ const config = yargs
 		type: 'string',
 		default: 'rpbot.log',
 		alias: 'l',
-		describe: 'Path to log file'
+		describe: 'Path to log file',
+		normalize: true
 	})
 	.option('log-max-size', {
 		type: 'number',
 		default: 5242880,
+		defaultDescription: '5MB',
 		alias: 'F',
-		describe: 'Maximum size of single log file'
+		describe: 'Maximum size of single log file (in bytes)'
 	})
 	.option('log-max-files', {
 		type: 'number',
@@ -111,16 +115,21 @@ const config = yargs
 	})
 
 	// General yargs
-	.config('config', (configFile) => {
-		const extension = path.extname(configFile).toLowerCase();
-		if(extension === '.json')
-			return JSON.parse(fs.readFileSync(configFile));
-		else if(extension === '.yml' || extension == '.yaml')
-			return YAML.safeLoad(fs.readFileSync(configFile));
-		throw new Error('Unknown config file type.');
+	.option('config', {
+		type: 'string',
+		alias: 'c',
+		describe: 'Path to JSON/YAML config file',
+		normalize: true,
+		config: true,
+		configParser: (configFile) => {
+			const extension = path.extname(configFile).toLowerCase();
+			if(extension === '.json')
+				return JSON.parse(fs.readFileSync(configFile));
+			else if(extension === '.yml' || extension == '.yaml')
+				return YAML.safeLoad(fs.readFileSync(configFile));
+			throw new Error('Unknown config file type.');
+		}
 	})
-	.alias('config', 'c')
-	.describe('config', 'Path to JSON/YAML config file')
 	.help()
 	.alias('help', 'h')
 	.wrap(yargs.terminalWidth())
