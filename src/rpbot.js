@@ -118,6 +118,7 @@ client.on('message', message => {
 				analytics.sendException(e);
 			}
 		} else {
+			message.reply(`The \`${runCommand.name}\` command is not currently usable in your context.`);
 			logger.info(`Not running ${runCommand.group}:${runCommand.groupName}; not runnable.`, logInfo);
 		}
 	} else if(defaultMatches || unprefixedMatches) {
