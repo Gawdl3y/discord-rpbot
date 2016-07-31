@@ -49,14 +49,14 @@ Use `!help` or `@RPBot#4161 help`, for example.
 The prefix is configurable on a server-by-server basis, with the `prefix` command.
 You may DM the bot for many commands.
 
-Characters in the database may only be updated/deleted by the owner of the character, and moderators.
-If a user has the "administrator" permission, they are automatically considered a moderator.
+Characters in the database may only be updated/deleted by the owner of the character and moderators.
+If one of the user's roles has the "administrator" permission, they are automatically considered a moderator.
 If there aren't any mod roles set, users with the "manage messages" permission are considered a moderator.
 Otherwise, users will be considered a moderator if they have one of the moderator roles.
 
 ## Configure
 Configuration can be specified on the command line, or in a JSON or YAML config file.
-Specify the config file with `--config=(FILE PATH)`.
+Specify the config file with `--config (FILE PATH)`.
 The settings:
 
 | Setting              | Description                                                                      |        
