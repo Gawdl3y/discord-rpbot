@@ -56,7 +56,7 @@ Otherwise, users will be considered a moderator if they have one of the moderato
 
 ## Configure
 Configuration can be specified on the command line, or in a JSON or YAML config file.
-Specify the config file with `--config (FILE PATH)`.
+Specify the config file with `--config path/to/config.yml`.
 The settings:
 
 | Setting              | Description                                                                      |        
@@ -78,6 +78,7 @@ The settings:
 | log-level            | Log level to output to the log file (error, warn, info, verbose, debug)          |
 | console-level        | Log level to output to the console (error, warn, info, verbose, debug)           |
 
+For a more detailed list of configuration values, use `rpbot --help`.
+
 ## Usage
 Run `rpbot` on the command-line.
-Use `rpbot --help` for information.
