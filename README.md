@@ -54,6 +54,15 @@ If one of the user's roles has the "administrator" permission, they are automati
 If there aren't any mod roles set, users with the "manage messages" permission are considered a moderator.
 Otherwise, users will be considered a moderator if they have one of the moderator roles.
 
+## Usage
+### Token
+Run `rpbot --token SomeAPITokenGoesHere`.
+Replace the token with your bot's token.
+
+### Email & password
+Run `rpbot --email SomeGuy@SomeSite.com --password SomeCrazyPassword123`.
+Replace the credentials with your bot account's.
+
 ## Configure
 Configuration can be specified on the command line, or in a JSON or YAML config file.
 Specify the config file with `--config path/to/config.yml`.
@@ -79,6 +88,3 @@ The settings:
 | console-level        | Log level to output to the console (error, warn, info, verbose, debug)           |
 
 For a more detailed list of configuration values, use `rpbot --help`.
-
-## Usage
-Run `rpbot` on the command-line.
