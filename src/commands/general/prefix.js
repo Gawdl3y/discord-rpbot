@@ -50,8 +50,7 @@ export default {
 			message.reply(`${response} To run commands, use ${usage.long('command', message.server)}.`);
 		} else {
 			const prefix = message.server ? SettingsDatabase.getSettingValue('command-prefix', config.commandPrefix, message.server) : config.commandPrefix;
-			const response = prefix ? `The command prefix is "${prefix}".` : 'There is no command prefix.';
-			message.reply(response + ` To run commands, use ${usage.long('command', message.server)}`);
+			message.reply(`${prefix ? `The command prefix is "${prefix}".` : 'There is no command prefix.'} To run commands, use ${usage.long('command', message.server)}`);
 		}
 	}
 };
