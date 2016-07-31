@@ -27,16 +27,16 @@ export default {
 				if(commands[0].aliases) help += '\n**Aliases:** ' + commands[0].aliases.join(', ');
 				if(commands[0].details) help += '\n**Details:** ' + commands[0].details;
 				if(commands[0].examples) help += '\n**Examples:**\n' + commands[0].examples.join('\n');
-				message.client.reply(message, help);
+				message.reply(help);
 			} else if(commands.length > 1) {
-				message.client.reply(message, disambiguation(commands, 'commands'));
+				message.reply(disambiguation(commands, 'commands'));
 			} else {
-				message.client.reply(message, `Unable to identify command. Use ${usage.long('help', message.server)} to view the list of all commands.`);
+				message.reply(`Unable to identify command. Use ${usage.long('help', message.server)} to view the list of all commands.`);
 			}
 		} else {
 			const info = `To run a command, use ${usage.long('command', message.server)}. For example, ${usage.long('roll d20', message.server)}.`;
 			const commandList = commands.map(c => `${c.name} - ${c.description}`).join('\n');
-			message.client.reply(message, `${info}\n\nAvailable commands (use ${usage.short('help <command>', false)} for more info):\n${commandList}`);
+			message.reply(`${info}\n\nAvailable commands (use ${usage.short('help <command>', false)} for more info):\n${commandList}`);
 		}
 	}
 };

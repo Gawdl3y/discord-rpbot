@@ -23,6 +23,6 @@ export default {
 		const userLabel = 'user' + (userCount > 1 || userCount === 0 ? 's' : '');
 		const general = `**RPBot** v${version} created by Schuyler Cebulskie (Gawdl3y). https://github.com/Gawdl3y/discord-rpbot`;
 		const usage = `This bot ${ownerAddon}is serving ${userCount} ${userLabel} across ${serverCount} ${serverLabel}.`;
-		message.client.reply(message, `${general}\n${usage}`);
+		message.reply(`${general}\n${usage}`);
 	}
 };

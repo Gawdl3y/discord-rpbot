@@ -25,14 +25,14 @@ export default {
 		const characters = database.findCharactersInServer(message.server, args[0]);
 		if(characters.length === 1) {
 			if(database.deleteCharacter(characters[0])) {
-				message.client.reply(message, `Deleted character "${characters[0].name}."`);
+				message.reply(`Deleted character "${characters[0].name}."`);
 			} else {
-				message.client.reply(message, `Unable to delete character "${characters[0].name}". You are not the owner.`);
+				message.reply(`Unable to delete character "${characters[0].name}". You are not the owner.`);
 			}
 		} else if(characters.length > 1) {
-			message.client.reply(message, disambiguation(characters, 'characters'));
+			message.reply(disambiguation(characters, 'characters'));
 		} else {
-			message.client.reply(message, `Unable to find character. Use ${usage.long('characters', message.server)} to view the list of characters.`);
+			message.reply(`Unable to find character. Use ${usage.long('characters', message.server)} to view the list of characters.`);
 		}
 	}
 };

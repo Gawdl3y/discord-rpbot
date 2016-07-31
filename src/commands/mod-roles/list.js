@@ -19,9 +19,9 @@ export default {
 	run(message) {
 		const roles = database.findRolesInServer(message.server);
 		if(roles.length > 0) {
-			message.client.reply(message, 'Moderator roles:\n' + roles.map(role => `${role.name} (ID: ${role.id})`).join('\n'));
+			message.reply('Moderator roles:\n' + roles.map(role => `${role.name} (ID: ${role.id})`).join('\n'));
 		} else {
-			message.client.reply(message, 'There are no moderator roles.');
+			message.reply('There are no moderator roles.');
 		}
 	}
 };

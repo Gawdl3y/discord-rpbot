@@ -29,7 +29,7 @@ export default {
 	run(message, args) {
 		if(!args[0]) return false;
 		if(mentionsPattern.test(args[0])) {
-			message.client.reply(message, 'Please do not use mentions in your character name or information.');
+			message.reply('Please do not use mentions in your character name or information.');
 			return;
 		}
 
@@ -42,20 +42,20 @@ export default {
 		// Apply some restrictions
 		if(!info) return false;
 		if(name.length > 60) {
-			message.client.reply(message, 'A character\'s name may not be longer than 60 characters.');
+			message.reply('A character\'s name may not be longer than 60 characters.');
 			return;
 		}
 		if(name.includes('\n')) {
-			message.client.reply(message, 'A character\'s name may not have multiple lines.');
+			message.reply('A character\'s name may not have multiple lines.');
 			return;
 		}
 
 		// Add or update the character
 		const result = database.saveCharacter(new Character(message.server, message.author, name, info));
 		if(result) {
-			message.client.reply(message, `${result === 1 ? 'Added' : 'Updated'} character "${name}".`);
+			message.reply(`${result === 1 ? 'Added' : 'Updated'} character "${name}".`);
 		} else {
-			message.client.reply(message, `Unable to update character "${info}". You are not the owner.`);
+			message.reply(`Unable to update character "${info}". You are not the owner.`);
 		}
 	}
 };

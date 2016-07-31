@@ -17,6 +17,6 @@ export default {
 
 	run(message) {
 		const roleList = message.server.roles.map(element => `${element.name} (ID: ${element.id})`).join('\n');
-		message.client.reply(message, `Server roles:\n${roleList}`);
+		message.reply(`Server roles:\n${roleList}`);
 	}
 };

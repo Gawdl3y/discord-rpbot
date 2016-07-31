@@ -22,10 +22,10 @@ export default {
 		if(!args[0]) return false;
 		try {
 			const maxRoll = new DiceExpression(args[0]).max();
-			message.client.reply(message, `The maximum possible roll is **${maxRoll}**.`);
+			message.reply(`The maximum possible roll is **${maxRoll}**.`);
 		} catch(e) {
 			logger.error(e);
-			message.client.reply(message, 'Invalid dice expression specified.');
+			message.reply('Invalid dice expression specified.');
 			return;
 		}
 	}

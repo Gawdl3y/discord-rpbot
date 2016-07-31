@@ -34,10 +34,10 @@ export default {
 			if(paginated.maxPage > 1) messageText += usage.short('characters' + (search ? ' ' + search : '') + ' <page>') + ' to view a specific page, or ';
 			messageText += usage.short('character <name>') + ' to view information about a character):';
 			messageText += '\n\n' + characters.map(element => element.name).join('\n');
-			message.client.reply(message, messageText);
+			message.reply(messageText);
 		} else {
 			const messageText = 'There are no characters ' + (search ? (search.length === 1 ? 'that begin with' : 'that contain') + ' "' + search + '".' : 'in the database.');
-			message.client.reply(message, messageText);
+			message.reply(messageText);
 		}
 	}
 };

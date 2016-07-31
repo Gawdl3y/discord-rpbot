@@ -32,14 +32,14 @@ export default {
 
 		if(roles.length === 1) {
 			if(database.deleteRole(roles[0])) {
-				message.client.reply(message, `Removed "${roles[0].name}" from the moderator roles.`);
+				message.reply(`Removed "${roles[0].name}" from the moderator roles.`);
 			} else {
-				message.client.reply(message, `Unable to remove "${roles[0].name}" from the moderator roles. It isn\'t one.`);
+				message.reply(`Unable to remove "${roles[0].name}" from the moderator roles. It isn\'t one.`);
 			}
 		} else if(roles.length > 1) {
-			message.client.reply(message, disambiguation(roles, 'roles'));
+			message.reply(disambiguation(roles, 'roles'));
 		} else {
-			message.client.reply(message, `Unable to identify role. Use ${usage.long('modroles', message.server)} to view the the moderator roles, and ${usage.long('roles', message.server)} to view all of the server roles.`);
+			message.reply(`Unable to identify role. Use ${usage.long('modroles', message.server)} to view the the moderator roles, and ${usage.long('roles', message.server)} to view all of the server roles.`);
 		}
 	}
 };

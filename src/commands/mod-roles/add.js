@@ -33,14 +33,14 @@ export default {
 
 		if(roles.length === 1) {
 			if(database.saveRole(roles[0])) {
-				message.client.reply(message, `Added "${roles[0].name}" to the moderator roles.`);
+				message.reply(`Added "${roles[0].name}" to the moderator roles.`);
 			} else {
-				message.client.reply(message, `Unable to add "${roles[0].name}" to the moderator roles. It already is one.`);
+				message.reply(`Unable to add "${roles[0].name}" to the moderator roles. It already is one.`);
 			}
 		} else if(roles.length > 1) {
-			message.client.reply(message, disambiguation(roles, 'roles'));
+			message.reply(disambiguation(roles, 'roles'));
 		} else {
-			message.client.reply(message, `Unable to identify role. Use ${usage.long('roles', message.server)} to view all of the server roles.`);
+			message.reply(`Unable to identify role. Use ${usage.long('roles', message.server)} to view all of the server roles.`);
 		}
 	}
 };

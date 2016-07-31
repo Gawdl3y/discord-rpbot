@@ -43,9 +43,9 @@ export default {
 		if(!args[0]) return false;
 		try {
 			const output = eval(args[0]);
-			msg.client.reply(msg, `Output: \`${output}\``);
+			msg.reply(`Output: \`${output}\``);
 		} catch(e) {
-			msg.client.reply(msg, `Error: ${e}`);
+			msg.reply(`Error: ${e}`);
 		}
 	}
 };

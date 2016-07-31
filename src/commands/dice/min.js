@@ -22,10 +22,10 @@ export default {
 		if(!args[0]) return false;
 		try {
 			const minRoll = new DiceExpression(args[0]).min();
-			message.client.reply(message, `The minimum possible roll is **${minRoll}**.`);
+			message.reply(`The minimum possible roll is **${minRoll}**.`);
 		} catch(e) {
 			logger.error(e);
-			message.client.reply(message, 'Invalid dice expression specified.');
+			message.reply('Invalid dice expression specified.');
 			return;
 		}
 	}
