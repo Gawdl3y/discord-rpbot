@@ -98,9 +98,9 @@ client.on('message', message => {
 			analytics.sendEvent('Command', 'run', runCommand.group + ':' + runCommand.groupName);
 			try {
 				const result = runCommand.run(message, runArgs, runFromPattern);
-				if(typeof result !== 'undefined' && !result) client.reply(message, `Invalid command format. Use \`!help ${runCommand.name}\` for information.`);
+				if(typeof result !== 'undefined' && !result) message.reply(`Invalid command format. Use \`!help ${runCommand.name}\` for information.`);
 			} catch(e) {
-				client.reply(message, `An error occurred while running the command. (${e.name}: ${e.message})`);
+				message.reply(`An error occurred while running the command. (${e.name}: ${e.message})`);
 				logger.error(e);
 				analytics.sendException(e);
 			}
@@ -108,7 +108,7 @@ client.on('message', message => {
 			logger.info(`Not running ${runCommand.group}:${runCommand.groupName}; not runnable.`, logInfo);
 		}
 	} else if(defaultMatches) {
-		if(!config.unknownOnlyMention || defaultMatches[1].startsWith('<@')) client.reply(message, `Unknown command. Use ${usage.long('help', message.server)} to view the list of all commands.`);
+		if(!config.unknownOnlyMention || defaultMatches[1].startsWith('<@')) message.reply(`Unknown command. Use ${usage.long('help', message.server)} to view the list of all commands.`);
 	}
 });
 
