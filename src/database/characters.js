@@ -78,7 +78,7 @@ export default class CharacterDatabase {
 
 		// Make sure they're all Character instances
 		for(const [index, character] of characters.entries()) {
-			if(!(character instanceof Character)) characters[index] = new Character(character.name, character.info, character.owner, character.server);
+			if(!(character instanceof Character)) characters[index] = new Character(character.server, character.owner, character.name, character.info);
 		}
 
 		return characters;
