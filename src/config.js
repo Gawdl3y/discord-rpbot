@@ -5,9 +5,13 @@ import yargs from 'yargs';
 import YAML from 'js-yaml';
 import fs from 'fs';
 import path from 'path';
+import version from './version';
 
 const config = yargs
-	.usage('$0 [options]')
+	.usage('$0 [command] [options]')
+	.example('$0 --token SomeAPITokenGoesHere')
+	.example('$0 --email SomeGuy@SomeSite.com --password SomeCrazyPassword123')
+	.example('$0 --config settings.yml')
 	.epilogue('RPBot by Schuyler Cebulskie (Gawdl3y): https://github.com/Gawdl3y/discord-rpbot/')
 
 	// Authentication
@@ -147,6 +151,10 @@ const config = yargs
 	.help()
 	.alias('help', 'h')
 	.group('help', 'Special:')
+	.version(version)
+	.alias('version', 'v')
+	.group('version', 'Special:')
+	.completion('completion')
 	.wrap(yargs.terminalWidth())
 .argv;
 
