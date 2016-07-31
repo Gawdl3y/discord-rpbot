@@ -106,14 +106,14 @@ const config = yargs
 		type: 'number',
 		default: 5242880,
 		defaultDescription: '5MB',
-		alias: 'F',
+		alias: 'S',
 		describe: 'Maximum size of single log file (in bytes)',
 		group: 'Logging:'
 	})
 	.option('log-max-files', {
 		type: 'number',
 		default: 5,
-		alias: 'S',
+		alias: 'F',
 		describe: 'Maximum amount of log files to keep',
 		group: 'Logging:'
 	})
