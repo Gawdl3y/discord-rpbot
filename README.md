@@ -32,6 +32,7 @@ If you don't want anything being sent at all, use the `analytics` configuration 
 | help             | Displays a list of available commands, or detailed information for a specified command.                       |
 | about            | Displays information about the bot.                                                                           |
 | prefix           | Shows or sets the command prefix.                                                                             |
+| eval             | Evaluates input as JavaScript. (owner only)                                                                   |
 | roll             | Rolls specified dice. (Uses [dice-expression-evaluator](https://github.com/dbkang/dice-expression-evaluator)) |
 | maxroll          | Calculates the maximum possible roll for a dice expression.                                                   |
 | minroll          | Calculates the minimum possible roll for a dice expression.                                                   |
