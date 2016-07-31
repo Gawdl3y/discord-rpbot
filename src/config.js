@@ -8,22 +8,26 @@ import path from 'path';
 
 const config = yargs
 	.usage('$0 [options]')
+	.epilogue('RPBot by Schuyler Cebulskie (Gawdl3y): https://github.com/Gawdl3y/discord-rpbot/')
 
 	// Authentication
 	.option('token', {
 		type: 'string',
 		alias: 't',
-		describe: 'API token for the bot account'
+		describe: 'API token for the bot account',
+		group: 'Authentication:'
 	})
 	.option('email', {
 		type: 'string',
 		alias: 'e',
-		describe: 'Email of the Discord account for the bot to use'
+		describe: 'Email of the Discord account for the bot to use',
+		group: 'Authentication:'
 	})
 	.option('password', {
 		type: 'string',
 		alias: 'p',
-		describe: 'Password of the Discord account for the bot to use'
+		describe: 'Password of the Discord account for the bot to use',
+		group: 'Authentication:'
 	})
 	.implies({ email: 'password', password: 'email' })
 
@@ -31,53 +35,57 @@ const config = yargs
 	.option('owner', {
 		type: 'string',
 		alias: 'o',
-		describe: 'Discord user ID of the bot owner'
+		describe: 'Discord user ID of the bot owner',
+		group: 'General:'
 	})
-	.option('command-prefix', {
-		type: 'string',
-		default: '!',
-		alias: 'P',
-		describe: 'Default command prefix (blank to use only mentions)'
-	})
-	.option('unknown-only-mention', {
-		type: 'boolean',
-		alias: 'M',
-		describe: 'Whether or not to output unknown command response only for mentions'
-	})
-	.option('pagination-items', {
-		type: 'number',
-		default: 15,
-		alias: 'I',
-		describe: 'Number of items per page in paginated commands'
-	})
-	.option('update-check', {
-		type: 'number',
-		default: 60,
-		alias: 'U',
-		describe: 'How frequently to check for an update (in minutes, use 0 to disable)'
-	})
-	.option('analytics', {
-		type: 'boolean',
-		default: true,
-		alias: 'A',
-		describe: 'Whether or not to enable anonymous, non-unique, non-identifiable analytics'
-	})
-
-	// discord.js
-	.option('auto-reconnect', {
-		type: 'boolean',
-		default: true,
-		alias: 'a',
-		describe: 'Whether or not the bot should automatically reconnect when disconnected'
-	})
-
-	// Storage
 	.option('storage', {
 		type: 'string',
 		default: 'rpbot-storage',
 		alias: 's',
 		describe: 'Path to storage directory',
+		group: 'General:',
 		normalize: true
+	})
+	.option('command-prefix', {
+		type: 'string',
+		default: '!',
+		alias: 'P',
+		describe: 'Default command prefix (blank to use only mentions)',
+		group: 'General:'
+	})
+	.option('unknown-only-mention', {
+		type: 'boolean',
+		alias: 'M',
+		describe: 'Whether or not to output unknown command response only for mentions',
+		group: 'General:'
+	})
+	.option('pagination-items', {
+		type: 'number',
+		default: 15,
+		alias: 'I',
+		describe: 'Number of items per page in paginated commands',
+		group: 'General:'
+	})
+	.option('update-check', {
+		type: 'number',
+		default: 60,
+		alias: 'U',
+		describe: 'How frequently to check for an update (in minutes, use 0 to disable)',
+		group: 'General:'
+	})
+	.option('analytics', {
+		type: 'boolean',
+		default: true,
+		alias: 'A',
+		describe: 'Whether or not to enable anonymous, non-unique, non-identifiable analytics',
+		group: 'General:'
+	})
+	.option('auto-reconnect', {
+		type: 'boolean',
+		default: true,
+		alias: 'a',
+		describe: 'Whether or not the bot should automatically reconnect when disconnected',
+		group: 'General:'
 	})
 
 	// Logging
@@ -86,6 +94,7 @@ const config = yargs
 		default: 'rpbot.log',
 		alias: 'l',
 		describe: 'Path to log file',
+		group: 'Logging:',
 		normalize: true
 	})
 	.option('log-max-size', {
@@ -93,25 +102,29 @@ const config = yargs
 		default: 5242880,
 		defaultDescription: '5MB',
 		alias: 'F',
-		describe: 'Maximum size of single log file (in bytes)'
+		describe: 'Maximum size of single log file (in bytes)',
+		group: 'Logging:'
 	})
 	.option('log-max-files', {
 		type: 'number',
 		default: 5,
 		alias: 'S',
-		describe: 'Maximum amount of log files to keep'
+		describe: 'Maximum amount of log files to keep',
+		group: 'Logging:'
 	})
 	.option('log-level', {
 		type: 'string',
 		default: 'info',
 		alias: 'L',
-		describe: 'Log level to output to the log file (error, warn, info, verbose, debug)'
+		describe: 'Log level to output to the log file (error, warn, info, verbose, debug)',
+		group: 'Logging:'
 	})
 	.option('console-level', {
 		type: 'string',
 		default: 'info',
 		alias: 'C',
-		describe: 'Log level to output to the console (error, warn, info, verbose, debug)'
+		describe: 'Log level to output to the console (error, warn, info, verbose, debug)',
+		group: 'Logging:'
 	})
 
 	// General yargs
@@ -119,6 +132,7 @@ const config = yargs
 		type: 'string',
 		alias: 'c',
 		describe: 'Path to JSON/YAML config file',
+		group: 'Special:',
 		normalize: true,
 		config: true,
 		configParser: (configFile) => {
@@ -132,6 +146,7 @@ const config = yargs
 	})
 	.help()
 	.alias('help', 'h')
+	.group('help', 'Special:')
 	.wrap(yargs.terminalWidth())
 .argv;
 
