@@ -43,7 +43,7 @@ export default class SettingsDatabase {
 		if(server.id) server = server.id;
 		if(!this.serversMap[server]) return defaultValue;
 		const key = setting instanceof Setting ? setting.key : setting;
-		return typeof this.serversMap[server][key] !== 'undefined' ? this.serversMap[server][key] : defaultValue;
+		return key in this.serversMap[server] ? this.serversMap[server][key] : defaultValue;
 	}
 
 	static deleteSetting(setting, server = null) {

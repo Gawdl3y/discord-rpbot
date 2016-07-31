@@ -5,9 +5,9 @@ export default function search(items, searchString, options) {
 	if(!items || items.length === 0) return [];
 	if(!searchString) return items;
 	if(!options) options = {};
-	if(typeof options.property === 'undefined') options.property = 'name';
-	if(typeof options.searchInexact === 'undefined') options.searchInexact = true;
-	if(typeof options.searchExact === 'undefined') options.searchExact = true;
+	if(!('property' in options)) options.property = 'name';
+	if(!('searchInexact' in options)) options.searchInexact = true;
+	if(!('searchExact' in options)) options.searchExact = true;
 
 	const lowercaseSearch = searchString.toLowerCase();
 	let matchedItems;
