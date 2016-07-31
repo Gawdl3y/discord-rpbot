@@ -98,8 +98,14 @@ client.on('message', message => {
 		if(runCommand.isRunnable(message)) {
 			logger.info(`Running ${runCommand.group}:${runCommand.groupName}.`, logInfo);
 			analytics.sendEvent('Command', 'run', runCommand.group + ':' + runCommand.groupName);
-			const result = runCommand.run(message, runArgs, runFromPattern);
-			if(typeof result !== 'undefined' && !result) client.reply(message, `Invalid command format. Use \`!help ${runCommand.name}\` for information.`);
+			try {
+				const result = runCommand.run(message, runArgs, runFromPattern);
+				if(typeof result !== 'undefined' && !result) client.reply(message, `Invalid command format. Use \`!help ${runCommand.name}\` for information.`);
+			} catch(e) {
+				client.reply(message, `An error occurred while running the command. (${e.name}: ${e.message})`);
+				logger.error(e);
+				analytics.sendException(e);
+			}
 		} else {
 			logger.info(`Not running ${runCommand.group}:${runCommand.groupName}; not runnable.`, logInfo);
 		}
