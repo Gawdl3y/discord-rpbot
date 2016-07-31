@@ -40,13 +40,14 @@ export default {
 			}
 		} else {
 			message.client.sendMessage(message.author, stripIndents`
-				To run a command in ${message.server}, use ${usage.long('command', message.server)}. For example, ${usage.long('roll d20', message.server)}.
-				To run a command in this DM, you may simply use ${usage.short('command')} with no prefix.
-				Available commands (use ${usage.short('help <command>')} for more info):
+				${message.server ? `To run a command in ${message.server}, use ${usage.long('command', message.server)}. For example, ${usage.long('roll d20', message.server)}.` : ''}
+				To run a command in this DM, you may simply use ${usage.short('command')} with no prefix. For example, ${usage.short('roll d20')}.
 
-				${groups.map(g => stripIndents`
+				**Available commands ${message.server ? `in ${message.server} ` : ''}(use ${usage.short('help <command>')} for more info):**
+
+				${groups.filter(g => g.commands.some(c => c.isRunnable(message))).map(g => stripIndents`
 					__${g.name}__
-					${g.commands.map(c => `**${c.name}:** ${c.description}`).join('\n')}
+					${g.commands.filter(c => c.isRunnable(message)).map(c => `**${c.name}:** ${c.description}`).join('\n')}
 				`).join('\n\n')}
 			`);
 			if(message.server) message.reply('Sent a DM to you with information.');
