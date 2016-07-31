@@ -26,22 +26,6 @@ const config = yargs
 		describe: 'Password of the Discord account for the bot to use'
 	})
 
-	// Storage
-	.option('storage', {
-		type: 'string',
-		default: 'rpbot-storage',
-		alias: 's',
-		describe: 'Path to storage directory'
-	})
-
-	// discord.js
-	.option('auto-reconnect', {
-		type: 'boolean',
-		default: true,
-		alias: ['reconnect', 'r', 'ar'],
-		describe: 'Whether or not the bot should automatically reconnect when disconnected'
-	})
-
 	// General
 	.option('owner', {
 		type: 'string',
@@ -51,26 +35,47 @@ const config = yargs
 	.option('command-prefix', {
 		type: 'string',
 		default: '!',
+		alias: 'P',
 		describe: 'Default command prefix (blank to use only mentions)'
 	})
 	.option('unknown-only-mention', {
 		type: 'boolean',
+		alias: 'M',
 		describe: 'Whether or not to output unknown command response only for mentions'
 	})
 	.option('pagination-items', {
 		type: 'number',
 		default: 15,
+		alias: 'I',
 		describe: 'Number of items per page in paginated commands'
 	})
 	.option('update-check', {
 		type: 'number',
 		default: 60,
+		alias: 'U',
 		describe: 'How frequently to check for an update (in minutes, use 0 to disable)'
 	})
 	.option('analytics', {
 		type: 'boolean',
 		default: true,
+		alias: 'A',
 		describe: 'Whether or not to enable anonymous, non-unique, non-identifiable analytics'
+	})
+
+	// discord.js
+	.option('auto-reconnect', {
+		type: 'boolean',
+		default: true,
+		alias: 'a',
+		describe: 'Whether or not the bot should automatically reconnect when disconnected'
+	})
+
+	// Storage
+	.option('storage', {
+		type: 'string',
+		default: 'rpbot-storage',
+		alias: 's',
+		describe: 'Path to storage directory'
 	})
 
 	// Logging
@@ -83,25 +88,25 @@ const config = yargs
 	.option('log-max-size', {
 		type: 'number',
 		default: 5242880,
-		alias: 'lms',
+		alias: 'F',
 		describe: 'Maximum size of single log file'
 	})
 	.option('log-max-files', {
 		type: 'number',
 		default: 5,
-		alias: 'lmf',
+		alias: 'S',
 		describe: 'Maximum amount of log files to keep'
 	})
 	.option('log-level', {
 		type: 'string',
 		default: 'info',
-		alias: 'll',
+		alias: 'L',
 		describe: 'Log level to output to the log file (error, warn, info, verbose, debug)'
 	})
 	.option('console-level', {
 		type: 'string',
 		default: 'info',
-		alias: 'clv',
+		alias: 'C',
 		describe: 'Log level to output to the console (error, warn, info, verbose, debug)'
 	})
 

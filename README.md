@@ -64,14 +64,14 @@ The settings:
 | token                | API token for the bot account                                                    |
 | email                | Email of the Discord account for the bot to use (not needed if using `token`)    |
 | password             | Password of the Discord account for the bot to use (not needed if using `token`) |
-| storage              | Path to the storage directory                                                    |
-| auto-reconnect       | Whether or not the bot should automatically reconnect when disconnected          |
 | owner                | Discord user ID of the bot owner                                                 |
 | command-prefix       | Default command prefix (blank to use only mentions)                              |
 | unknown-only-mention | Whether or not to output unknown command response only for mentions              |
 | pagination-items     | Number of items per page in paginated commands                                   |
 | update-check         | How frequently to check for an update (in minutes - use 0 to disable)            |
 | analytics            | Whether or not to enable anonymous, non-unique, non-identifiable analytics       |
+| auto-reconnect       | Whether or not the bot should automatically reconnect when disconnected          |
+| storage              | Path to the storage directory                                                    |
 | log                  | Path to the log file to output to                                                |
 | log-max-size         | Maximum size of a single log file (in bytes)                                     |
 | log-max-files        | Maximum log files to keep                                                        |
