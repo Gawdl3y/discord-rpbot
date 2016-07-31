@@ -55,13 +55,7 @@ If there aren't any mod roles set, users with the "manage messages" permission a
 Otherwise, users will be considered a moderator if they have one of the moderator roles.
 
 ## Usage
-### Token
-Run `rpbot --token SomeAPITokenGoesHere`.
-Replace the token with your bot's token.
-
-### Email & password
-Run `rpbot --email SomeGuy@SomeSite.com --password SomeCrazyPassword123`.
-Replace the credentials with your bot account's.
+Run `rpbot --help` for detailed usage, options, and examples.
 
 ## Configure
 Configuration can be specified on the command line, or in a JSON or YAML config file.
