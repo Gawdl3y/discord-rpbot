@@ -1,9 +1,11 @@
 'use babel';
 'use strict';
 
-/* eslint-disable */
+/* eslint-disable no-unused-vars */
+import util from 'util';
 import request from 'request';
 import semver from 'semver';
+import DiceExpression from 'dice-expression-evaluator';
 import stringArgv from 'string-argv';
 import * as rpbot from '../../rpbot';
 import config from '../../config';
@@ -24,7 +26,7 @@ import checkForUpdate from '../../util/update-check';
 import * as permissions from '../../util/permissions';
 import * as usage from '../../util/command-usage';
 import * as nbsp from '../../util/nbsp';
-/* eslint-enable */
+/* eslint-enable no-unused-vars */
 
 export default {
 	name: 'eval',
@@ -42,10 +44,9 @@ export default {
 	run(msg, args) {
 		if(!args[0]) return false;
 		try {
-			const output = eval(args[0]);
-			msg.reply(`Output: \`${output}\``);
+			msg.reply(`Result: \`${util.inspect(eval(args[0]))}\``);
 		} catch(e) {
-			msg.reply(`Error: ${e}`);
+			msg.reply(`Error while evaluating: ${e}`);
 		}
 	}
 };
