@@ -41,9 +41,9 @@ export default {
 		} else {
 			message.client.sendMessage(message.author, stripIndents`
 				${message.server ? `To run a command in ${message.server}, use ${usage.long('command', message.server)}. For example, ${usage.long('roll d20', message.server)}.` : ''}
-				To run a command in this DM, you may simply use ${usage.short('command')} with no prefix. For example, ${usage.short('roll d20')}.
+				To run a command in this DM, simply use ${usage.short('command')} with no prefix. For example, ${usage.short('roll d20')}.
 
-				**Available commands ${message.server ? `in ${message.server} ` : ''}(use ${usage.short('help <command>')} for more info):**
+				**Available commands in ${message.server ? `${message.server}` : 'this DM'} (use ${usage.short('help <command>')} for more info):**
 
 				${groups.filter(g => g.commands.some(c => c.isRunnable(message))).map(g => stripIndents`
 					__${g.name}__
