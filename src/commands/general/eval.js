@@ -44,7 +44,7 @@ export default {
 	run(msg, args) {
 		if(!args[0]) return false;
 		try {
-			msg.reply(`Result: \`${util.inspect(eval(args[0]))}\``);
+			msg.reply(`Result: \`${util.inspect(eval(args[0]), {depth: 1})}\``);
 		} catch(e) {
 			msg.reply(`Error while evaluating: ${e}`);
 		}
