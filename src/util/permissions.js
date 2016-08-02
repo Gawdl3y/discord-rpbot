@@ -3,15 +3,15 @@
 
 import { client } from '../rpbot';
 import config from '../config';
-import ModRolesDatabase from '../database/mod-roles';
+import ModRole from '../database/mod-role';
 
 export function isModerator(server, user) {
 	[server, user] = resolve(server, user);
 	if(user.id === config.owner) return true;
 	const userRoles = server.rolesOfUser(user);
 	if(userRoles.some(role => role.hasPermission('administrator'))) return true;
-	if(!ModRolesDatabase.serverHasRoles(server)) return userRoles.some(role => role.hasPermission('manageMessages'));
-	return ModRolesDatabase.findRolesInServer(server).some(element => userRoles.some(element2 => element.id === element2.id));
+	if(!ModRole.serverHasAny(server)) return userRoles.some(role => role.hasPermission('manageMessages'));
+	return ModRole.findInServer(server).some(element => userRoles.some(element2 => element.id === element2.id));
 }
 
 export function isAdministrator(server, user) {

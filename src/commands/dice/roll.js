@@ -4,6 +4,7 @@
 import DiceExpression from 'dice-expression-evaluator';
 import nbsp from '../../util/nbsp';
 import logger from '../../util/logger';
+import CommandFormatError from '../../util/errors/command-format';
 
 const pattern = /^(.+?)(?:(>|<)\s*([0-9]+?))?\s*$/;
 
@@ -25,8 +26,8 @@ export default {
 		return true;
 	},
 
-	run(message, args, fromPattern) {
-		if(!args[0]) return false;
+	async run(message, args, fromPattern) {
+		if(!args[0]) throw new CommandFormatError(this);
 		try {
 			const matches = fromPattern ? args : pattern.exec(args[0]);
 			const dice = new DiceExpression(matches[1]);

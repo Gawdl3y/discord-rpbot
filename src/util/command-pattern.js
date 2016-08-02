@@ -3,11 +3,11 @@
 
 import escapeRegex from 'escape-string-regexp';
 import config from '../config';
-import SettingsDatabase from '../database/settings';
+import Setting from '../database/setting';
 import logger from './logger';
 
 export function buildCommandPattern(server, user) {
-	let prefix = server ? SettingsDatabase.getSettingValue('command-prefix', config.commandPrefix, server) : config.commandPrefix;
+	let prefix = server ? Setting.getValue('command-prefix', config.commandPrefix, server) : config.commandPrefix;
 	if(prefix === 'none') prefix = '';
 	const escapedPrefix = escapeRegex(prefix);
 	const prefixPatternPiece = prefix ? escapedPrefix + '\\s*|' : '';

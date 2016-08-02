@@ -1,7 +1,7 @@
 'use babel';
 'use strict';
 
-import database from '../../database/mod-roles';
+import ModRole from '../../database/mod-role';
 import * as permissions from '../../util/permissions';
 
 export default {
@@ -16,8 +16,8 @@ export default {
 		return message.server && permissions.isAdministrator(message.server, message.author);
 	},
 
-	run(message) {
-		const roles = database.findRolesInServer(message.server);
+	async run(message) {
+		const roles = ModRole.findInServer(message.server);
 		if(roles.length > 0) {
 			message.reply('Moderator roles:\n' + roles.map(role => `${role.name} (ID: ${role.id})`).join('\n'));
 		} else {

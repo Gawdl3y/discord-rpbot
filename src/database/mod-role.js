@@ -5,18 +5,18 @@ import storage from './local-storage';
 import search from '../util/search';
 import logger from '../util/logger';
 
-export default class ModRolesDatabase {
+export default class ModRole {
 	static loadDatabase() {
 		this.serversMap = JSON.parse(storage.getItem('mod-roles'));
 		if(!this.serversMap) this.serversMap = {};
 	}
 
 	static saveDatabase() {
-		logger.debug('Saving mod roles database...', this.serversMap);
+		logger.debug('Saving mod roles storage...', this.serversMap);
 		storage.setItem('mod-roles', JSON.stringify(this.serversMap));
 	}
 
-	static saveRole(role) {
+	static save(role) {
 		if(!role) throw new Error('A role must be specified.');
 		if(!this.serversMap) this.loadDatabase();
 		if(!this.serversMap[role.server.id]) this.serversMap[role.server.id] = [];
@@ -24,16 +24,16 @@ export default class ModRolesDatabase {
 
 		if(!serverRoles.includes(role.id)) {
 			serverRoles.push(role.id);
-			logger.info('Added new mod role.', this.basicRoleInfo(role));
+			logger.info('Added new mod role.', this.basicInfo(role));
 			this.saveDatabase();
 			return true;
 		} else {
-			logger.info('Not adding mod role, because it already exists.', this.basicRoleInfo(role));
+			logger.info('Not adding mod role, because it already exists.', this.basicInfo(role));
 			return false;
 		}
 	}
 
-	static deleteRole(role) {
+	static delete(role) {
 		if(!role) throw new Error('A role must be specified.');
 		if(!this.serversMap) this.loadDatabase();
 		if(!this.serversMap[role.server.id]) return false;
@@ -42,16 +42,16 @@ export default class ModRolesDatabase {
 		const roleIndex = serverRoles.findIndex(element => element === role.id);
 		if(roleIndex >= 0) {
 			serverRoles.splice(roleIndex, 1);
-			logger.info('Removed mod role.', this.basicRoleInfo(role));
+			logger.info('Removed mod role.', this.basicInfo(role));
 			this.saveDatabase();
 			return true;
 		} else {
-			logger.info('Not removing mod role, because it doesn\'t exist.', this.basicRoleInfo(role));
+			logger.info('Not removing mod role, because it doesn\'t exist.', this.basicInfo(role));
 			return false;
 		}
 	}
 
-	static findRolesInServer(server, searchString = null) {
+	static findInServer(server, searchString = null) {
 		if(!server) throw new Error('A server must be specified.');
 		if(!this.serversMap) this.loadDatabase();
 		if(!this.serversMap[server.id]) return [];
@@ -61,13 +61,13 @@ export default class ModRolesDatabase {
 		return search(roles, searchString, { searchInexact: false });
 	}
 
-	static serverHasRoles(server) {
+	static serverHasAny(server) {
 		if(!server) throw new Error('A server must be specified.');
 		if(!this.serversMap) this.loadDatabase();
 		return this.serversMap[server.id] && this.serversMap[server.id].length > 0;
 	}
 
-	static basicRoleInfo(role) {
+	static basicInfo(role) {
 		return { id: role.id, name: role.name, server: role.server.name, serverID: role.server.id };
 	}
 }

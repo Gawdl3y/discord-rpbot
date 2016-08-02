@@ -19,7 +19,7 @@ export default {
 		return true;
 	},
 
-	run(message, args) {
+	async run(message, args) {
 		const commands = findCommands(args[0], message);
 		if(args[0]) {
 			if(commands.length === 1) {

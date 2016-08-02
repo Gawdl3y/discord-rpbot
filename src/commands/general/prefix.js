@@ -6,7 +6,6 @@ import config from '../../config';
 import buildCommandPattern from '../../util/command-pattern';
 import * as permissions from '../../util/permissions';
 import * as usage from '../../util/command-usage';
-import SettingsDatabase from '../../database/settings';
 import Setting from '../../database/setting';
 
 export default {
@@ -23,7 +22,7 @@ export default {
 		return true;
 	},
 
-	run(message, args) {
+	async run(message, args) {
 		if(args[0] && message.server) {
 			// Only allow administrators
 			if(!permissions.isAdministrator(message.server, message.author)) {
@@ -36,10 +35,10 @@ export default {
 			const prefix = lowercase === 'none' ? '' : args[0];
 			let response;
 			if(lowercase === 'default') {
-				SettingsDatabase.deleteSetting('command-prefix', message.server);
+				Setting.delete('command-prefix', message.server);
 				response = `Reset the command prefix to default (currently "${config.commandPrefix}").`;
 			} else {
-				SettingsDatabase.saveSetting(new Setting(message.server, 'command-prefix', prefix));
+				Setting.save(new Setting(message.server, 'command-prefix', prefix));
 				response = prefix ? `Set the command prefix to "${args[0]}".` : 'Removed the command prefix entirely.';
 			}
 
@@ -49,8 +48,8 @@ export default {
 
 			message.reply(`${response} To run commands, use ${usage.long('command', message.server)}.`);
 		} else {
-			const prefix = message.server ? SettingsDatabase.getSettingValue('command-prefix', config.commandPrefix, message.server) : config.commandPrefix;
-			message.reply(`${prefix ? `The command prefix is "${prefix}".` : 'There is no command prefix.'} To run commands, use ${usage.long('command', message.server)}`);
+			const prefix = message.server ? Setting.getValue('command-prefix', config.commandPrefix, message.server) : config.commandPrefix;
+			message.reply(`${prefix ? `The command prefix is "${prefix}".` : 'There is no command prefix.'} To run commands, use ${usage.long('command', message.server)}.`);
 		}
 	}
 };

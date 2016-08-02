@@ -3,7 +3,7 @@
 
 import stringArgv from 'string-argv';
 import Character from '../../database/character';
-import database from '../../database/characters';
+import CommandFormatError from '../../util/errors/command-format';
 
 const newlinesPattern = /\n/g;
 const newlinesReplacement = '{!~NL~!}';
@@ -26,8 +26,8 @@ export default {
 		return !!message.server;
 	},
 
-	run(message, args) {
-		if(!args[0]) return false;
+	async run(message, args) {
+		if(!args[0]) throw new CommandFormatError(this);
 		if(mentionsPattern.test(args[0])) {
 			message.reply('Please do not use mentions in your character name or information.');
 			return;
@@ -51,11 +51,11 @@ export default {
 		}
 
 		// Add or update the character
-		const result = database.saveCharacter(new Character(message.server, message.author, name, info));
+		const result = await Character.save(new Character(message.server, message.author, name, info));
 		if(result) {
-			message.reply(`${result === 1 ? 'Added' : 'Updated'} character "${name}".`);
+			message.reply(`${result.new ? 'Added' : 'Updated'} character "${name}".`);
 		} else {
-			message.reply(`Unable to update character "${info}". You are not the owner.`);
+			message.reply(`Unable to update character "${name}". You are not the owner.`);
 		}
 	}
 };

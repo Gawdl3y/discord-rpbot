@@ -3,6 +3,7 @@
 
 import DiceExpression from 'dice-expression-evaluator';
 import logger from '../../util/logger';
+import CommandFormatError from '../../util/errors/command-format';
 
 export default {
 	name: 'minroll',
@@ -18,8 +19,8 @@ export default {
 		return true;
 	},
 
-	run(message, args) {
-		if(!args[0]) return false;
+	async run(message, args) {
+		if(!args[0]) throw new CommandFormatError(this);
 		try {
 			const minRoll = new DiceExpression(args[0]).min();
 			message.reply(`The minimum possible roll is **${minRoll}**.`);

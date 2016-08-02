@@ -15,7 +15,7 @@ export default {
 		return true;
 	},
 
-	run(message) {
+	async run(message) {
 		const owner = message.client.users.get('id', config.owner);
 		const servers = message.client.servers.length.toLocaleString(), users = message.client.users.length.toLocaleString();
 		const serversLabel = servers != 1 ? 'servers' : 'server', usersLabel = users != 1 ? 'users' : 'user';

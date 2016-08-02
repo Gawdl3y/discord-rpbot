@@ -3,6 +3,7 @@
 
 import DiceExpression from 'dice-expression-evaluator';
 import logger from '../../util/logger';
+import CommandFormatError from '../../util/errors/command-format';
 
 export default {
 	name: 'maxroll',
@@ -18,8 +19,8 @@ export default {
 		return true;
 	},
 
-	run(message, args) {
-		if(!args[0]) return false;
+	async run(message, args) {
+		if(!args[0]) throw new CommandFormatError(this);
 		try {
 			const maxRoll = new DiceExpression(args[0]).max();
 			message.reply(`The maximum possible roll is **${maxRoll}**.`);

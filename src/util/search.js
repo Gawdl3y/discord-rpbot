@@ -1,31 +1,27 @@
 'use babel';
 'use strict';
 
-export default function search(items, searchString, options) {
+export default function search(items, searchString, { property = 'name', searchInexact = true, searchExact = true, useStartsWith = false } = {}) {
 	if(!items || items.length === 0) return [];
 	if(!searchString) return items;
-	if(!options) options = {};
-	if(!('property' in options)) options.property = 'name';
-	if(!('searchInexact' in options)) options.searchInexact = true;
-	if(!('searchExact' in options)) options.searchExact = true;
 
 	const lowercaseSearch = searchString.toLowerCase();
 	let matchedItems;
 
 	// Find all items that start with or include the search string
-	if(options.searchInexact) {
-		if(options.useStartsWith && searchString.length === 1) {
-			matchedItems = items.filter(element => (options.property ? element[options.property] : element.toString()).normalize('NFKD').toLowerCase().startsWith(lowercaseSearch));
+	if(searchInexact) {
+		if(useStartsWith && searchString.length === 1) {
+			matchedItems = items.filter(element => (property ? element[property] : element.toString()).normalize('NFKD').toLowerCase().startsWith(lowercaseSearch));
 		} else {
-			matchedItems = items.filter(element => (options.property ? element[options.property] : element.toString()).normalize('NFKD').toLowerCase().includes(lowercaseSearch));
+			matchedItems = items.filter(element => (property ? element[property] : element.toString()).normalize('NFKD').toLowerCase().includes(lowercaseSearch));
 		}
 	} else {
 		matchedItems = items;
 	}
 
 	// See if any are an exact match
-	if(options.searchExact && matchedItems.length > 1) {
-		const exactItems = matchedItems.filter(element => (options.property ? element[options.property] : element.toString()).normalize('NFKD').toLowerCase() === lowercaseSearch);
+	if(searchExact && matchedItems.length > 1) {
+		const exactItems = matchedItems.filter(element => (property ? element[property] : element.toString()).normalize('NFKD').toLowerCase() === lowercaseSearch);
 		if(exactItems.length > 0) return exactItems;
 	}
 

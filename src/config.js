@@ -36,20 +36,36 @@ const config = yargs
 	})
 	.implies({ email: 'password', password: 'email' })
 
-	// General
-	.option('owner', {
+	// Database
+	.option('database', {
 		type: 'string',
-		alias: 'o',
-		describe: 'Discord user ID of the bot owner',
-		group: 'General:'
+		default: 'rpbot.sqlite3',
+		alias: 'd',
+		describe: 'Path to SQLite3 database file',
+		group: 'Database:',
+		normalize: true
+	})
+	.option('database-verbose', {
+		type: 'boolean',
+		alias: 'V',
+		describe: 'Whether or not SQLite3 should be put into verbose mode',
+		group: 'Database:'
 	})
 	.option('storage', {
 		type: 'string',
 		default: 'rpbot-storage',
 		alias: 's',
 		describe: 'Path to storage directory',
-		group: 'General:',
+		group: 'Database:',
 		normalize: true
+	})
+
+	// General
+	.option('owner', {
+		type: 'string',
+		alias: 'o',
+		describe: 'Discord user ID of the bot owner',
+		group: 'General:'
 	})
 	.option('command-prefix', {
 		type: 'string',
@@ -144,7 +160,7 @@ const config = yargs
 			const extension = path.extname(configFile).toLowerCase();
 			if(extension === '.json')
 				return JSON.parse(fs.readFileSync(configFile));
-			else if(extension === '.yml' || extension == '.yaml')
+			else if(extension === '.yml' || extension === '.yaml')
 				return YAML.safeLoad(fs.readFileSync(configFile));
 			throw new Error('Unknown config file type.');
 		}

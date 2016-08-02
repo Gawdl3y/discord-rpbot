@@ -14,9 +14,6 @@ import * as commands from '..';
 import storage from '../../database/local-storage';
 import Character from '../../database/character';
 import Setting from '../../database/setting';
-import CharDB from '../../database/characters';
-import SettingDB from '../../database/settings';
-import ModRolesDB from '../../database/mod-roles';
 import search from '../../util/search';
 import disambiguation from '../../util/disambiguation';
 import pagination from '../../util/pagination';
@@ -26,6 +23,8 @@ import checkForUpdate from '../../util/update-check';
 import * as permissions from '../../util/permissions';
 import * as usage from '../../util/command-usage';
 import * as nbsp from '../../util/nbsp';
+import FriendlyError from '../../util/errors/friendly';
+import CommandFormatError from '../../util/errors/command-format';
 /* eslint-enable no-unused-vars */
 
 export default {
@@ -41,8 +40,8 @@ export default {
 		return message.author.id === config.owner;
 	},
 
-	run(msg, args) {
-		if(!args[0]) return false;
+	async run(msg, args) {
+		if(!args[0]) throw new CommandFormatError(this);
 		try {
 			msg.reply(`Result: \`${util.inspect(eval(args[0]), {depth: 0})}\``);
 		} catch(e) {

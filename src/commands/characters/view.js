@@ -1,9 +1,10 @@
 'use babel';
 'use strict';
 
-import database from '../../database/characters';
+import Character from '../../database/character';
 import disambiguation from '../../util/disambiguation';
 import * as usage from '../../util/command-usage';
+import CommandFormatError from '../../util/errors/command-format';
 
 export default {
 	name: 'character',
@@ -20,9 +21,9 @@ export default {
 		return !!message.server;
 	},
 
-	run(message, args) {
-		if(!args[0]) return false;
-		const characters = database.findCharactersInServer(message.server, args[0]);
+	async run(message, args) {
+		if(!args[0]) throw new CommandFormatError(this);
+		const characters = await Character.findInServer(message.server, args[0]);
 		if(characters.length === 1) {
 			const owner = message.client.users.get('id', characters[0].owner);
 			const ownerName = owner ? owner.name + '#' + owner.discriminator : 'Unknown';

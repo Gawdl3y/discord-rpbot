@@ -24,7 +24,7 @@ Run `sudo npm install -g discord-rpbot --no-optional`.
 There is no identifiable or potentially private/unsafe information sent whatsoever.
 The only things that are being shared is the name of commands being run (no message contents), and an event for the bot starting up.
 This is so that I know how many people are using the bot, and what commands are being used the most.
-If you don't want anything being sent at all, use the `analytics` configuration option.
+If you don't want anything being sent at all, run RPBot with the `--no-analytics` option, or set `analytics` in your config file.
 
 ## Chat commands
 | Command          | Description                                                                                                   |

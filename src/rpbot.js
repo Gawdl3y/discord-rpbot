@@ -2,16 +2,18 @@
 'use babel';
 'use strict';
 
+import config from './config';
 import Discord from 'discord.js';
 import stringArgv from 'string-argv';
-import config from './config';
 import version from './version';
 import commands from './commands';
+import { init as initDatabase, close as closeDatabase } from './database';
 import logger from './util/logger';
 import buildCommandPattern from './util/command-pattern';
 import checkForUpdate from './util/update-check';
 import * as usage from './util/command-usage';
 import * as analytics from './util/analytics';
+import FriendlyError from './util/errors/friendly';
 
 logger.info('RPBot v' + version + ' is starting...');
 analytics.sendEvent('Bot', 'started');
@@ -29,6 +31,12 @@ if(!config.token && (!config.email || !config.password)) {
 	logger.error('Invalid credentials; either "token" or both "email" and "password" must be specified.');
 	process.exit(1);
 }
+
+// Set up database
+initDatabase().catch(err => {
+	logger.error(err);
+	process.exit(1);
+});
 
 // Create client
 const clientOptions = { autoReconnect: config.autoReconnect, forceFetchUsers: true, disableEveryone: true };
@@ -109,14 +117,15 @@ client.on('message', message => {
 		if(runCommand.isRunnable(message)) {
 			logger.info(`Running ${runCommand.group}:${runCommand.groupName}.`, logInfo);
 			analytics.sendEvent('Command', 'run', runCommand.group + ':' + runCommand.groupName);
-			try {
-				const result = runCommand.run(message, runArgs, runFromPattern);
-				if(typeof result !== 'undefined' && !result) message.reply(`Invalid command format. Use \`!help ${runCommand.name}\` for information.`);
-			} catch(e) {
-				message.reply(`An error occurred while running the command. (${e.name}: ${e.message})`);
-				logger.error(e);
-				analytics.sendException(e);
-			}
+			runCommand.run(message, runArgs, runFromPattern).catch(err => {
+				if(err instanceof FriendlyError) {
+					message.reply(err.message);
+				} else {
+					message.reply(`An error occurred while running the command. (${err.name}: ${err.message})`);
+					logger.error(err);
+					analytics.sendException(err);
+				}
+			});
 		} else {
 			message.reply(`The \`${runCommand.name}\` command is not currently usable in your context.`);
 			logger.info(`Not running ${runCommand.group}:${runCommand.groupName}; not runnable.`, logInfo);
@@ -137,7 +146,20 @@ if(config.token) {
 }
 
 // Exit on interrupt
-process.on('SIGINT', () => {
-	logger.info('Received interrupt signal; destroying client and exiting...');
-	client.destroy(() => { process.exit(0); });
+let interruptCount = 0;
+process.on('SIGINT', async () => {
+	interruptCount++;
+	if(interruptCount === 1) {
+		logger.info('Received interrupt signal; closing database, destroying client, and exiting...');
+		await Promise.all([
+			closeDatabase(),
+			client.destroy()
+		]).catch((err) => {
+			logger.error(err);
+		});
+		process.exit(0);
+	} else {
+		logger.info('Received another interrupt signal; immediately exiting.');
+		process.exit(0);
+	}
 });

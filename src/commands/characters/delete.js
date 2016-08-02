@@ -1,9 +1,10 @@
 'use babel';
 'use strict';
 
-import database from '../../database/characters';
+import Character from '../../database/character';
 import disambiguation from '../../util/disambiguation';
 import * as usage from '../../util/command-usage';
+import CommandFormatError from '../../util/errors/command-format';
 
 export default {
 	name: 'deletecharacter',
@@ -20,12 +21,12 @@ export default {
 		return !!message.server;
 	},
 
-	run(message, args) {
-		if(!args[0]) return false;
-		const characters = database.findCharactersInServer(message.server, args[0]);
+	async run(message, args) {
+		if(!args[0]) throw new CommandFormatError(this);
+		const characters = await Character.findInServer(message.server, args[0]);
 		if(characters.length === 1) {
-			if(database.deleteCharacter(characters[0])) {
-				message.reply(`Deleted character "${characters[0].name}."`);
+			if(await Character.delete(characters[0])) {
+				message.reply(`Deleted character "${characters[0].name}".`);
 			} else {
 				message.reply(`Unable to delete character "${characters[0].name}". You are not the owner.`);
 			}

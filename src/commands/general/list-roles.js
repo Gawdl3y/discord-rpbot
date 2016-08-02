@@ -15,7 +15,7 @@ export default {
 		return message.server && permissions.isAdministrator(message.server, message.author);
 	},
 
-	run(message) {
+	async run(message) {
 		const roleList = message.server.roles.map(element => `${element.name} (ID: ${element.id})`).join('\n');
 		message.reply(`Server roles:\n${roleList}`);
 	}

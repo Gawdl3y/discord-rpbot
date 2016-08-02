@@ -1,7 +1,7 @@
 'use babel';
 'use strict';
 
-import database from '../../database/characters';
+import Character from '../../database/character';
 import config from '../../config';
 import paginate from '../../util/pagination';
 import * as usage from '../../util/command-usage';
@@ -20,10 +20,11 @@ export default {
 		return !!message.server;
 	},
 
-	run(message, args) {
-		const search = args.length >= 2 || isNaN(args[0]) ? args[0] : '';
-		const page = args.length >= 2 ? parseInt(args[1]) : (!isNaN(args[0]) ? parseInt(args[0]) : 1);
-		let characters = database.findCharactersInServer(message.server, search, false);
+	async run(message, args) {
+		const last = args.length >= 1 ? args.length - 1 : 0;
+		const page = !isNaN(args[last]) ? parseInt(args.pop()) : 1;
+		const search = args.join(' ');
+		let characters = await Character.findInServer(message.server, search, false);
 		if(characters.length > 0) {
 			characters.sort((a, b) => a.name < b.name ? -1 : (a.name > b.name ? 1 : 0));
 			const paginated = paginate(characters, page, Math.floor(config.paginationItems));

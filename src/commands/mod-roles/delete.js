@@ -1,10 +1,11 @@
 'use babel';
 'use strict';
 
-import database from '../../database/mod-roles';
+import ModRole from '../../database/mod-role';
 import disambiguation from '../../util/disambiguation';
 import * as usage from '../../util/command-usage';
 import * as permissions from '../../util/permissions';
+import CommandFormatError from '../../util/errors/command-format';
 
 const pattern = /^(?:<@&)?(.+?)>?$/;
 
@@ -23,15 +24,15 @@ export default {
 		return message.server && permissions.isAdministrator(message.server, message.author);
 	},
 
-	run(message, args) {
-		if(!args[0]) return false;
+	async run(message, args) {
+		if(!args[0]) throw new CommandFormatError(this);
 		const matches = pattern.exec(args[0]);
 		let roles;
 		const idRole = message.server.roles.get('id', matches[1]);
-		if(idRole) roles = [idRole]; else roles = database.findRolesInServer(message.server, matches[1]);
+		if(idRole) roles = [idRole]; else roles = ModRole.findInServer(message.server, matches[1]);
 
 		if(roles.length === 1) {
-			if(database.deleteRole(roles[0])) {
+			if(ModRole.delete(roles[0])) {
 				message.reply(`Removed "${roles[0].name}" from the moderator roles.`);
 			} else {
 				message.reply(`Unable to remove "${roles[0].name}" from the moderator roles. It isn\'t one.`);
