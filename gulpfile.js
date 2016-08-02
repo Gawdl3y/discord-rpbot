@@ -20,9 +20,7 @@ gulp.task('clean', () => {
 
 gulp.task('publish', ['clean', 'build'], () => {
 	const version = process.env.npm_package_version ? process.env.npm_package_version : require('./package.json').version;
-	let chain = gulp.src('.')
+	return gulp.src('.')
 		.pipe(exec(`git tag v${version}`))
 		.pipe(exec(`git push origin v${version}`));
-	if(!process.env.npm_package_version) return chain.pipe(exec('npm publish'));
-	return chain;
 });
