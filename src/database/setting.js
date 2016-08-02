@@ -32,6 +32,17 @@ export default class Setting {
 		return true;
 	}
 
+	static delete(setting, server = null) {
+		[setting, server] = this.getSettingKeyAndServer(setting, server);
+		if(!this.serversMap) this.loadDatabase();
+		if(!this.serversMap[server]) return false;
+		if(typeof this.serversMap[server][setting] === 'undefined') return false;
+		delete this.serversMap[server][setting];
+		logger.info('Deleted setting.', { key: setting, server: server });
+		this.saveDatabase();
+		return true;
+	}
+
 	static get(setting, server = null) {
 		[setting, server] = this.getSettingKeyAndServer(setting, server);
 		if(!this.serversMap) this.loadDatabase();
@@ -46,16 +57,6 @@ export default class Setting {
 		return setting in this.serversMap[server] ? this.serversMap[server][setting] : defaultValue;
 	}
 
-	static delete(setting, server = null) {
-		[setting, server] = this.getSettingKeyAndServer(setting, server);
-		if(!this.serversMap) this.loadDatabase();
-		if(!this.serversMap[server]) return false;
-		if(typeof this.serversMap[server][setting] === 'undefined') return false;
-		delete this.serversMap[server][setting];
-		logger.info('Removed setting.', { key: setting, server: server });
-		this.saveDatabase();
-		return true;
-	}
 
 	static getSettingKeyAndServer(setting, server) {
 		if(setting instanceof Setting) {

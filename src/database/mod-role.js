@@ -42,11 +42,11 @@ export default class ModRole {
 		const roleIndex = serverRoles.findIndex(element => element === role.id);
 		if(roleIndex >= 0) {
 			serverRoles.splice(roleIndex, 1);
-			logger.info('Removed mod role.', this.basicInfo(role));
+			logger.info('Deleted mod role.', this.basicInfo(role));
 			this.saveDatabase();
 			return true;
 		} else {
-			logger.info('Not removing mod role, because it doesn\'t exist.', this.basicInfo(role));
+			logger.info('Not deleting mod role, because it doesn\'t exist.', this.basicInfo(role));
 			return false;
 		}
 	}
