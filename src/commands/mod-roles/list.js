@@ -19,7 +19,7 @@ export default {
 	async run(message) {
 		const roles = ModRole.findInServer(message.server);
 		if(roles.length > 0) {
-			message.reply('Moderator roles:\n' + roles.map(role => `${role.name} (ID: ${role.id})`).join('\n'));
+			message.reply('__**Moderator roles:**__\n' + roles.map(role => `${role.name} (ID: ${role.id})`).join('\n'));
 		} else {
 			message.reply('There are no moderator roles.');
 		}

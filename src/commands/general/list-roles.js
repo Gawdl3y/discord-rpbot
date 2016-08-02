@@ -17,6 +17,6 @@ export default {
 
 	async run(message) {
 		const roleList = message.server.roles.map(element => `${element.name} (ID: ${element.id})`).join('\n');
-		message.reply(`Server roles:\n${roleList}`);
+		message.reply(`__**Server roles:**__\n${roleList}`);
 	}
 };
