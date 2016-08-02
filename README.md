@@ -6,7 +6,7 @@
 [![License](https://img.shields.io/npm/l/discord-rpbot.svg)](LICENSE)
 
 This is a simple Discord bot that contains commands useful for roleplaying.
-It is written in ECMAScript 6 using Babel, and is built with [discord.js](https://github.com/hydrabolt/discord.js) and Node.js.
+It is written in ES7/ES2016 using Babel, and is built with [discord.js](https://github.com/hydrabolt/discord.js) and Node.js.
 
 Have any questions/feedback?
 Join the [Discord server](https://discord.gg/SZMhh2B).
