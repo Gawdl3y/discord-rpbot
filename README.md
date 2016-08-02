@@ -68,6 +68,9 @@ The settings:
 | token                | API token for the bot account                                                    |
 | email                | Email of the Discord account for the bot to use (not needed if using `token`)    |
 | password             | Password of the Discord account for the bot to use (not needed if using `token`) |
+| database             | Path to SQLite3 database file                                                    |
+| database-verbose     | Whether or not SQLite3 should be put into verbose mode                           |
+| storage              | Path to the storage directory                                                    |
 | owner                | Discord user ID of the bot owner                                                 |
 | command-prefix       | Default command prefix (blank to use only mentions)                              |
 | unknown-only-mention | Whether or not to output unknown command response only for mentions              |
@@ -75,7 +78,6 @@ The settings:
 | update-check         | How frequently to check for an update (in minutes - use 0 to disable)            |
 | analytics            | Whether or not to enable anonymous, non-unique, non-identifiable analytics       |
 | auto-reconnect       | Whether or not the bot should automatically reconnect when disconnected          |
-| storage              | Path to the storage directory                                                    |
 | log                  | Path to the log file to output to                                                |
 | log-max-size         | Maximum size of a single log file (in bytes)                                     |
 | log-max-files        | Maximum log files to keep                                                        |
