@@ -10,6 +10,7 @@ export default {
 	name: 'help',
 	group: 'general',
 	groupName: 'help',
+	aliases: ['commands'],
 	description: 'Displays a list of available commands, or detailed information for a specified command.',
 	usage: 'help [command]',
 	details: 'The command may be part of a command name or a whole command name. If it isn\'t specified, all available commands will be listed.',
@@ -25,7 +26,7 @@ export default {
 			if(commands.length === 1) {
 				let help = stripIndents`
 					__Command **${commands[0].name}**:__ ${commands[0].description}
-					
+
 					**Usage:** ${usage.long(commands[0].usage ? commands[0].usage : commands[0].name, message.server)}
 				`;
 				if(commands[0].aliases) help += `\n**Aliases:** ${commands[0].aliases.join(', ')}`;
