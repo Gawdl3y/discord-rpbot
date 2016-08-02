@@ -24,7 +24,7 @@
 		"clean": "rm -rf lib",
 		"rebuild": "npm run clean && npm run build",
 		"rebuild-maps": "npm run clean && npm run build-maps",
-		"publish": "npm run rebuild && npm publish"
+		"prepublish": "npm run rebuild"
 	},
 	"bin": {
 		"rpbot": "lib/rpbot.js"
