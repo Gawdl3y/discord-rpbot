@@ -40,7 +40,7 @@
 		"universal-analytics": "^0.4.0"
 	},
 	"devDependencies": {
-		"gulp": "^3.9.0",
+		"gulp": "gulpjs/gulp#4.0",
 		"gulp-babel": "^6.1.0",
 		"gulp-sourcemaps": "^1.6.0",
 		"gulp-exec": "^2.1.0",

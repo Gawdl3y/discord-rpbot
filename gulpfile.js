@@ -5,9 +5,7 @@ const exec = require('gulp-exec');
 const eslint = require('gulp-eslint');
 const del = require('del');
 
-gulp.task('default', ['clean', 'build']);
-
-gulp.task('build', ['clean'], () => {
+gulp.task('build', () => {
 	return gulp.src('src/**/*.js')
 		.pipe(sourcemaps.init())
 		.pipe(babel())
@@ -19,18 +17,21 @@ gulp.task('clean', () => {
 	return del('lib/**');
 });
 
-gulp.task('publish', ['clean', 'lint', 'build'], () => {
+gulp.task('lint', () => {
+	return gulp.src('src/**/*.js')
+	.pipe(eslint())
+	.pipe(eslint.format())
+	.pipe(eslint.failAfterError());
+});
+
+gulp.task('rebuild', gulp.series('clean', 'build'));
+gulp.task('default', gulp.parallel('lint', 'rebuild'));
+
+gulp.task('publish', gulp.series('default', () => {
 	const version = require('./package.json').version;
 	return gulp.src('.')
 		.pipe(exec(`git commit -am "Prepare ${version} release"`))
 		.pipe(exec(`git tag v${version}`))
 		.pipe(exec(`git push --follow-tags`))
 		.pipe(exec('npm publish'));
-});
-
-gulp.task('lint', () => {
-	return gulp.src('src/**/*.js')
-		.pipe(eslint())
-		.pipe(eslint.format())
-		.pipe(eslint.failAfterError());
-});
+}));
