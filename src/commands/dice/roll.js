@@ -27,7 +27,7 @@ export default {
 	},
 
 	async run(message, args, fromPattern) {
-		if(!args[0]) throw new CommandFormatError(this);
+		if(!args[0]) throw new CommandFormatError(this, message.server);
 		try {
 			const matches = fromPattern ? args : pattern.exec(args[0]);
 			const dice = new DiceExpression(matches[1]);

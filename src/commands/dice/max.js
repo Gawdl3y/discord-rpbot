@@ -20,7 +20,7 @@ export default {
 	},
 
 	async run(message, args) {
-		if(!args[0]) throw new CommandFormatError(this);
+		if(!args[0]) throw new CommandFormatError(this, message.server);
 		try {
 			const maxRoll = new DiceExpression(args[0]).max();
 			message.reply(`The maximum possible roll is **${maxRoll}**.`);

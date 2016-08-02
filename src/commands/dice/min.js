@@ -20,7 +20,7 @@ export default {
 	},
 
 	async run(message, args) {
-		if(!args[0]) throw new CommandFormatError(this);
+		if(!args[0]) throw new CommandFormatError(this, message.server);
 		try {
 			const minRoll = new DiceExpression(args[0]).min();
 			message.reply(`The minimum possible roll is **${minRoll}**.`);

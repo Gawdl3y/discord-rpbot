@@ -27,7 +27,7 @@ export default {
 	},
 
 	async run(message, args) {
-		if(!args[0]) throw new CommandFormatError(this);
+		if(!args[0]) throw new CommandFormatError(this, message.server);
 		if(mentionsPattern.test(args[0])) {
 			message.reply('Please do not use mentions in your character name or information.');
 			return;
@@ -40,7 +40,7 @@ export default {
 		const info = argv.join(' ').replace(newlinesReplacementPattern, '\n').replace(extraNewlinesPattern, '\n\n');
 
 		// Apply some restrictions
-		if(!info) throw new CommandFormatError(this);
+		if(!info) throw new CommandFormatError(this, message.server);
 		if(name.length > 60) {
 			message.reply('A character\'s name may not be longer than 60 characters.');
 			return;

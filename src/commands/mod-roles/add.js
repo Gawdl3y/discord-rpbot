@@ -26,7 +26,7 @@ export default {
 	},
 
 	async run(message, args) {
-		if(!args[0]) throw new CommandFormatError(this);
+		if(!args[0]) throw new CommandFormatError(this, message.server);
 		const matches = pattern.exec(args[0]);
 		let roles;
 		const idRole = message.server.roles.get('id', matches[1]);

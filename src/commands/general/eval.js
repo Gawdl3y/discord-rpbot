@@ -41,7 +41,7 @@ export default {
 	},
 
 	async run(msg, args) {
-		if(!args[0]) throw new CommandFormatError(this);
+		if(!args[0]) throw new CommandFormatError(this, msg.server);
 		try {
 			msg.reply(`Result: \`${util.inspect(eval(args[0]), {depth: 0})}\``);
 		} catch(e) {

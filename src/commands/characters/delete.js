@@ -22,7 +22,7 @@ export default {
 	},
 
 	async run(message, args) {
-		if(!args[0]) throw new CommandFormatError(this);
+		if(!args[0]) throw new CommandFormatError(this, message.server);
 		const characters = await Character.findInServer(message.server, args[0]);
 		if(characters.length === 1) {
 			if(await Character.delete(characters[0])) {
