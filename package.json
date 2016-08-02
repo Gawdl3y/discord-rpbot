@@ -23,7 +23,8 @@
 		"build-maps": "babel src -d lib --source-maps",
 		"clean": "rm -rf lib",
 		"rebuild": "npm run clean && npm run build",
-		"rebuild-maps": "npm run clean && npm run build-maps"
+		"rebuild-maps": "npm run clean && npm run build-maps",
+		"publish": "npm run rebuild && npm publish"
 	},
 	"bin": {
 		"rpbot": "lib/rpbot.js"
