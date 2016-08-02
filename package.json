@@ -19,12 +19,8 @@
 	],
 	"preferGlobal": true,
 	"scripts": {
-		"build": "babel src -d lib",
-		"build-maps": "babel src -d lib --source-maps",
-		"clean": "rm -rf lib",
-		"rebuild": "npm run clean && npm run build",
-		"rebuild-maps": "npm run clean && npm run build-maps",
-		"prepublish": "npm run rebuild"
+		"build": "gulp",
+		"prepublish": "gulp publish"
 	},
 	"bin": {
 		"rpbot": "lib/rpbot.js"
@@ -45,8 +41,12 @@
 		"universal-analytics": "^0.4.0"
 	},
 	"devDependencies": {
+		"gulp": "^3.9.0",
+		"gulp-babel": "^6.1.0",
+		"gulp-sourcemaps": "^1.6.0",
+		"gulp-exec": "^2.1.0",
+		"del": "^2.2.0",
 		"eslint": "^3.1.0",
-		"babel-cli": "^6.11.0",
 		"babel-eslint": "^6.1.0",
 		"babel-preset-es2015-node6": "^0.2.0",
 		"fast-async": "^6.0.0"
