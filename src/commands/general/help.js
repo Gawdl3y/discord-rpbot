@@ -24,8 +24,8 @@ export default {
 		if(args[0]) {
 			if(commands.length === 1) {
 				let help = stripIndents`
-					Command **${commands[0].name}**: ${commands[0].description}
-
+					__Command **${commands[0].name}**:__ ${commands[0].description}
+					
 					**Usage:** ${usage.long(commands[0].usage ? commands[0].usage : commands[0].name, message.server)}
 				`;
 				if(commands[0].aliases) help += `\n**Aliases:** ${commands[0].aliases.join(', ')}`;
