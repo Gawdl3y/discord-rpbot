@@ -40,7 +40,7 @@ export default {
 		const info = argv.join(' ').replace(newlinesReplacementPattern, '\n').replace(extraNewlinesPattern, '\n\n');
 
 		// Apply some restrictions
-		if(!info) return false;
+		if(!info) throw new CommandFormatError(this);
 		if(name.length > 60) {
 			message.reply('A character\'s name may not be longer than 60 characters.');
 			return;
