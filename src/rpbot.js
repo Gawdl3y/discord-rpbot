@@ -5,6 +5,7 @@
 import config from './config';
 import Discord from 'discord.js';
 import stringArgv from 'string-argv';
+import { stripIndents } from 'common-tags';
 import version from './version';
 import commands from './commands';
 import { init as initDatabase, close as closeDatabase } from './database';
@@ -121,7 +122,12 @@ client.on('message', message => {
 				if(err instanceof FriendlyError) {
 					message.reply(err.message);
 				} else {
-					message.reply(`An error occurred while running the command. (${err.name}: ${err.message})`);
+					const owner = config.owner ? client.users.get('id', config.owner) : null;
+					message.reply(stripIndents`
+						An error occurred while running the command.
+						\`${err.name}: ${err.message}\`
+						${owner ? `Please contact ${owner.name}#${owner.discriminator}${config.invite ? ` in ${config.invite}` : ''}.` : ''}
+					`);
 					logger.error(err);
 					analytics.sendException(err);
 				}

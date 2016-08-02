@@ -67,6 +67,12 @@ const config = yargs
 		describe: 'Discord user ID of the bot owner',
 		group: 'General:'
 	})
+	.option('invite', {
+		type: 'string',
+		alias: 'i',
+		describe: 'Discord instant invite to contact the owner',
+		group: 'General:'
+	})
 	.option('command-prefix', {
 		type: 'string',
 		default: '!',
