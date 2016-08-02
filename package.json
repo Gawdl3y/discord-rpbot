@@ -19,8 +19,7 @@
 	],
 	"preferGlobal": true,
 	"scripts": {
-		"build": "gulp",
-		"prepublish": "gulp publish"
+		"build": "gulp"
 	},
 	"bin": {
 		"rpbot": "lib/rpbot.js"
@@ -45,6 +44,7 @@
 		"gulp-babel": "^6.1.0",
 		"gulp-sourcemaps": "^1.6.0",
 		"gulp-exec": "^2.1.0",
+		"gulp-eslint": "^3.0.0",
 		"del": "^2.2.0",
 		"eslint": "^3.1.0",
 		"babel-eslint": "^6.1.0",

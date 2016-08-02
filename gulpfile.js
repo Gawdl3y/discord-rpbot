@@ -2,6 +2,7 @@ const gulp = require('gulp');
 const babel = require('gulp-babel');
 const sourcemaps = require('gulp-sourcemaps');
 const exec = require('gulp-exec');
+const eslint = require('gulp-eslint');
 const del = require('del');
 
 gulp.task('default', ['clean', 'build']);
@@ -19,8 +20,17 @@ gulp.task('clean', () => {
 });
 
 gulp.task('publish', ['clean', 'build'], () => {
-	const version = process.env.npm_package_version ? process.env.npm_package_version : require('./package.json').version;
+	const version = require('./package.json').version;
 	return gulp.src('.')
+		.pipe(exec(`git commit -am "Prepare ${version} release"`))
 		.pipe(exec(`git tag v${version}`))
-		.pipe(exec(`git push origin v${version}`));
+		.pipe(exec(`git push --follow-tags`))
+		.pipe(exec('npm publish'));
+});
+
+gulp.task('lint', () => {
+	return gulp.src('src/**/*.js')
+		.pipe(eslint())
+		.pipe(eslint.format())
+		.pipe(eslint.failAfterError());
 });
