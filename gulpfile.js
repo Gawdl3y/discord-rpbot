@@ -19,7 +19,7 @@ gulp.task('clean', () => {
 	return del('lib/**');
 });
 
-gulp.task('publish', ['clean', 'build'], () => {
+gulp.task('publish', ['clean', 'lint', 'build'], () => {
 	const version = require('./package.json').version;
 	return gulp.src('.')
 		.pipe(exec(`git commit -am "Prepare ${version} release"`))
