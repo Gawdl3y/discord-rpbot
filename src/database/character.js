@@ -93,7 +93,7 @@ export default class Character {
 			characters.push(...serverCharacters);
 		}
 		if(characters.length > 0) {
-			const stmt = await db.prepare('INSERT INTO characters VALUES(?, ?, ?, ?)');
+			const stmt = await db.prepare(sqlInsert);
 			for(const character of characters) {
 				stmt.run(character.server, character.name, character.info, character.owner);
 			}
