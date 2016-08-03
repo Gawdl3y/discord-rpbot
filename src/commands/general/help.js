@@ -41,7 +41,7 @@ export default {
 			}
 		} else {
 			message.client.sendMessage(message.author, stripIndents`
-				${message.server ? `To run a command in ${message.server}, use ${usage('command', message.server)}. For example, ${usage('roll d20', message.server)}.` : ''}
+				To run a command in ${message.server ? message.server : 'any server'}, use ${usage('command', message.server, !message.server)}. For example, ${usage('roll d20', message.server, !message.server)}.
 				To run a command in this DM, simply use ${usage('command')} with no prefix. For example, ${usage('roll d20')}.
 
 				**Available commands in ${message.server ? `${message.server}` : 'this DM'} (use ${usage('help <command>')} for more info):**
