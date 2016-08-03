@@ -124,9 +124,8 @@ client.on('message', message => {
 				} else {
 					const owner = config.owner ? client.users.get('id', config.owner) : null;
 					message.reply(stripIndents`
-						An error occurred while running the command.
-						\`${err.name}: ${err.message}\`
-						${owner ? `Please contact ${owner.name}#${owner.discriminator}${config.invite ? ` in ${config.invite}` : ''}.` : ''}
+						An error occurred while running the command: \`${err.name}: ${err.message}\`
+						${owner ? `Please contact ${owner.name}#${owner.discriminator}${config.invite ? ` in this server: ${config.invite}` : '.'}` : ''}
 					`);
 					logger.error(err);
 					analytics.sendException(err);
