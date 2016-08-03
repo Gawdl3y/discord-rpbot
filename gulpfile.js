@@ -30,6 +30,6 @@ gulp.task('publish', gulp.series('default', () => {
 	return gulp.src('.')
 		.pipe(exec(`git commit -am "Prepare ${version} release"`))
 		.pipe(exec(`git tag v${version}`))
-		.pipe(exec(`git push --follow-tags`))
+		.pipe(exec(`git push origin : ${version}`))
 		.pipe(exec('npm publish'));
 }));
