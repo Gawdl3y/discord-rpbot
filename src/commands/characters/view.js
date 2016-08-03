@@ -27,11 +27,11 @@ export default {
 		if(characters.length === 1) {
 			const owner = message.client.users.get('id', characters[0].owner);
 			const ownerName = owner ? `${owner.name}#${owner.discriminator}` : 'Unknown';
-			message.reply(`Character **${characters[0].name}** (created by ${ownerName}):\n${characters[0].info}`);
+			return `Character **${characters[0].name}** (created by ${ownerName}):\n${characters[0].info}`;
 		} else if(characters.length > 1) {
-			message.reply(disambiguation(characters, 'characters'));
+			return disambiguation(characters, 'characters');
 		} else {
-			message.reply(`Unable to find character. Use ${usage('characters', message.server)} to view the list of characters.`);
+			return `Unable to find character. Use ${usage('characters', message.server)} to view the list of characters.`;
 		}
 	}
 };

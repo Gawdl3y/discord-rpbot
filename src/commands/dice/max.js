@@ -23,11 +23,10 @@ export default {
 		if(!args[0]) throw new CommandFormatError(this, message.server);
 		try {
 			const maxRoll = new DiceExpression(args[0]).max();
-			message.reply(`The maximum possible roll is **${maxRoll}**.`);
+			return `The maximum possible roll is **${maxRoll}**.`;
 		} catch(err) {
 			logger.error(err);
-			message.reply('Invalid dice expression specified.');
-			return;
+			return 'Invalid dice expression specified.';
 		}
 	}
 };

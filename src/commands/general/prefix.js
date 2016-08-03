@@ -24,11 +24,7 @@ export default {
 
 	async run(message, args) {
 		if(args[0] && message.server) {
-			// Only allow administrators
-			if(!permissions.isAdministrator(message.server, message.author)) {
-				message.reply('Only administrators may change the command prefix.');
-				return;
-			}
+			if(!permissions.isAdministrator(message.server, message.author)) return 'Only administrators may change the command prefix.';
 
 			// Save the prefix
 			const lowercase = args[0].toLowerCase();
@@ -46,10 +42,10 @@ export default {
 			const pattern = buildCommandPattern(message.server, client.user);
 			serverCommandPatterns[message.server.id] = pattern;
 
-			message.reply(`${response} To run commands, use ${usage('command', message.server)}.`);
+			return `${response} To run commands, use ${usage('command', message.server)}.`;
 		} else {
 			const prefix = message.server ? Setting.getValue('command-prefix', config.commandPrefix, message.server) : config.commandPrefix;
-			message.reply(`${prefix ? `The command prefix is "${prefix}".` : 'There is no command prefix.'} To run commands, use ${usage('command', message.server)}.`);
+			return `${prefix ? `The command prefix is "${prefix}".` : 'There is no command prefix.'} To run commands, use ${usage('command', message.server)}.`;
 		}
 	}
 };

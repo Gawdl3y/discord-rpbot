@@ -31,6 +31,7 @@ export default {
 			It has been running without interruption for ${days > 0 ? `${daysStr} ` : ''}${hours > 0 ? `${hoursStr} ` : ''}${minutesStr}.
 			${config.invite ? `For bot feedback/help, use this invite: ${config.invite}` : ''}
 		`);
-		if(message.server) message.reply('Sent a DM to you with information.');
+		if(message.server) return 'Sent a DM to you with information.';
+		return null;
 	}
 };

@@ -4,17 +4,12 @@
 
 import config from './config';
 import Discord from 'discord.js';
-import stringArgv from 'string-argv';
-import { stripIndents } from 'common-tags';
 import version from './version';
-import commands from './commands';
 import { init as initDatabase, close as closeDatabase } from './database';
+import { handleMessage } from './commands/dispatcher';
 import logger from './util/logger';
-import buildCommandPattern from './util/command-pattern';
 import checkForUpdate from './util/update-check';
-import usage from './util/command-usage';
 import * as analytics from './util/analytics';
-import FriendlyError from './util/errors/friendly';
 
 logger.info(`RPBot v${version} is starting...`);
 analytics.sendEvent('Bot', 'started');
@@ -54,91 +49,16 @@ client.on('ready', () => {
 	if(config.playingGame) client.setPlayingGame(config.playingGame);
 });
 
-// Set up command recognition
+// Set up command handling
 export const serverCommandPatterns = {};
 export const unprefixedCommandPattern = /^([^\s]+)/i;
 client.on('message', message => {
 	if(message.author.equals(client.user)) return;
-	let runCommand;
-	let runArgs;
-	let runFromPattern = false;
-
-	// Find the command to run by patterns
-	commandLoop: for(const command of commands) {
-		if(!command.patterns) continue;
-		for(const pattern of command.patterns) {
-			const matches = pattern.exec(message.content);
-			if(matches) {
-				runCommand = command;
-				runArgs = matches;
-				runFromPattern = true;
-				break commandLoop;
-			}
-		}
-	}
-
-	// Find the command to run with default command handling
-	const patternIndex = message.server ? message.server.id : '-';
-	if(!serverCommandPatterns[patternIndex]) serverCommandPatterns[patternIndex] = buildCommandPattern(message.server, client.user);
-	let defaultMatches;
-	let unprefixedMatches;
-	if(!runCommand) {
-		defaultMatches = serverCommandPatterns[patternIndex].exec(message.content);
-		if(defaultMatches) {
-			const commandName = defaultMatches[2].toLowerCase();
-			const command = commands.find(cmd => cmd.name === commandName || (cmd.aliases && cmd.aliases.some(alias => alias === commandName)));
-			if(command && !command.disableDefault) {
-				const argString = message.content.substring(defaultMatches[1].length + defaultMatches[2].length);
-				runCommand = command;
-				runArgs = !command.singleArgument ? stringArgv(argString) : [argString.trim()];
-			}
-		} else if(!message.server) {
-			unprefixedMatches = unprefixedCommandPattern.exec(message.content);
-			if(unprefixedMatches) {
-				const commandName = unprefixedMatches[1].toLowerCase();
-				const command = commands.find(cmd => cmd.name === commandName || (cmd.aliases && cmd.aliases.some(alias => alias === commandName)));
-				if(command && !command.disableDefault) {
-					const argString = message.content.substring(unprefixedMatches[1].length);
-					runCommand = command;
-					runArgs = !command.singleArgument ? stringArgv(argString) : [argString.trim()];
-				}
-			}
-		}
-	}
-
-	// Run the command
-	if(runCommand) {
-		const logInfo = {
-			args: runArgs.toString(),
-			user: `${message.author.username}#${message.author.discriminator}`,
-			userID: message.author.id,
-			server: message.server ? message.server.name : null,
-			serverID: message.server ? message.server.id : null
-		};
-
-		if(runCommand.isRunnable(message)) {
-			logger.info(`Running ${runCommand.group}:${runCommand.groupName}.`, logInfo);
-			analytics.sendEvent('Command', 'run', `${runCommand.group}:${runCommand.groupName}`);
-			runCommand.run(message, runArgs, runFromPattern).catch(err => {
-				if(err instanceof FriendlyError) {
-					message.reply(err.message);
-				} else {
-					const owner = config.owner ? client.users.get('id', config.owner) : null;
-					message.reply(stripIndents`
-						An error occurred while running the command: \`${err.name}: ${err.message}\`
-						${owner ? `Please contact ${owner.name}#${owner.discriminator}${config.invite ? ` in this server: ${config.invite}` : '.'}` : ''}
-					`);
-					logger.error(err);
-					analytics.sendException(err);
-				}
-			});
-		} else {
-			message.reply(`The \`${runCommand.name}\` command is not currently usable in your context.`);
-			logger.info(`Not running ${runCommand.group}:${runCommand.groupName}; not runnable.`, logInfo);
-		}
-	} else if(defaultMatches || unprefixedMatches) {
-		if(!config.unknownOnlyMention || defaultMatches[1].startsWith('<@')) message.reply(`Unknown command. Use ${usage('help', message.server)} to view the list of all commands.`);
-	}
+	handleMessage(message).catch(err => { logger.error(err); });
+});
+client.on('messageUpdated', (oldMessage, newMessage) => {
+	if(newMessage.author.equals(client.user)) return;
+	handleMessage(newMessage, oldMessage).catch(err => { logger.error(err); });
 });
 
 // Log in

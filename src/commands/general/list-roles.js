@@ -17,9 +17,9 @@ export default {
 	},
 
 	async run(message) {
-		message.reply(stripIndents`
+		return stripIndents`
 			__**Server roles:**__
 			${message.server.roles.map(role => `**-** ${role.name} (ID: ${role.id})`).join('\n')}
-		`);
+		`;
 	}
 };

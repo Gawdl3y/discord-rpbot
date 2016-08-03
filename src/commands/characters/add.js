@@ -29,8 +29,7 @@ export default {
 	async run(message, args) {
 		if(!args[0]) throw new CommandFormatError(this, message.server);
 		if(mentionsPattern.test(args[0])) {
-			message.reply('Please do not use mentions in your character name or information.');
-			return;
+			return 'Please do not use mentions in your character name or information.';
 		}
 
 		// Extract the name and info
@@ -42,20 +41,18 @@ export default {
 		// Apply some restrictions
 		if(!info) throw new CommandFormatError(this, message.server);
 		if(name.length > 60) {
-			message.reply('A character\'s name may not be longer than 60 characters.');
-			return;
+			return 'A character\'s name may not be longer than 60 characters.';
 		}
 		if(name.includes('\n')) {
-			message.reply('A character\'s name may not have multiple lines.');
-			return;
+			return 'A character\'s name may not have multiple lines.';
 		}
 
 		// Add or update the character
 		const result = await Character.save(new Character(message.server, message.author, name, info));
 		if(result) {
-			message.reply(`${result.new ? 'Added' : 'Updated'} character "${name}".`);
+			return `${result.new ? 'Added' : 'Updated'} character "${name}".`;
 		} else {
-			message.reply(`Unable to update character "${name}". You are not the owner.`);
+			return `Unable to update character "${name}". You are not the owner.`;
 		}
 	}
 };

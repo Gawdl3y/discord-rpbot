@@ -26,14 +26,14 @@ export default {
 		const characters = await Character.findInServer(message.server, args[0]);
 		if(characters.length === 1) {
 			if(await Character.delete(characters[0])) {
-				message.reply(`Deleted character "${characters[0].name}".`);
+				return `Deleted character "${characters[0].name}".`;
 			} else {
-				message.reply(`Unable to delete character "${characters[0].name}". You are not the owner.`);
+				return `Unable to delete character "${characters[0].name}". You are not the owner.`;
 			}
 		} else if(characters.length > 1) {
-			message.reply(disambiguation(characters, 'characters'));
+			return disambiguation(characters, 'characters');
 		} else {
-			message.reply(`Unable to find character. Use ${usage('characters', message.server)} to view the list of characters.`);
+			return `Unable to find character. Use ${usage('characters', message.server)} to view the list of characters.`;
 		}
 	}
 };

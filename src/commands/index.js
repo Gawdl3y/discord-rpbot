@@ -20,6 +20,7 @@ import ListModRolesCommand from './mod-roles/list';
 import AddModRoleCommand from './mod-roles/add';
 import DeleteModRoleCommand from './mod-roles/delete';
 
+// Flat array of all commands
 export const commands = [
 	HelpCommand,
 	AboutCommand,
@@ -42,6 +43,7 @@ export const commands = [
 ];
 export default commands;
 
+// Array of groups with their commands
 export const groups = [
 	{ id: 'general', name: 'General', commands: [] },
 	{ id: 'dice', name: 'Dice', commands: [] },
@@ -50,6 +52,7 @@ export const groups = [
 ];
 for(const command of commands) groups.find(grp => grp.id === command.group).commands.push(command);
 
+// Find all commands, or commands that match a search string
 export function findCommands(searchString = null, message = null) {
 	if(!searchString) return message ? commands.filter(cmd => cmd.isRunnable(message)) : commands;
 

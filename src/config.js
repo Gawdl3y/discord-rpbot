@@ -70,7 +70,7 @@ const config = yargs
 	.option('invite', {
 		type: 'string',
 		alias: 'i',
-		describe: 'Discord instant invite to contact the owner',
+		describe: 'Discord instant invite to a server to contact the owner',
 		group: 'General:'
 	})
 	.option('playing-game', {
@@ -84,12 +84,6 @@ const config = yargs
 		default: '!',
 		alias: 'P',
 		describe: 'Default command prefix (blank to use only mentions)',
-		group: 'General:'
-	})
-	.option('unknown-only-mention', {
-		type: 'boolean',
-		alias: 'M',
-		describe: 'Whether or not to output unknown command response only for mentions',
 		group: 'General:'
 	})
 	.option('pagination-items', {

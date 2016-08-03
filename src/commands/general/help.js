@@ -33,11 +33,11 @@ export default {
 				if(commands[0].details) help += `\n**Details:** ${commands[0].details}`;
 				if(commands[0].examples) help += `\n**Examples:**\n${commands[0].examples.join('\n')}`;
 				message.client.sendMessage(message.author, help);
-				if(message.server) message.reply('Sent a DM to you with information.');
+				if(message.server) return 'Sent a DM to you with information.';
 			} else if(commands.length > 1) {
-				message.reply(disambiguation(commands, 'commands'));
+				return disambiguation(commands, 'commands');
 			} else {
-				message.reply(`Unable to identify command. Use ${usage('help', message.server)} to view the list of all commands.`);
+				return `Unable to identify command. Use ${usage('help', message.server)} to view the list of all commands.`;
 			}
 		} else {
 			message.client.sendMessage(message.author, stripIndents`
@@ -51,7 +51,8 @@ export default {
 					${grp.commands.filter(cmd => cmd.isRunnable(message)).map(cmd => `**${cmd.name}:** ${cmd.description}`).join('\n')}
 				`).join('\n\n')}
 			`);
-			if(message.server) message.reply('Sent a DM to you with information.');
+			if(message.server) return 'Sent a DM to you with information.';
 		}
+		return null;
 	}
 };
