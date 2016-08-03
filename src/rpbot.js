@@ -12,7 +12,7 @@ import { init as initDatabase, close as closeDatabase } from './database';
 import logger from './util/logger';
 import buildCommandPattern from './util/command-pattern';
 import checkForUpdate from './util/update-check';
-import * as usage from './util/command-usage';
+import usage from './util/command-usage';
 import * as analytics from './util/analytics';
 import FriendlyError from './util/errors/friendly';
 
@@ -137,7 +137,7 @@ client.on('message', message => {
 			logger.info(`Not running ${runCommand.group}:${runCommand.groupName}; not runnable.`, logInfo);
 		}
 	} else if(defaultMatches || unprefixedMatches) {
-		if(!config.unknownOnlyMention || defaultMatches[1].startsWith('<@')) message.reply(`Unknown command. Use ${usage.long('help', message.server)} to view the list of all commands.`);
+		if(!config.unknownOnlyMention || defaultMatches[1].startsWith('<@')) message.reply(`Unknown command. Use ${usage('help', message.server)} to view the list of all commands.`);
 	}
 });
 

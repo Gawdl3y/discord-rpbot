@@ -4,7 +4,7 @@
 import { stripIndents } from 'common-tags';
 import { groups, findCommands } from '..';
 import disambiguation from '../../util/disambiguation';
-import * as usage from '../../util/command-usage';
+import usage from '../../util/command-usage';
 
 export default {
 	name: 'help',
@@ -27,7 +27,7 @@ export default {
 				let help = stripIndents`
 					__Command **${commands[0].name}**:__ ${commands[0].description}
 
-					**Usage:** ${usage.long(commands[0].usage ? commands[0].usage : commands[0].name, message.server)}
+					**Usage:** ${usage(commands[0].usage ? commands[0].usage : commands[0].name, message.server)}
 				`;
 				if(commands[0].aliases) help += `\n**Aliases:** ${commands[0].aliases.join(', ')}`;
 				if(commands[0].details) help += `\n**Details:** ${commands[0].details}`;
@@ -37,14 +37,14 @@ export default {
 			} else if(commands.length > 1) {
 				message.reply(disambiguation(commands, 'commands'));
 			} else {
-				message.reply(`Unable to identify command. Use ${usage.long('help', message.server)} to view the list of all commands.`);
+				message.reply(`Unable to identify command. Use ${usage('help', message.server)} to view the list of all commands.`);
 			}
 		} else {
 			message.client.sendMessage(message.author, stripIndents`
-				${message.server ? `To run a command in ${message.server}, use ${usage.long('command', message.server)}. For example, ${usage.long('roll d20', message.server)}.` : ''}
-				To run a command in this DM, simply use ${usage.short('command')} with no prefix. For example, ${usage.short('roll d20')}.
+				${message.server ? `To run a command in ${message.server}, use ${usage('command', message.server)}. For example, ${usage('roll d20', message.server)}.` : ''}
+				To run a command in this DM, simply use ${usage('command')} with no prefix. For example, ${usage('roll d20')}.
 
-				**Available commands in ${message.server ? `${message.server}` : 'this DM'} (use ${usage.short('help <command>')} for more info):**
+				**Available commands in ${message.server ? `${message.server}` : 'this DM'} (use ${usage('help <command>')} for more info):**
 
 				${groups.filter(grp => grp.commands.some(cmd => cmd.isRunnable(message))).map(grp => stripIndents`
 					__${grp.name}__

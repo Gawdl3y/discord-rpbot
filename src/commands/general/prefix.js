@@ -5,7 +5,7 @@ import { serverCommandPatterns, client } from '../../rpbot';
 import config from '../../config';
 import buildCommandPattern from '../../util/command-pattern';
 import * as permissions from '../../util/permissions';
-import * as usage from '../../util/command-usage';
+import usage from '../../util/command-usage';
 import Setting from '../../database/setting';
 
 export default {
@@ -46,10 +46,10 @@ export default {
 			const pattern = buildCommandPattern(message.server, client.user);
 			serverCommandPatterns[message.server.id] = pattern;
 
-			message.reply(`${response} To run commands, use ${usage.long('command', message.server)}.`);
+			message.reply(`${response} To run commands, use ${usage('command', message.server)}.`);
 		} else {
 			const prefix = message.server ? Setting.getValue('command-prefix', config.commandPrefix, message.server) : config.commandPrefix;
-			message.reply(`${prefix ? `The command prefix is "${prefix}".` : 'There is no command prefix.'} To run commands, use ${usage.long('command', message.server)}.`);
+			message.reply(`${prefix ? `The command prefix is "${prefix}".` : 'There is no command prefix.'} To run commands, use ${usage('command', message.server)}.`);
 		}
 	}
 };

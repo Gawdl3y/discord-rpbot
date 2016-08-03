@@ -5,7 +5,7 @@ import { stripIndents } from 'common-tags';
 import Character from '../../database/character';
 import config from '../../config';
 import paginate from '../../util/pagination';
-import * as usage from '../../util/command-usage';
+import usage from '../../util/command-usage';
 
 export default {
 	name: 'characters',
@@ -34,8 +34,8 @@ export default {
 				__**Character${search ? `s ${search.length === 1 ? 'that begin with' : 'that contain'} "${search}"` : ' list'}, ${paginated.pageText}:**__
 
 				${characters.map(char => char.name).join('\n')}
-				${paginated.maxPage > 1 ? `\nUse ${usage.long(`characters ${search ? `${search} ` : ''}<page>`, message.server)} to view a specific page.` : ''}
-				Use ${usage.long('character <name>', message.server)} to view information about a character.
+				${paginated.maxPage > 1 ? `\nUse ${usage(`characters ${search ? `${search} ` : ''}<page>`, message.server)} to view a specific page.` : ''}
+				Use ${usage('character <name>', message.server)} to view information about a character.
 			`);
 		} else {
 			message.reply(`There are no characters ${search ? `${search.length === 1 ? 'that begin with' : 'that contain'} "${search}"` : 'in the database'}.`);

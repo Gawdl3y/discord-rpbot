@@ -4,7 +4,7 @@
 import ModRole from '../../database/mod-role';
 import search from '../../util/search';
 import disambiguation from '../../util/disambiguation';
-import * as usage from '../../util/command-usage';
+import usage from '../../util/command-usage';
 import * as permissions from '../../util/permissions';
 import CommandFormatError from '../../util/errors/command-format';
 
@@ -41,7 +41,7 @@ export default {
 		} else if(roles.length > 1) {
 			message.reply(disambiguation(roles, 'roles'));
 		} else {
-			message.reply(`Unable to identify role. Use ${usage.long('roles', message.server)} to view all of the server roles.`);
+			message.reply(`Unable to identify role. Use ${usage('roles', message.server)} to view all of the server roles.`);
 		}
 	}
 };

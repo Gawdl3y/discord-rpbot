@@ -3,7 +3,7 @@
 
 import Character from '../../database/character';
 import disambiguation from '../../util/disambiguation';
-import * as usage from '../../util/command-usage';
+import usage from '../../util/command-usage';
 import CommandFormatError from '../../util/errors/command-format';
 
 export default {
@@ -33,7 +33,7 @@ export default {
 		} else if(characters.length > 1) {
 			message.reply(disambiguation(characters, 'characters'));
 		} else {
-			message.reply(`Unable to find character. Use ${usage.long('characters', message.server)} to view the list of characters.`);
+			message.reply(`Unable to find character. Use ${usage('characters', message.server)} to view the list of characters.`);
 		}
 	}
 };
