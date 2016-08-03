@@ -73,6 +73,12 @@ const config = yargs
 		describe: 'Discord instant invite to contact the owner',
 		group: 'General:'
 	})
+	.option('playing-game', {
+		type: 'string',
+		alias: 'g',
+		describe: 'Text to show in the "Playing..." status',
+		group: 'General:'
+	})
 	.option('command-prefix', {
 		type: 'string',
 		default: '!',

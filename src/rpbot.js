@@ -51,6 +51,7 @@ client.on('ready', () => {
 	logger.info(`Bot is ready; logged in as ${client.user.username}#${client.user.discriminator} (ID: ${client.user.id})`);
 	checkForUpdate();
 	if(config.updateCheck > 0) setInterval(checkForUpdate, config.updateCheck * 60 * 1000);
+	if(config.playingGame) client.setPlayingGame(config.playingGame);
 });
 
 // Set up command recognition
