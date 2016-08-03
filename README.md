@@ -75,6 +75,7 @@ The settings:
 | invite               | Discord instant invite to a server to contact the owner                          |
 | playing-game         | Text to show in the "Playing..." status                                          |
 | command-prefix       | Default command prefix (blank to use only mentions)                              |
+| command-editable     | How long a command message is editable (in seconds, use 0 to disable)            |
 | pagination-items     | Number of items per page in paginated commands                                   |
 | update-check         | How frequently to check for an update (in minutes - use 0 to disable)            |
 | analytics            | Whether or not to enable anonymous, non-unique, non-identifiable analytics       |
