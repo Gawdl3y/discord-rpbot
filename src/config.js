@@ -86,6 +86,13 @@ const config = yargs
 		describe: 'Default command prefix (blank to use only mentions)',
 		group: 'General:'
 	})
+	.option('command-editable', {
+		type: 'number',
+		default: 60,
+		alias: 'E',
+		describe: 'How long a command message is editable (in seconds)',
+		group: 'General:'
+	})
 	.option('pagination-items', {
 		type: 'number',
 		default: 10,

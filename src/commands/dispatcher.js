@@ -43,7 +43,7 @@ export async function handleMessage(message, oldMessage = null) {
 
 			// Cache the result
 			previousCommandMessages[message.id] = result;
-			setTimeout(() => { delete previousCommandMessages[message.id]; }, 30000);
+			setTimeout(() => { delete previousCommandMessages[message.id]; }, config.commandEditable * 1000);
 		}
 	}
 }
