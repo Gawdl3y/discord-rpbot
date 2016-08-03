@@ -13,12 +13,12 @@ import FriendlyError from '../util/errors/friendly';
 
 export const serverCommandPatterns = {};
 export const unprefixedCommandPattern = /^([^\s]+)/i;
-export const previousCommandMessages = {};
+export const commandResults = {};
 
 // Handle a raw message
 export async function handleMessage(message, oldMessage = null) {
 	const [command, args, fromPattern, isCommandMessage] = parseMessage(message);
-	const oldResult = oldMessage ? previousCommandMessages[oldMessage.id] : null;
+	const oldResult = oldMessage ? commandResults[oldMessage.id] : null;
 
 	if(!oldResult || oldResult.editable) {
 		let result;
@@ -42,8 +42,8 @@ export async function handleMessage(message, oldMessage = null) {
 			}
 
 			// Cache the result
-			previousCommandMessages[message.id] = result;
-			setTimeout(() => { delete previousCommandMessages[message.id]; }, config.commandEditable * 1000);
+			commandResults[message.id] = result;
+			setTimeout(() => { delete commandResults[message.id]; }, config.commandEditable * 1000);
 		}
 	}
 }
