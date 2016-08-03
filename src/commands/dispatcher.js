@@ -42,8 +42,8 @@ export async function handleMessage(message, oldMessage = null) {
 
 		// Cache the result
 		if(config.commandEditable > 0 && result.editable) {
+			result.timeout = oldResult && oldResult.timeout ? oldResult.timeout : setTimeout(() => { delete commandResults[message.id]; }, config.commandEditable * 1000);
 			commandResults[message.id] = result;
-			setTimeout(() => { delete commandResults[message.id]; }, config.commandEditable * 1000);
 		}
 	}
 }
