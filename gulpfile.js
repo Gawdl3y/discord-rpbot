@@ -5,24 +5,22 @@ const exec = require('gulp-exec');
 const eslint = require('gulp-eslint');
 const del = require('del');
 
-gulp.task('build', () => {
-	return gulp.src('src/**/*.js')
+gulp.task('build', () =>
+	gulp.src('src/**/*.js')
 		.pipe(sourcemaps.init())
 		.pipe(babel())
 		.pipe(sourcemaps.write('.'))
-		.pipe(gulp.dest('lib'));
-});
+		.pipe(gulp.dest('lib'))
+);
 
-gulp.task('clean', () => {
-	return del('lib/**');
-});
+gulp.task('clean', () => del('lib/**'));
 
-gulp.task('lint', () => {
-	return gulp.src('src/**/*.js')
-	.pipe(eslint())
-	.pipe(eslint.format())
-	.pipe(eslint.failAfterError());
-});
+gulp.task('lint', () =>
+	gulp.src('src/**/*.js')
+		.pipe(eslint())
+		.pipe(eslint.format())
+		.pipe(eslint.failAfterError())
+);
 
 gulp.task('rebuild', gulp.series('clean', 'build'));
 gulp.task('default', gulp.parallel('lint', 'rebuild'));
