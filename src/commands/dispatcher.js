@@ -102,8 +102,6 @@ export async function updateOldMessages(message, result, oldResult) {
 	if(oldResult.plain && !allUpdatable.includes('plain')) oldResult.plainMessage.delete();
 	if(oldResult.reply && !allUpdatable.includes('reply')) oldResult.replyMessage.delete();
 	if(oldResult.direct && !allUpdatable.includes('direct')) oldResult.directMessage.delete();
-
-	logger.debug(allUpdatable);
 }
 
 // Get an array of metadata for a command in a message
