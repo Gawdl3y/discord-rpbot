@@ -1,6 +1,7 @@
 'use babel';
 'use strict';
 
+import { stripIndents } from 'common-tags';
 import Character from '../../database/character';
 import config from '../../config';
 import paginate from '../../util/pagination';
@@ -26,19 +27,18 @@ export default {
 		const search = args.join(' ');
 		let characters = await Character.findInServer(message.server, search, false);
 		if(characters.length > 0) {
-			characters.sort((a, b) => a.name < b.name ? -1 : (a.name > b.name ? 1 : 0));
+			characters.sort((a, b) => a.name < b.name ? -1 : a.name > b.name ? 1 : 0);
 			const paginated = paginate(characters, page, Math.floor(config.paginationItems));
 			characters = paginated.items;
+			message.reply(stripIndents`
+				Character${search ? `s ${search.length === 1 ? 'that begin with' : 'that contain'} "${search}"` : ' list'}, ${paginated.pageText}:
 
-			let messageText = search ? (search.length === 1 ? 'Characters that begin with' : 'Characters that contain') + ' "' + search + '"' : 'Character list';
-			messageText += ', ' + paginated.pageText + ' (Use ';
-			if(paginated.maxPage > 1) messageText += usage.short('characters' + (search ? ' ' + search : '') + ' <page>') + ' to view a specific page, or ';
-			messageText += usage.short('character <name>') + ' to view information about a character):';
-			messageText += '\n\n' + characters.map(element => element.name).join('\n');
-			message.reply(messageText);
+				${characters.map(char => char.name).join('\n')}
+				${paginated.maxPage > 1 ? `\nUse ${usage.long(`characters ${search ? `${search} ` : ''}<page>`, message.server)} to view a specific page.` : ''}
+				Use ${usage.long('character <name>', message.server)} to view information about a character.
+			`);
 		} else {
-			const messageText = 'There are no characters ' + (search ? (search.length === 1 ? 'that begin with' : 'that contain') + ' "' + search + '".' : 'in the database.');
-			message.reply(messageText);
+			message.reply(`There are no characters ${search ? `${search.length === 1 ? 'that begin with' : 'that contain'} "${search}"` : 'in the database'}.`);
 		}
 	}
 };

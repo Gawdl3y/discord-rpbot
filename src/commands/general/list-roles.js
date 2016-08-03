@@ -1,6 +1,7 @@
 'use babel';
 'use strict';
 
+import { stripIndents } from 'common-tags';
 import * as permissions from '../../util/permissions';
 
 export default {
@@ -16,7 +17,9 @@ export default {
 	},
 
 	async run(message) {
-		const roleList = message.server.roles.map(element => `${element.name} (ID: ${element.id})`).join('\n');
-		message.reply(`__**Server roles:**__\n${roleList}`);
+		message.reply(stripIndents`
+			__**Server roles:**__
+			${message.server.roles.map(element => `${element.name} (ID: ${element.id})`).join('\n')}
+		`);
 	}
 };

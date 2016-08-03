@@ -46,9 +46,9 @@ export default {
 
 				**Available commands in ${message.server ? `${message.server}` : 'this DM'} (use ${usage.short('help <command>')} for more info):**
 
-				${groups.filter(g => g.commands.some(c => c.isRunnable(message))).map(g => stripIndents`
-					__${g.name}__
-					${g.commands.filter(c => c.isRunnable(message)).map(c => `**${c.name}:** ${c.description}`).join('\n')}
+				${groups.filter(grp => grp.commands.some(cmd => cmd.isRunnable(message))).map(grp => stripIndents`
+					__${grp.name}__
+					${grp.commands.filter(cmd => cmd.isRunnable(message)).map(cmd => `**${cmd.name}:** ${cmd.description}`).join('\n')}
 				`).join('\n\n')}
 			`);
 			if(message.server) message.reply('Sent a DM to you with information.');

@@ -26,7 +26,7 @@ export default {
 		const characters = await Character.findInServer(message.server, args[0]);
 		if(characters.length === 1) {
 			const owner = message.client.users.get('id', characters[0].owner);
-			const ownerName = owner ? owner.name + '#' + owner.discriminator : 'Unknown';
+			const ownerName = owner ? `${owner.name}#${owner.discriminator}` : 'Unknown';
 			message.reply(`Character **${characters[0].name}** (created by ${ownerName}):\n${characters[0].info}`);
 		} else if(characters.length > 1) {
 			message.reply(disambiguation(characters, 'characters'));

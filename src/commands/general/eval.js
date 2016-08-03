@@ -45,9 +45,9 @@ export default {
 	async run(msg, args) {
 		if(!args[0]) throw new CommandFormatError(this, msg.server);
 		try {
-			msg.reply(`Result: \`${util.inspect(eval(args[0]), {depth: 0})}\``);
-		} catch(e) {
-			msg.reply(`Error while evaluating: ${e}`);
+			msg.reply(`Result: \`${util.inspect(eval(args[0]), { depth: 0 })}\``);
+		} catch(err) {
+			msg.reply(`Error while evaluating: ${err}`);
 		}
 	}
 };

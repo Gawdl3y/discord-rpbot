@@ -162,12 +162,13 @@ const config = yargs
 		group: 'Special:',
 		normalize: true,
 		config: true,
-		configParser: (configFile) => {
+		configParser: configFile => {
 			const extension = path.extname(configFile).toLowerCase();
-			if(extension === '.json')
+			if(extension === '.json') {
 				return JSON.parse(fs.readFileSync(configFile));
-			else if(extension === '.yml' || extension === '.yaml')
+			} else if(extension === '.yml' || extension === '.yaml') {
 				return YAML.safeLoad(fs.readFileSync(configFile));
+			}
 			throw new Error('Unknown config file type.');
 		}
 	})

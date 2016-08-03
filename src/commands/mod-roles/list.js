@@ -1,6 +1,7 @@
 'use babel';
 'use strict';
 
+import { stripIndents } from 'common-tags';
 import ModRole from '../../database/mod-role';
 import * as permissions from '../../util/permissions';
 
@@ -19,7 +20,10 @@ export default {
 	async run(message) {
 		const roles = ModRole.findInServer(message.server);
 		if(roles.length > 0) {
-			message.reply('__**Moderator roles:**__\n' + roles.map(role => `${role.name} (ID: ${role.id})`).join('\n'));
+			message.reply(stripIndents`
+				__**Moderator roles:**__
+				${roles.map(role => `${role.name} (ID: ${role.id})`).join('\n')}
+			`);
 		} else {
 			message.reply('There are no moderator roles.');
 		}

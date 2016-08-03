@@ -24,8 +24,8 @@ export default {
 		try {
 			const maxRoll = new DiceExpression(args[0]).max();
 			message.reply(`The maximum possible roll is **${maxRoll}**.`);
-		} catch(e) {
-			logger.error(e);
+		} catch(err) {
+			logger.error(err);
 			message.reply('Invalid dice expression specified.');
 			return;
 		}

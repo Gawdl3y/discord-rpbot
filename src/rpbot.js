@@ -16,7 +16,7 @@ import * as usage from './util/command-usage';
 import * as analytics from './util/analytics';
 import FriendlyError from './util/errors/friendly';
 
-logger.info('RPBot v' + version + ' is starting...');
+logger.info(`RPBot v${version} is starting...`);
 analytics.sendEvent('Bot', 'started');
 
 // Output safe config
@@ -43,9 +43,9 @@ initDatabase().catch(err => {
 const clientOptions = { autoReconnect: config.autoReconnect, forceFetchUsers: true, disableEveryone: true };
 export const client = new Discord.Client(clientOptions);
 logger.info('Client created.', clientOptions);
-client.on('error', e => { logger.error(e); });
-client.on('warn', e => { logger.warn(e); });
-client.on('debug', e => { logger.debug(e); });
+client.on('error', err => { logger.error(err); });
+client.on('warn', err => { logger.warn(err); });
+client.on('debug', err => { logger.debug(err); });
 client.on('disconnected', () => { logger.error('Disconnected.'); });
 client.on('ready', () => {
 	logger.info(`Bot is ready; logged in as ${client.user.username}#${client.user.discriminator} (ID: ${client.user.id})`);
@@ -85,7 +85,7 @@ client.on('message', message => {
 		defaultMatches = serverCommandPatterns[patternIndex].exec(message.content);
 		if(defaultMatches) {
 			const commandName = defaultMatches[2].toLowerCase();
-			const command = commands.find(command => command.name === commandName || (command.aliases && command.aliases.some(alias => alias === commandName)));
+			const command = commands.find(cmd => cmd.name === commandName || (cmd.aliases && cmd.aliases.some(alias => alias === commandName)));
 			if(command && !command.disableDefault) {
 				const argString = message.content.substring(defaultMatches[1].length + defaultMatches[2].length);
 				runCommand = command;
@@ -95,7 +95,7 @@ client.on('message', message => {
 			unprefixedMatches = unprefixedCommandPattern.exec(message.content);
 			if(unprefixedMatches) {
 				const commandName = unprefixedMatches[1].toLowerCase();
-				const command = commands.find(command => command.name === commandName || (command.aliases && command.aliases.some(alias => alias === commandName)));
+				const command = commands.find(cmd => cmd.name === commandName || (cmd.aliases && cmd.aliases.some(alias => alias === commandName)));
 				if(command && !command.disableDefault) {
 					const argString = message.content.substring(unprefixedMatches[1].length);
 					runCommand = command;
@@ -109,7 +109,7 @@ client.on('message', message => {
 	if(runCommand) {
 		const logInfo = {
 			args: runArgs.toString(),
-			user: message.author.username + '#' + message.author.discriminator,
+			user: `${message.author.username}#${message.author.discriminator}`,
 			userID: message.author.id,
 			server: message.server ? message.server.name : null,
 			serverID: message.server ? message.server.id : null
@@ -117,7 +117,7 @@ client.on('message', message => {
 
 		if(runCommand.isRunnable(message)) {
 			logger.info(`Running ${runCommand.group}:${runCommand.groupName}.`, logInfo);
-			analytics.sendEvent('Command', 'run', runCommand.group + ':' + runCommand.groupName);
+			analytics.sendEvent('Command', 'run', `${runCommand.group}:${runCommand.groupName}`);
 			runCommand.run(message, runArgs, runFromPattern).catch(err => {
 				if(err instanceof FriendlyError) {
 					message.reply(err.message);
@@ -142,7 +142,7 @@ client.on('message', message => {
 });
 
 // Log in
-const loginCallback = e => { if(e) logger.error('Failed to login.', e); };
+const loginCallback = err => { if(err) logger.error('Failed to login.', err); };
 if(config.token) {
 	logger.info('Logging in with token...');
 	client.loginWithToken(config.token, config.email, config.password, loginCallback);
@@ -160,7 +160,7 @@ process.on('SIGINT', async () => {
 		await Promise.all([
 			closeDatabase(),
 			client.destroy()
-		]).catch((err) => {
+		]).catch(err => {
 			logger.error(err);
 		});
 		process.exit(0);

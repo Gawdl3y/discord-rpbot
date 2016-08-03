@@ -1,6 +1,7 @@
 'use babel';
 'use strict';
 
+import { join as pathJoin } from 'path';
 import sqlite from 'sqlite';
 import Character from './character';
 import config from '../config';
@@ -12,7 +13,7 @@ export default db;
 export async function init() {
 	logger.info('Initializing database...', { file: config.database, verbose: config.databaseVerbose });
 	await db.open(config.database, { verbose: config.databaseVerbose });
-	await db.migrate({ migrationsPath: __dirname + '/../../migrations' });
+	await db.migrate({ migrationsPath: pathJoin(__dirname, '../../migrations') });
 	await Promise.all([
 		Character.convertStorage()
 	]);

@@ -13,13 +13,13 @@ const packageURL = 'https://raw.githubusercontent.com/Gawdl3y/discord-rpbot/mast
 
 export default function checkForUpdate() {
 	request(packageURL, (error, response, body) => {
-		if(!error && response.statusCode == 200) {
+		if(!error && response.statusCode === 200) {
 			const masterVersion = JSON.parse(body).version;
 			if(semver.gt(masterVersion, version)) {
 				const message = `An RPBot update is available! Current version is ${version}, latest available is ${masterVersion}.`;
 				logger.warn(message);
 				const savedVersion = Setting.getValue('notified-version');
-				if(savedVersion != masterVersion && client && config.owner) {
+				if(savedVersion !== masterVersion && client && config.owner) {
 					client.sendMessage(config.owner, message);
 					Setting.save(new Setting(null, 'notified-version', masterVersion));
 				}

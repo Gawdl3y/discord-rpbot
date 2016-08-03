@@ -24,8 +24,8 @@ export default {
 		try {
 			const minRoll = new DiceExpression(args[0]).min();
 			message.reply(`The minimum possible roll is **${minRoll}**.`);
-		} catch(e) {
-			logger.error(e);
+		} catch(err) {
+			logger.error(err);
 			message.reply('Invalid dice expression specified.');
 			return;
 		}

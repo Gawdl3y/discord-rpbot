@@ -73,7 +73,7 @@ export default class Character {
 		if(!server) throw new Error('A server must be specified.');
 		server = server.id ? server.id : server;
 		const findStmt = await db.prepare(searchString ? sqlFindByServerAndNameLike : sqlFindByServer);
-		const characters = await findStmt.all(server, searchString ? (searchString.length > 1 ? `%${searchString}%` : `${searchString}%`) : undefined);
+		const characters = await findStmt.all(server, searchString ? searchString.length > 1 ? `%${searchString}%` : `${searchString}%` : undefined);
 		findStmt.finalize();
 		for(const [index, character] of characters.entries()) characters[index] = new Character(character.server_id, character.user_id, character.name, character.info);
 		return searchExact ? search(characters, searchString, { searchInexact: false }) : characters;

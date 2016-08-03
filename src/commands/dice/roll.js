@@ -33,7 +33,7 @@ export default {
 			const dice = new DiceExpression(matches[1]);
 
 			// Restrict the maximum dice count
-			const totalDice = dice.dice.reduce((prev, d) => prev + d.diceCount, 0);
+			const totalDice = dice.dice.reduce((prev, die) => prev + die.diceCount, 0);
 			if(totalDice > 1000) {
 				message.client.sendMessage(message, `${message.author} might hurt themselves by rolling that many dice at once!`);
 				return;
@@ -46,7 +46,7 @@ export default {
 			// Build the list of dice
 			let diceList = '';
 			if(totalDice <= 100 && (rollResult.diceRaw.length > 1 || (rollResult.diceRaw.length > 0 && rollResult.diceRaw[0].length > 1))) {
-				diceList = rollResult.diceRaw.map((r, i) => nbsp(r.length > 1 ? r.join(' + ') + ' = ' + rollResult.diceSums[i] : r[0])).join(',   ');
+				diceList = rollResult.diceRaw.map((res, i) => nbsp(res.length > 1 ? `${res.join(' + ')} = ${rollResult.diceSums[i]}` : res[0])).join(',   ');
 			}
 
 			if(matches[2]) {
@@ -68,8 +68,8 @@ export default {
 				const diceInfo = diceList ? ` (${diceList})` : '';
 				message.client.sendMessage(message, `${message.author} rolled **${rollResult.roll}**.${diceInfo}`);
 			}
-		} catch(e) {
-			logger.error(e);
+		} catch(err) {
+			logger.error(err);
 			message.client.sendMessage(message, `${message.author} specified an invalid dice expression.`);
 			return;
 		}

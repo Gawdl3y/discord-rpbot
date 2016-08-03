@@ -9,7 +9,7 @@ export default class Setting {
 		if(!key) throw new Error('Setting key must be specified.');
 		this.key = key;
 		this.value = value;
-		this.server = server ? (server.id ? server.id : server) : 'global';
+		this.server = server ? server.id ? server.id : server : 'global';
 	}
 
 	static loadDatabase() {
@@ -60,10 +60,10 @@ export default class Setting {
 
 	static getSettingKeyAndServer(setting, server) {
 		if(setting instanceof Setting) {
-			return [setting.key, !server ? setting.server : (server.id ? server.id : server)];
+			return [setting.key, !server ? setting.server : server.id ? server.id : server];
 		} else {
 			if(!setting) throw new Error('A setting or a key must be specified.');
-			return [setting, server ? (server.id ? server.id : server) : 'global'];
+			return [setting, server ? server.id ? server.id : server : 'global'];
 		}
 	}
 }

@@ -7,7 +7,7 @@ import * as analytics from './analytics';
 
 export const logger = new winston.Logger({
 	transports: [
-		new (winston.transports.Console)({
+		new winston.transports.Console({
 			level: config.consoleLevel,
 			colorize: true,
 			timestamp: true,
@@ -15,8 +15,8 @@ export const logger = new winston.Logger({
 			humanReadableUnhandledException: true
 		})
 	],
-	exitOnError: (e) => {
-		analytics.sendException(e);
+	exitOnError: err => {
+		analytics.sendException(err);
 		return true;
 	}
 });
