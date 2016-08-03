@@ -118,11 +118,11 @@ export function parseMessage(message) {
 	// Find the command to run with default command handling
 	const patternIndex = message.server ? message.server.id : '-';
 	if(!serverCommandPatterns[patternIndex]) serverCommandPatterns[patternIndex] = buildCommandPattern(message.server, message.client.user);
-	let [command, args] = matchDefault(message, serverCommandPatterns[patternIndex], 2);
-	if(!command && !message.server) [command, args] = matchDefault(message, unprefixedCommandPattern);
+	let [command, args, isCommandMessage] = matchDefault(message, serverCommandPatterns[patternIndex], 2);
+	if(!command && !message.server) [command, args, isCommandMessage] = matchDefault(message, unprefixedCommandPattern);
 	if(command) return [command, args, false, true];
 
-	return [null, null, false, false];
+	return [null, null, false, isCommandMessage];
 }
 
 // Find the command from a default matches pattern
@@ -135,8 +135,9 @@ export function matchDefault(message, pattern, commandNameIndex = 1) {
 			const argString = message.content.substring(matches[1].length + (matches[2] ? matches[2].length : 0));
 			return [command, !command.singleArgument ? stringArgv(argString) : [argString.trim()]];
 		}
+		return [null, null, true];
 	}
-	return [null, null];
+	return [null, null, false];
 }
 
 // Get the message to update
