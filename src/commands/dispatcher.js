@@ -84,26 +84,24 @@ export async function run(command, args, fromPattern, message) {
 
 // Update old messages to reflect a new result
 export async function updateOldMessages(message, result, oldResult) {
-	// Regular message
-	if(result.plain) {
-		result.plainMessage = await oldResult[oldResult.plain ? 'plainMessage' : 'replyMessage'].update(result.plain);
-	} else if(oldResult.plain && !result.reply) {
-		oldResult.plainMessage.delete();
-	}
-
-	// Reply message
-	if(result.reply) {
-		result.replyMessage = await oldResult[oldResult.reply ? 'replyMessage' : 'plainMessage'].update(`${message.author}, ${result.reply}`);
-	} else if(oldResult.reply && !result.plain) {
-		oldResult.replyMessage.delete();
-	}
-
-	// Direct message
+	// Update the messages
+	const allUpdatable = [];
+	if(result.plain) result.plainMessage = await updatableMessage('plain', oldResult, allUpdatable).update(result.plain);
+	if(result.reply) result.replyMessage = await updatableMessage('reply', oldResult, allUpdatable).update(`${message.author}, ${result.reply}`);
 	if(result.direct) {
-		result.directMessage = await oldResult.directMessage.update(result.direct);
-	} else if(oldResult.direct) {
-		oldResult.directMessage.delete();
+		if(!oldResult.direct) {
+			result.directMessage = await message.client.sendMessage(message.author, result.direct);
+		} else {
+			result.directMessage = await updatableMessage('direct', oldResult, allUpdatable).update(result.direct);
+		}
 	}
+
+	// Delete old messages if we're not using them
+	if(oldResult.plain && !allUpdatable.includes('plain')) oldResult.plainMessage.delete();
+	if(oldResult.reply && !allUpdatable.includes('reply')) oldResult.replyMessage.delete();
+	if(oldResult.direct && !allUpdatable.includes('direct')) oldResult.directMessage.delete();
+
+	logger.debug(allUpdatable);
 }
 
 // Get an array of metadata for a command in a message
@@ -139,4 +137,25 @@ export function matchDefault(message, pattern, commandNameIndex = 1) {
 		}
 	}
 	return [null, null];
+}
+
+// Get the message to update
+export function updatableMessage(type, result, all = null) {
+	if(result[type]) {
+		if(all) all.push(type);
+		return result[`${type}Message`];
+	}
+	if(result.plain) {
+		if(all) all.push('plain');
+		return result.plainMessage;
+	}
+	if(result.reply) {
+		if(all) all.push('reply');
+		return result.replyMessage;
+	}
+	if(result.direct) {
+		if(all) all.push('direct');
+		return result.directMessage;
+	}
+	return null;
 }
