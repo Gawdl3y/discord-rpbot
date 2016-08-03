@@ -34,9 +34,7 @@ export default {
 
 			// Restrict the maximum dice count
 			const totalDice = dice.dice.reduce((prev, die) => prev + die.diceCount, 0);
-			if(totalDice > 1000) {
-				return { content: `${message.author} might hurt themselves by rolling that many dice at once!`, reply: false };
-			}
+			if(totalDice > 1000) return { plain: `${message.author} might hurt themselves by rolling that many dice at once!` };
 
 			// Roll the dice
 			const rollResult = dice.roll();
@@ -62,14 +60,20 @@ export default {
 				}
 
 				const diceInfo = diceList ? `;   ${diceList}` : '';
-				return { content: `${message.author} has **${success ? 'succeeded' : 'failed'}**. (Rolled ${rollResult.roll}, ${targetMessage}${diceInfo})`, reply: false };
+				return {
+					plain: `${message.author} has **${success ? 'succeeded' : 'failed'}**. (Rolled ${rollResult.roll}, ${targetMessage}${diceInfo})`,
+					editable: false
+				};
 			} else {
 				const diceInfo = diceList ? ` (${diceList})` : '';
-				return { content: `${message.author} rolled **${rollResult.roll}**.${diceInfo}`, reply: false };
+				return {
+					plain: `${message.author} rolled **${rollResult.roll}**.${diceInfo}`,
+					editable: false
+				};
 			}
 		} catch(err) {
 			logger.error(err);
-			return { content: `${message.author} specified an invalid dice expression.`, reply: false };
+			return { plain: `${message.author} specified an invalid dice expression.` };
 		}
 	}
 };

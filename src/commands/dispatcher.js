@@ -13,38 +13,42 @@ import FriendlyError from '../util/errors/friendly';
 
 export const serverCommandPatterns = {};
 export const unprefixedCommandPattern = /^([^\s]+)/i;
-export const previousCommandMessages = new Map();
+export const previousCommandMessages = {};
 
+// Handle a raw message
 export async function handleMessage(message, oldMessage = null) {
 	const [command, args, fromPattern, isCommandMessage] = parseMessage(message);
-	const oldReply = oldMessage ? previousCommandMessages.get(oldMessage.id) : null;
+	const oldResult = oldMessage ? previousCommandMessages[oldMessage.id] : null;
 
-	let result;
-	if(command) {
-		if(!oldMessage || oldReply) result = await run(command, args, fromPattern, message);
-	} else if(isCommandMessage) {
-		result = `Unknown command. Use ${usage('help', message.server)} to view the list of all commands.`;
-	}
-
-	if(result) {
-		// Update old message or send a new one
-		let reply;
-		if(oldReply) {
-			reply = await oldReply.update(result.content ? result.content : result);
-		} else if(typeof result.reply === 'undefined' || result.reply) {
-			reply = await message.reply(result.content ? result.content : result);
-		} else {
-			reply = await message.client.sendMessage(message, result.content ? result.content : result);
+	if(!oldResult || oldResult.editable) {
+		let result;
+		if(command) {
+			if(!oldMessage || oldResult) result = await run(command, args, fromPattern, message);
+		} else if(isCommandMessage) {
+			result = `Unknown command. Use ${usage('help', message.server)} to view the list of all commands.`;
 		}
 
-		// Cache the reply message
-		if(reply && !oldMessage) {
-			previousCommandMessages.set(message.id, reply);
-			setTimeout(() => { previousCommandMessages.delete(message.id); }, 30000);
+		if(result) {
+			if(typeof result !== 'object') result = { reply: result };
+			if(!('editable' in result)) result.editable = true;
+
+			// Update old messages or send new ones
+			if(oldResult) {
+				await updateOldMessages(message, result, oldResult);
+			} else {
+				if(result.reply) result.replyMessage = await message.reply(result.reply);
+				if(result.plain) result.plainMessage = await message.client.sendMessage(message, result.plain);
+				if(result.direct) result.directMessage = await message.client.sendMessage(message.author, result.direct);
+			}
+
+			// Cache the result
+			previousCommandMessages[message.id] = result;
+			setTimeout(() => { delete previousCommandMessages[message.id]; }, 30000);
 		}
 	}
 }
 
+// Run a command
 export async function run(command, args, fromPattern, message) {
 	const logInfo = {
 		args: args.toString(),
@@ -78,6 +82,31 @@ export async function run(command, args, fromPattern, message) {
 	}
 }
 
+// Update old messages to reflect a new result
+export async function updateOldMessages(message, result, oldResult) {
+	// Regular message
+	if(result.plain) {
+		result.plainMessage = await oldResult[oldResult.plain ? 'plainMessage' : 'replyMessage'].update(result.plain);
+	} else if(oldResult.plain && !result.reply) {
+		oldResult.plainMessage.delete();
+	}
+
+	// Reply message
+	if(result.reply) {
+		result.replyMessage = await oldResult[oldResult.reply ? 'replyMessage' : 'plainMessage'].update(`${message.author}, ${result.reply}`);
+	} else if(oldResult.reply && !result.plain) {
+		oldResult.replyMessage.delete();
+	}
+
+	// Direct message
+	if(result.direct) {
+		result.directMessage = await oldResult.directMessage.update(result.direct);
+	} else if(oldResult.direct) {
+		oldResult.directMessage.delete();
+	}
+}
+
+// Get an array of metadata for a command in a message
 export function parseMessage(message) {
 	// Find the command to run by patterns
 	for(const command of commands) {
@@ -99,7 +128,7 @@ export function parseMessage(message) {
 }
 
 // Find the command from a default matches pattern
-function matchDefault(message, pattern, commandNameIndex = 1) {
+export function matchDefault(message, pattern, commandNameIndex = 1) {
 	const matches = pattern.exec(message.content);
 	if(matches) {
 		const commandName = matches[commandNameIndex].toLowerCase();

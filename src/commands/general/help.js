@@ -32,27 +32,27 @@ export default {
 				if(commands[0].aliases) help += `\n**Aliases:** ${commands[0].aliases.join(', ')}`;
 				if(commands[0].details) help += `\n**Details:** ${commands[0].details}`;
 				if(commands[0].examples) help += `\n**Examples:**\n${commands[0].examples.join('\n')}`;
-				message.client.sendMessage(message.author, help);
-				if(message.server) return 'Sent a DM to you with information.';
+				return { direct: help, reply: message.server ? 'Sent a DM to you with information.' : null };
 			} else if(commands.length > 1) {
 				return disambiguation(commands, 'commands');
 			} else {
 				return `Unable to identify command. Use ${usage('help', message.server)} to view the list of all commands.`;
 			}
 		} else {
-			message.client.sendMessage(message.author, stripIndents`
-				To run a command in ${message.server ? message.server : 'any server'}, use ${usage('command', message.server, !message.server)}. For example, ${usage('roll d20', message.server, !message.server)}.
-				To run a command in this DM, simply use ${usage('command')} with no prefix. For example, ${usage('roll d20')}.
+			return {
+				direct: stripIndents`
+					To run a command in ${message.server ? message.server : 'any server'}, use ${usage('command', message.server, !message.server)}. For example, ${usage('roll d20', message.server, !message.server)}.
+					To run a command in this DM, simply use ${usage('command')} with no prefix. For example, ${usage('roll d20')}.
 
-				**Available commands in ${message.server ? `${message.server}` : 'this DM'} (use ${usage('help <command>')} for more info):**
+					**Available commands in ${message.server ? `${message.server}` : 'this DM'} (use ${usage('help <command>')} for more info):**
 
-				${groups.filter(grp => grp.commands.some(cmd => cmd.isRunnable(message))).map(grp => stripIndents`
-					__${grp.name}__
-					${grp.commands.filter(cmd => cmd.isRunnable(message)).map(cmd => `**${cmd.name}:** ${cmd.description}`).join('\n')}
-				`).join('\n\n')}
-			`);
-			if(message.server) return 'Sent a DM to you with information.';
+					${groups.filter(grp => grp.commands.some(cmd => cmd.isRunnable(message))).map(grp => stripIndents`
+						__${grp.name}__
+						${grp.commands.filter(cmd => cmd.isRunnable(message)).map(cmd => `**${cmd.name}:** ${cmd.description}`).join('\n')}
+					`).join('\n\n')}
+				`,
+				reply: message.server ? 'Sent a DM to you with information.' : null
+			};
 		}
-		return null;
 	}
 };
