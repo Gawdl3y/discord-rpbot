@@ -20,32 +20,30 @@ export async function handleMessage(message, oldMessage = null) {
 	const [command, args, fromPattern, isCommandMessage] = parseMessage(message);
 	const oldResult = oldMessage ? commandResults[oldMessage.id] : null;
 
-	if(!oldResult || oldResult.editable) {
-		let result;
-		if(command) {
-			if(!oldMessage || oldResult) result = await run(command, args, fromPattern, message);
-		} else if(isCommandMessage) {
-			result = `Unknown command. Use ${usage('help', message.server)} to view the list of all commands.`;
+	let result;
+	if(command) {
+		if(!oldMessage || oldResult) result = await run(command, args, fromPattern, message);
+	} else if(isCommandMessage) {
+		result = `Unknown command. Use ${usage('help', message.server)} to view the list of all commands.`;
+	}
+
+	if(result) {
+		if(typeof result !== 'object') result = { reply: result };
+		if(!('editable' in result)) result.editable = true;
+
+		// Update old messages or send new ones
+		if(oldResult) {
+			await updateOldMessages(message, result, oldResult);
+		} else {
+			if(result.reply) result.replyMessage = await message.reply(result.reply);
+			if(result.plain) result.plainMessage = await message.client.sendMessage(message, result.plain);
+			if(result.direct) result.directMessage = await message.client.sendMessage(message.author, result.direct);
 		}
 
-		if(result) {
-			if(typeof result !== 'object') result = { reply: result };
-			if(!('editable' in result)) result.editable = true;
-
-			// Update old messages or send new ones
-			if(oldResult) {
-				await updateOldMessages(message, result, oldResult);
-			} else {
-				if(result.reply) result.replyMessage = await message.reply(result.reply);
-				if(result.plain) result.plainMessage = await message.client.sendMessage(message, result.plain);
-				if(result.direct) result.directMessage = await message.client.sendMessage(message.author, result.direct);
-			}
-
-			// Cache the result
-			if(config.commandEditable > 0) {
-				commandResults[message.id] = result;
-				setTimeout(() => { delete commandResults[message.id]; }, config.commandEditable * 1000);
-			}
+		// Cache the result
+		if(config.commandEditable > 0 && result.editable) {
+			commandResults[message.id] = result;
+			setTimeout(() => { delete commandResults[message.id]; }, config.commandEditable * 1000);
 		}
 	}
 }
