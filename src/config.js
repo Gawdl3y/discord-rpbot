@@ -88,7 +88,7 @@ const config = yargs
 	})
 	.option('pagination-items', {
 		type: 'number',
-		default: 15,
+		default: 10,
 		alias: 'I',
 		describe: 'Number of items per page in paginated commands',
 		group: 'General:'

@@ -31,7 +31,7 @@ export default {
 			const paginated = paginate(characters, page, Math.floor(config.paginationItems));
 			characters = paginated.items;
 			message.reply(stripIndents`
-				Character${search ? `s ${search.length === 1 ? 'that begin with' : 'that contain'} "${search}"` : ' list'}, ${paginated.pageText}:
+				__**Character${search ? `s ${search.length === 1 ? 'that begin with' : 'that contain'} "${search}"` : ' list'}, ${paginated.pageText}:**__
 
 				${characters.map(char => char.name).join('\n')}
 				${paginated.maxPage > 1 ? `\nUse ${usage.long(`characters ${search ? `${search} ` : ''}<page>`, message.server)} to view a specific page.` : ''}
