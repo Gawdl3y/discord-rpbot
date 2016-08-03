@@ -22,7 +22,7 @@ export default {
 		if(roles.length > 0) {
 			message.reply(stripIndents`
 				__**Moderator roles:**__
-				${roles.map(role => `${role.name} (ID: ${role.id})`).join('\n')}
+				${roles.map(role => `**-** ${role.name} (ID: ${role.id})`).join('\n')}
 			`);
 		} else {
 			message.reply('There are no moderator roles.');

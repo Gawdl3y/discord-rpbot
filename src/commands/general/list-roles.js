@@ -19,7 +19,7 @@ export default {
 	async run(message) {
 		message.reply(stripIndents`
 			__**Server roles:**__
-			${message.server.roles.map(element => `${element.name} (ID: ${element.id})`).join('\n')}
+			${message.server.roles.map(role => `**-** ${role.name} (ID: ${role.id})`).join('\n')}
 		`);
 	}
 };

@@ -32,8 +32,7 @@ export default {
 			characters = paginated.items;
 			message.reply(stripIndents`
 				__**Character${search ? `s ${search.length === 1 ? 'that begin with' : 'that contain'} "${search}"` : ' list'}, ${paginated.pageText}:**__
-
-				${characters.map(char => char.name).join('\n')}
+				${characters.map(char => `**-** ${char.name}`).join('\n')}
 				${paginated.maxPage > 1 ? `\nUse ${usage(`characters ${search ? `${search} ` : ''}<page>`, message.server)} to view a specific page.` : ''}
 				Use ${usage('character <name>', message.server)} to view information about a character.
 			`);
