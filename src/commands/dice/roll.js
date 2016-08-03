@@ -68,7 +68,7 @@ export default {
 				const diceInfo = diceList ? ` (${diceList})` : '';
 				return {
 					plain: `${message.author} rolled **${rollResult.roll}**.${diceInfo}`,
-					editable: true
+					editable: false
 				};
 			}
 		} catch(err) {
