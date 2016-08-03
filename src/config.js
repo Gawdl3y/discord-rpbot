@@ -90,7 +90,7 @@ const config = yargs
 		type: 'number',
 		default: 60,
 		alias: 'E',
-		describe: 'How long a command message is editable (in seconds)',
+		describe: 'How long a command message is editable (in seconds, use 0 to disable)',
 		group: 'General:'
 	})
 	.option('pagination-items', {
