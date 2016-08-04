@@ -2,7 +2,6 @@
 'use strict';
 
 import DiceExpression from 'dice-expression-evaluator';
-import logger from '../../util/logger';
 import CommandFormatError from '../../util/errors/command-format';
 
 export default {
@@ -25,7 +24,6 @@ export default {
 			const maxRoll = new DiceExpression(args[0]).max();
 			return `The maximum possible roll is **${maxRoll}**.`;
 		} catch(err) {
-			logger.error(err);
 			return 'Invalid dice expression specified.';
 		}
 	}
