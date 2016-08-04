@@ -11,6 +11,7 @@ import * as rpbot from '../../rpbot';
 import config from '../../config';
 import version from '../../version';
 import * as commands from '..';
+import * as dispatcher from '../dispatcher';
 import db from '../../database';
 import storage from '../../database/local-storage';
 import Character from '../../database/character';
@@ -29,6 +30,8 @@ import FriendlyError from '../../util/errors/friendly';
 import CommandFormatError from '../../util/errors/command-format';
 /* eslint-enable no-unused-vars */
 
+let lastResult;
+
 export default {
 	name: 'eval',
 	group: 'general',
@@ -45,7 +48,8 @@ export default {
 	async run(msg, args) {
 		if(!args[0]) throw new CommandFormatError(this, msg.server);
 		try {
-			return `Result: \`${util.inspect(eval(args[0]), { depth: 0 })}\``;
+			lastResult = eval(args[0]);
+			return `Result: \`${util.inspect(lastResult, { depth: 0 })}\``;
 		} catch(err) {
 			return `Error while evaluating: ${err}`;
 		}
