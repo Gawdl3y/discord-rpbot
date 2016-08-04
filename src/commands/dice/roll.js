@@ -72,7 +72,6 @@ export default {
 				};
 			}
 		} catch(err) {
-			logger.error(err);
 			return { plain: `${message.author} specified an invalid dice expression.` };
 		}
 	}
