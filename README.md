@@ -74,12 +74,13 @@ The settings:
 | owner                | Discord user ID of the bot owner                                                 |
 | invite               | Discord instant invite to a server to contact the owner                          |
 | playing-game         | Text to show in the "Playing..." status                                          |
-| command-prefix       | Default command prefix (blank to use only mentions)                              |
-| command-editable     | How long a command message is editable (in seconds, use 0 to disable)            |
 | pagination-items     | Number of items per page in paginated commands                                   |
 | update-check         | How frequently to check for an update (in minutes - use 0 to disable)            |
 | analytics            | Whether or not to enable anonymous, non-unique, non-identifiable analytics       |
 | auto-reconnect       | Whether or not the bot should automatically reconnect when disconnected          |
+| command-prefix       | Default command prefix (blank to use only mentions)                              |
+| command-editable     | How long a command message is editable (in seconds, use 0 to disable)            |
+| non-command-edit     | Whether or not a non-command message can be edited into a command                |
 | log                  | Path to the log file to output to                                                |
 | log-max-size         | Maximum size of a single log file (in bytes)                                     |
 | log-max-files        | Maximum log files to keep                                                        |

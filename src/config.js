@@ -79,20 +79,6 @@ const config = yargs
 		describe: 'Text to show in the "Playing..." status',
 		group: 'General:'
 	})
-	.option('command-prefix', {
-		type: 'string',
-		default: '!',
-		alias: 'P',
-		describe: 'Default command prefix (blank to use only mentions)',
-		group: 'General:'
-	})
-	.option('command-editable', {
-		type: 'number',
-		default: 60,
-		alias: 'E',
-		describe: 'How long a command message is editable (in seconds, use 0 to disable)',
-		group: 'General:'
-	})
 	.option('pagination-items', {
 		type: 'number',
 		default: 10,
@@ -120,6 +106,29 @@ const config = yargs
 		alias: 'a',
 		describe: 'Whether or not the bot should automatically reconnect when disconnected',
 		group: 'General:'
+	})
+
+	// Commands
+	.option('command-prefix', {
+		type: 'string',
+		default: '!',
+		alias: 'P',
+		describe: 'Default command prefix (blank to use only mentions)',
+		group: 'Commands:'
+	})
+	.option('command-editable', {
+		type: 'number',
+		default: 60,
+		alias: 'E',
+		describe: 'How long a command message is editable (in seconds, use 0 to disable)',
+		group: 'Commands:'
+	})
+	.option('non-command-edit', {
+		type: 'boolean',
+		default: true,
+		alias: 'N',
+		describe: 'Whether or not a non-command message can be edited into a command',
+		group: 'Commands:'
 	})
 
 	// Logging

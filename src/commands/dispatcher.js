@@ -25,6 +25,8 @@ export async function handleMessage(message, oldMessage = null) {
 		if(!oldMessage || oldResult) result = await run(command, args, fromPattern, message);
 	} else if(isCommandMessage) {
 		result = `Unknown command. Use ${usage('help', message.server)} to view the list of all commands.`;
+	} else if(config.nonCommandEdit) {
+		result = {};
 	}
 
 	if(result) {
@@ -32,7 +34,7 @@ export async function handleMessage(message, oldMessage = null) {
 		if(!('editable' in result)) result.editable = true;
 
 		// Update old messages or send new ones
-		if(oldResult) {
+		if(oldResult && (oldResult.plain || oldResult.reply || oldResult.direct)) {
 			await updateOldMessages(message, result, oldResult);
 		} else {
 			if(result.reply) result.replyMessage = await message.reply(result.reply);
