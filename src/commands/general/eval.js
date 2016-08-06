@@ -45,8 +45,9 @@ export default {
 		return message.author.id === config.owner;
 	},
 
-	async run(msg, args) {
-		if(!args[0]) throw new CommandFormatError(this, msg.server);
+	async run(message, args) {
+		if(!args[0]) throw new CommandFormatError(this, message.server);
+		const msg = message; // eslint-disable-line no-unused-vars
 		try {
 			lastResult = eval(args[0]);
 			return `Result: \`${util.inspect(lastResult, { depth: 0 })}\``;
