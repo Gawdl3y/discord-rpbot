@@ -101,15 +101,15 @@ export async function sendMessages(message, result) {
 export async function updateOldMessages(message, result, oldResult) {
 	// Update the messages
 	const allUpdatable = [];
-	if(result.plain) result.plainMessage = await updatableMessage('plain', oldResult, allUpdatable).update(result.plain);
-	if(result.reply) result.replyMessage = await updatableMessage('reply', oldResult, allUpdatable).update(`${message.author}, ${result.reply}`);
-	if(result.direct) {
-		if(!oldResult.direct) {
-			result.directMessage = await message.client.sendMessage(message.author, result.direct);
-		} else {
-			result.directMessage = await updatableMessage('direct', oldResult, allUpdatable).update(result.direct);
-		}
-	}
+	const promises = [
+		result.plain ? updatableMessage('plain', oldResult, allUpdatable).update(result.plain) : null,
+		result.reply ? updatableMessage('reply', oldResult, allUpdatable).update(`${message.author}, ${result.reply}`) : null,
+		result.direct ? oldResult.direct ? updatableMessage('direct', oldResult, allUpdatable).update(result.direct) : message.client.sendMessage(message.author, result.direct) : null
+	];
+	const messages = await Promise.all(promises);
+	if(result.plain) result.plainMessage = messages[0];
+	if(result.reply) result.replyMessage = messages[1];
+	if(result.direct) result.directMessage = messages[2];
 
 	// Delete old messages if we're not using them
 	if(oldResult.plain && !allUpdatable.includes('plain')) oldResult.plainMessage.delete();
