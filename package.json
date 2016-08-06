@@ -25,7 +25,7 @@
 		"rpbot": "lib/rpbot.js"
 	},
 	"dependencies": {
-		"discord.js": "^8.0.0",
+		"discord.js": "^8.1.0",
 		"yargs": "^4.8.0",
 		"winston": "^2.2.0",
 		"js-yaml": "^3.6.0",
@@ -46,9 +46,9 @@
 		"gulp-exec": "^2.1.0",
 		"gulp-eslint": "^3.0.0",
 		"del": "^2.2.0",
-		"eslint": "^3.1.0",
+		"eslint": "^3.2.0",
 		"babel-eslint": "^6.1.0",
-		"babel-preset-es2015-node6": "^0.2.0",
+		"babel-preset-es2015-node6": "^0.3.0",
 		"fast-async": "^6.0.0"
 	},
 	"engines": {
