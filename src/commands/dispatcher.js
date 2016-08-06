@@ -20,6 +20,7 @@ export async function handleMessage(message, oldMessage = null) {
 	const [command, args, fromPattern, isCommandMessage] = parseMessage(message);
 	const oldResult = oldMessage ? commandResults[oldMessage.id] : null;
 
+	// Get the result for the message
 	let result;
 	if(command) {
 		if(!oldMessage || oldResult) result = await run(command, args, fromPattern, message);
@@ -32,13 +33,14 @@ export async function handleMessage(message, oldMessage = null) {
 	if(result) {
 		if(typeof result !== 'object') result = { reply: result };
 		if(!('editable' in result)) result.editable = true;
+		if(result.reply && result.plain) throw new Error('The command result may contain either "plain" or "reply", not both.');
 
 		// Update old messages or send new ones
 		if(oldResult && (oldResult.plain || oldResult.reply || oldResult.direct)) {
 			await updateOldMessages(message, result, oldResult);
 		} else {
-			if(result.reply) result.replyMessage = await message.reply(result.reply);
 			if(result.plain) result.plainMessage = await message.client.sendMessage(message, result.plain);
+			if(result.reply) result.replyMessage = await message.reply(result.reply);
 			if(result.direct) result.directMessage = await message.client.sendMessage(message.author, result.direct);
 		}
 
