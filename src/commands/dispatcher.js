@@ -93,8 +93,8 @@ export async function sendMessages(message, result) {
 	];
 	const messages = await Promise.all(promises);
 	if(result.plain) result.plainMessage = messages[0];
-	else if(result.reply) result.replyMessage = messages[0];
-	if(result.direct) result.directMessage = messages[1];
+	if(result.reply) result.replyMessage = messages[1];
+	if(result.direct) result.directMessage = messages[2];
 }
 
 // Update old messages to reflect a new result
