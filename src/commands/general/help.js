@@ -32,7 +32,7 @@ export default {
 				if(commands[0].aliases) help += `\n**Aliases:** ${commands[0].aliases.join(', ')}`;
 				if(commands[0].details) help += `\n**Details:** ${commands[0].details}`;
 				if(commands[0].examples) help += `\n**Examples:**\n${commands[0].examples.join('\n')}`;
-				return { direct: help, reply: message.server ? 'Sent a DM to you with information.' : null };
+				return { direct: help, reply: 'Sent a DM to you with information.' };
 			} else if(commands.length > 1) {
 				return disambiguation(commands, 'commands');
 			} else {
