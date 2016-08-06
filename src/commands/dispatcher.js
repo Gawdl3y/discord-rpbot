@@ -39,9 +39,7 @@ export async function handleMessage(message, oldMessage = null) {
 		if(oldResult && (oldResult.plain || oldResult.reply || oldResult.direct)) {
 			await updateOldMessages(message, result, oldResult);
 		} else {
-			if(result.plain) result.plainMessage = await message.client.sendMessage(message, result.plain);
-			if(result.reply) result.replyMessage = await message.reply(result.reply);
-			if(result.direct) result.directMessage = await message.client.sendMessage(message.author, result.direct);
+			await sendMessages(message, result);
 		}
 
 		// Cache the result
@@ -86,6 +84,19 @@ export async function run(command, args, fromPattern, message) {
 	}
 }
 
+// Send messages for a result
+export async function sendMessages(message, result) {
+	const promises = [
+		result.plain ? message.client.sendMessage(message, result.plain) : null,
+		result.reply ? message.reply(result.reply) : null,
+		result.direct ? message.client.sendMessage(message.author, result.direct) : null
+	];
+	const messages = await Promise.all(promises);
+	if(result.plain) result.plainMessage = messages[0];
+	else if(result.reply) result.replyMessage = messages[0];
+	if(result.direct) result.directMessage = messages[1];
+}
+
 // Update old messages to reflect a new result
 export async function updateOldMessages(message, result, oldResult) {
 	// Update the messages
@@ -104,6 +115,27 @@ export async function updateOldMessages(message, result, oldResult) {
 	if(oldResult.plain && !allUpdatable.includes('plain')) oldResult.plainMessage.delete();
 	if(oldResult.reply && !allUpdatable.includes('reply')) oldResult.replyMessage.delete();
 	if(oldResult.direct && !allUpdatable.includes('direct')) oldResult.directMessage.delete();
+}
+
+// Get the message to update
+export function updatableMessage(type, result, all = null) {
+	if(result[type]) {
+		if(all) all.push(type);
+		return result[`${type}Message`];
+	}
+	if(result.plain) {
+		if(all) all.push('plain');
+		return result.plainMessage;
+	}
+	if(result.reply) {
+		if(all) all.push('reply');
+		return result.replyMessage;
+	}
+	if(result.direct) {
+		if(all) all.push('direct');
+		return result.directMessage;
+	}
+	return null;
 }
 
 // Get an array of metadata for a command in a message
@@ -140,25 +172,4 @@ export function matchDefault(message, pattern, commandNameIndex = 1) {
 		return [null, null, true];
 	}
 	return [null, null, false];
-}
-
-// Get the message to update
-export function updatableMessage(type, result, all = null) {
-	if(result[type]) {
-		if(all) all.push(type);
-		return result[`${type}Message`];
-	}
-	if(result.plain) {
-		if(all) all.push('plain');
-		return result.plainMessage;
-	}
-	if(result.reply) {
-		if(all) all.push('reply');
-		return result.replyMessage;
-	}
-	if(result.direct) {
-		if(all) all.push('direct');
-		return result.directMessage;
-	}
-	return null;
 }
