@@ -22,7 +22,7 @@ export default {
 		if(args[0] && !showAll) {
 			if(commands.length === 1) {
 				let help = stripIndents`
-					__Command **${commands[0].name}**:__ ${commands[0].description}
+					__Command **${commands[0].name}**:__ ${commands[0].description}${commands[0].serverOnly ? ' (Usable only in servers)' : ''}
 
 					**Usage:** ${usage(commands[0].usage ? commands[0].usage : commands[0].name, message.server)}
 				`;
