@@ -15,11 +15,8 @@ export default {
 	usage: 'character <name>',
 	details: 'The name can be the whole name of the character, or just a part of it.',
 	examples: ['character Billy McBillface', 'character bill'],
+	serverOnly: true,
 	singleArgument: true,
-
-	isRunnable(message) {
-		return !!message.server;
-	},
 
 	async run(message, args) {
 		if(!args[0]) throw new CommandFormatError(this, message.server);

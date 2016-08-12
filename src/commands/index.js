@@ -54,7 +54,7 @@ for(const command of commands) groups.find(grp => grp.id === command.group).comm
 
 // Find all commands, or commands that match a search string
 export function findCommands(searchString = null, message = null) {
-	if(!searchString) return message ? commands.filter(cmd => cmd.isRunnable(message)) : commands;
+	if(!searchString) return message ? commands.filter(cmd => isUsable(cmd, message)) : commands;
 
 	// Find all matches
 	const lowercaseSearch = searchString.toLowerCase();
@@ -65,5 +65,11 @@ export function findCommands(searchString = null, message = null) {
 		if(command.name === lowercaseSearch || (command.aliases && command.aliases.some(ali => ali === lowercaseSearch))) return [command];
 	}
 
-	return message ? matchedCommands.filter(cmd => cmd.isRunnable(message)) : matchedCommands;
+	return message ? matchedCommands.filter(cmd => isUsable(cmd, message)) : matchedCommands;
+}
+
+// Check to make sure a command is runnable
+export function isUsable(command, message = null) {
+	if(command.serverOnly && message && !message.server) return false;
+	return !command.isRunnable || !message || command.isRunnable(message);
 }

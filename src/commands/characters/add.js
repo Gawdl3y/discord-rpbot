@@ -20,11 +20,8 @@ export default {
 	usage: 'addcharacter <name> <info>',
 	details: 'The character name can be a maximum of 60 characters long, and must be surrounded by quotes if it contains spaces. The information doesn\'t have to be a single line. Only the owner of the character and administrators/moderators may update it.',
 	examples: ['addcharacter Bob Just your average guy.', 'addcharacter "Billy McBillface" A really cool guy who enjoys his chicken tendies.'],
+	serverOnly: true,
 	singleArgument: true,
-
-	isRunnable(message) {
-		return !!message.server;
-	},
 
 	async run(message, args) {
 		if(!args[0]) throw new CommandFormatError(this, message.server);

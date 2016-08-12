@@ -2,7 +2,7 @@
 'use strict';
 
 import { stripIndents } from 'common-tags';
-import { groups, findCommands } from '..';
+import { groups, findCommands, isUsable } from '..';
 import disambiguation from '../../util/disambiguation';
 import usage from '../../util/command-usage';
 
@@ -15,10 +15,6 @@ export default {
 	usage: 'help [command]',
 	details: 'The command may be part of a command name or a whole command name. If it isn\'t specified, all available commands will be listed.',
 	examples: ['help', 'help roll'],
-
-	isRunnable() {
-		return true;
-	},
 
 	async run(message, args) {
 		const commands = findCommands(args[0], message);
@@ -46,9 +42,9 @@ export default {
 
 					**Available commands in ${message.server ? `${message.server}` : 'this DM'} (use ${usage('help <command>')} for more info):**
 
-					${groups.filter(grp => grp.commands.some(cmd => cmd.isRunnable(message))).map(grp => stripIndents`
+					${groups.filter(grp => grp.commands.some(cmd => isUsable(cmd, message))).map(grp => stripIndents`
 						__${grp.name}__
-						${grp.commands.filter(cmd => cmd.isRunnable(message)).map(cmd => `**${cmd.name}:** ${cmd.description}`).join('\n')}
+						${grp.commands.filter(cmd => isUsable(cmd, message)).map(cmd => `**${cmd.name}:** ${cmd.description}`).join('\n')}
 					`).join('\n\n')}
 				`,
 				reply: message.server ? 'Sent a DM to you with information.' : null

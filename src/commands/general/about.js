@@ -11,10 +11,6 @@ export default {
 	groupName: 'about',
 	description: 'Displays information about the bot.',
 
-	isRunnable() {
-		return true;
-	},
-
 	async run(message) {
 		const owner = message.client.users.get('id', config.owner);
 		const servers = message.client.servers.length.toLocaleString(), users = message.client.users.length.toLocaleString();

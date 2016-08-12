@@ -64,34 +64,40 @@ export async function handleMessage(message, oldMessage = null) {
 // Run a command
 export async function run(command, args, fromPattern, message) {
 	const logInfo = {
-		args: args.toString(),
+		args: String(args),
 		user: `${message.author.username}#${message.author.discriminator}`,
 		userID: message.author.id,
 		server: message.server ? message.server.name : null,
 		serverID: message.server ? message.server.id : null
 	};
 
-	if(command.isRunnable(message)) {
-		logger.info(`Running ${command.group}:${command.groupName}.`, logInfo);
-		analytics.sendEvent('Command', 'run', `${command.group}:${command.groupName}`);
-		try {
-			return await command.run(message, args, fromPattern);
-		} catch(err) {
-			if(err instanceof FriendlyError) {
-				return err.message;
-			} else {
-				logger.error(err);
-				analytics.sendException(err);
-				const owner = config.owner ? message.client.users.get('id', config.owner) : null;
-				return stripIndents`
-					An error occurred while running the command: \`${err.name}: ${err.message}\`
-					${owner ? `Please contact ${owner.name}#${owner.discriminator}${config.invite ? ` in this server: ${config.invite}` : '.'}` : ''}
-				`;
-			}
-		}
-	} else {
+	// Make sure the command is usable
+	if(command.serverOnly && !message.server) {
+		logger.info(`Not running ${command.group}:${command.groupName}; server only.`, logInfo);
+		return `The \`${command.name}\` command must be used in a server channel.`;
+	}
+	if(command.isRunnable && !command.isRunnable(message)) {
 		logger.info(`Not running ${command.group}:${command.groupName}; not runnable.`, logInfo);
-		return `The \`${command.name}\` command is not currently usable in your context.`;
+		return `You do not have permission to use the \`${command.name}\` command.`;
+	}
+
+	// Run the command
+	logger.info(`Running ${command.group}:${command.groupName}.`, logInfo);
+	analytics.sendEvent('Command', 'run', `${command.group}:${command.groupName}`);
+	try {
+		return await command.run(message, args, fromPattern);
+	} catch(err) {
+		if(err instanceof FriendlyError) {
+			return err.message;
+		} else {
+			logger.error(err);
+			analytics.sendException(err);
+			const owner = config.owner ? message.client.users.get('id', config.owner) : null;
+			return stripIndents`
+				An error occurred while running the command: \`${err.name}: ${err.message}\`
+				${owner ? `Please contact ${owner.name}#${owner.discriminator}${config.invite ? ` in this server: ${config.invite}` : '.'}` : ''}
+			`;
+		}
 	}
 }
 

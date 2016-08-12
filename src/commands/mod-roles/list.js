@@ -12,9 +12,10 @@ export default {
 	groupName: 'list',
 	description: 'Lists all moderator roles.',
 	details: 'Only administrators may use this command.',
+	serverOnly: true,
 
 	isRunnable(message) {
-		return message.server && permissions.isAdministrator(message.server, message.author);
+		return permissions.isAdministrator(message.server, message.author);
 	},
 
 	async run(message) {

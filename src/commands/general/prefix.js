@@ -18,10 +18,6 @@ export default {
 	examples: ['prefix', 'prefix -', 'prefix rp!', 'prefix default', 'prefix none'],
 	singleArgument: true,
 
-	isRunnable() {
-		return true;
-	},
-
 	async run(message, args) {
 		if(args[0] && message.server) {
 			if(!permissions.isAdministrator(message.server, message.author)) return 'Only administrators may change the command prefix.';

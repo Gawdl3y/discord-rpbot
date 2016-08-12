@@ -11,9 +11,17 @@ export default function search(items, searchString, { property = 'name', searchI
 	// Find all items that start with or include the search string
 	if(searchInexact) {
 		if(useStartsWith && searchString.length === 1) {
-			matchedItems = items.filter(element => (property ? element[property] : element.toString()).normalize('NFKD').toLowerCase().startsWith(lowercaseSearch));
+			matchedItems = items.filter(element => String(property ? element[property] : element)
+				.normalize('NFKD')
+				.toLowerCase()
+				.startsWith(lowercaseSearch)
+			);
 		} else {
-			matchedItems = items.filter(element => (property ? element[property] : element.toString()).normalize('NFKD').toLowerCase().includes(lowercaseSearch));
+			matchedItems = items.filter(element => String(property ? element[property] : element)
+				.normalize('NFKD')
+				.toLowerCase()
+				.includes(lowercaseSearch)
+			);
 		}
 	} else {
 		matchedItems = items;
@@ -21,7 +29,7 @@ export default function search(items, searchString, { property = 'name', searchI
 
 	// See if any are an exact match
 	if(searchExact && matchedItems.length > 1) {
-		const exactItems = matchedItems.filter(element => (property ? element[property] : element.toString()).normalize('NFKD').toLowerCase() === lowercaseSearch);
+		const exactItems = matchedItems.filter(element => String(property ? element[property] : element).normalize('NFKD').toLowerCase() === lowercaseSearch);
 		if(exactItems.length > 0) return exactItems;
 	}
 

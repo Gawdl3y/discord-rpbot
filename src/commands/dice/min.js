@@ -14,10 +14,6 @@ export default {
 	examples: ['minroll 2d20', 'minroll 3d20 - d10 + 6'],
 	singleArgument: true,
 
-	isRunnable() {
-		return true;
-	},
-
 	async run(message, args) {
 		if(!args[0]) throw new CommandFormatError(this, message.server);
 		try {

@@ -5,6 +5,6 @@ export const character = '\xa0';
 const spacePattern = / /g;
 
 export function convert(text) {
-	return text ? text.toString().replace(spacePattern, character) : text;
+	return String(text).replace(spacePattern, character);
 }
 export default convert;

@@ -22,10 +22,6 @@ export default {
 		/\(\s*(?:roll|dice|rolldice|diceroll):\s*(.+?)(?:(>|<)\s*([0-9]+?))?\s*\)/i
 	],
 
-	isRunnable() {
-		return true;
-	},
-
 	async run(message, args, fromPattern) {
 		if(!args[0]) throw new CommandFormatError(this, message.server);
 		try {

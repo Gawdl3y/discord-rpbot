@@ -18,10 +18,11 @@ export default {
 	usage: 'deletemodrole <role>',
 	details: 'The role must be the ID of a role, or a role mention. Only administrators may use this command.',
 	examples: ['deletemodrole cool', 'deletemodrole 205536402341888001', 'deletemodrole @CoolPeopleRole'],
+	serverOnly: true,
 	singleArgument: true,
 
 	isRunnable(message) {
-		return message.server && permissions.isAdministrator(message.server, message.author);
+		return permissions.isAdministrator(message.server, message.author);
 	},
 
 	async run(message, args) {
