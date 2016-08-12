@@ -18,7 +18,8 @@ export default {
 
 	async run(message, args) {
 		const commands = findCommands(args[0], message);
-		if(args[0]) {
+		const showAll = args[0] && args[0].toLowerCase() === 'all';
+		if(args[0] && !showAll) {
 			if(commands.length === 1) {
 				let help = stripIndents`
 					__Command **${commands[0].name}**:__ ${commands[0].description}
@@ -40,11 +41,14 @@ export default {
 					To run a command in ${message.server ? message.server : 'any server'}, use ${usage('command', message.server, !message.server)}. For example, ${usage('roll d20', message.server, !message.server)}.
 					To run a command in this DM, simply use ${usage('command')} with no prefix. For example, ${usage('roll d20')}.
 
-					**Available commands in ${message.server ? `${message.server}` : 'this DM'} (use ${usage('help <command>')} for more info):**
+					Use ${usage('help <command>')} to view detailed information about a specific command.
+					Use ${usage('help all')} to view a list of *all* commands, not just available ones.
 
-					${groups.filter(grp => grp.commands.some(cmd => isUsable(cmd, message))).map(grp => stripIndents`
+					__**${showAll ? 'All commands' : `Available commands in ${message.server ? `${message.server}` : 'this DM'}`}**__
+
+					${(showAll ? groups : groups.filter(grp => grp.commands.some(cmd => isUsable(cmd, message)))).map(grp => stripIndents`
 						__${grp.name}__
-						${grp.commands.filter(cmd => isUsable(cmd, message)).map(cmd => `**${cmd.name}:** ${cmd.description}`).join('\n')}
+						${(showAll ? grp.commands : grp.commands.filter(cmd => isUsable(cmd, message))).map(cmd => `**${cmd.name}:** ${cmd.description}`).join('\n')}
 					`).join('\n\n')}
 				`,
 				reply: message.server ? 'Sent a DM to you with information.' : null
