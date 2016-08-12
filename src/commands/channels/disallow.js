@@ -2,7 +2,7 @@
 'use strict';
 
 import { stripIndents } from 'common-tags';
-import Channel from '../../database/channel';
+import UsableChannel from '../../database/usable-channel';
 import * as permissions from '../../util/permissions';
 import search from '../../util/search';
 import disambiguation from '../../util/disambiguation';
@@ -31,14 +31,14 @@ export default {
 		if(!args[0]) throw new CommandFormatError(this, message.server);
 		const matches = pattern.exec(args[0]);
 		const idChannel = message.server.channels.get('id', matches[1]);
-		const allowedChannels = Channel.findInServer(message.server);
+		const allowedChannels = UsableChannel.findInServer(message.server);
 		if(allowedChannels.length > 0) {
-			const channels = idChannel ? [idChannel] : Channel.findInServer(message.server, matches[1]);
+			const channels = idChannel ? [idChannel] : UsableChannel.findInServer(message.server, matches[1]);
 			if(channels.length === 1) {
-				if(Channel.delete(channels[0])) {
+				if(UsableChannel.delete(channels[0])) {
 					return stripIndents`
 						Disallowed operation in ${channels[0]}.
-						${Channel.findInServer(message.server).length === 0 ? 'Since there are no longer any allowed channels, operation is now allowed in all channels.' : ''}
+						${UsableChannel.findInServer(message.server).length === 0 ? 'Since there are no longer any allowed channels, operation is now allowed in all channels.' : ''}
 					`;
 				} else {
 					return `Operation is already not allowed in ${channels[0]}.`;
@@ -54,7 +54,7 @@ export default {
 			if(channels.length === 1) {
 				const index = serverChannels.indexOf(channels[0]);
 				serverChannels.splice(index, 1);
-				for(const chn of serverChannels) Channel.save(chn);
+				for(const chn of serverChannels) UsableChannel.save(chn);
 				return stripIndents`
 					Disallowed operation in ${channels[0]}.
 					Since there were no allowed channels already, all other channels have been allowed.

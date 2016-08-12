@@ -1,7 +1,7 @@
 'use babel';
 'use strict';
 
-import Channel from '../../database/channel';
+import UsableChannel from '../../database/usable-channel';
 import * as permissions from '../../util/permissions';
 import usage from '../../util/command-usage';
 
@@ -22,7 +22,7 @@ export default {
 
 	async run(message, args) {
 		if(message.author.equals(lastUser) && args[0] && args[0].toLowerCase() === 'confirm') {
-			Channel.clearServer(message.server);
+			UsableChannel.clearServer(message.server);
 			clearTimeout(timeout);
 			lastUser = null;
 			timeout = null;

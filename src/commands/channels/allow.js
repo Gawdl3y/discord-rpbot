@@ -1,7 +1,7 @@
 'use babel';
 'use strict';
 
-import Channel from '../../database/channel';
+import UsableChannel from '../../database/usable-channel';
 import search from '../../util/search';
 import disambiguation from '../../util/disambiguation';
 import * as permissions from '../../util/permissions';
@@ -33,7 +33,7 @@ export default {
 		if(idChannel) channels = [idChannel]; else channels = search(message.server.channels.getAll('type', 'text'), matches[1]);
 
 		if(channels.length === 1) {
-			if(Channel.save(channels[0])) {
+			if(UsableChannel.save(channels[0])) {
 				return `Allowed operation in ${channels[0]}.`;
 			} else {
 				return `Operation is already allowed in ${channels[0]}.`;

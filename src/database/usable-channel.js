@@ -5,7 +5,7 @@ import storage from './local-storage';
 import search from '../util/search';
 import logger from '../util/logger';
 
-export default class Channel {
+export default class UsableChannel {
 	static loadDatabase() {
 		this.serversMap = JSON.parse(storage.getItem('channels'));
 		if(!this.serversMap) this.serversMap = {};

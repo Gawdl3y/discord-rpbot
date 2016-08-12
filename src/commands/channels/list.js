@@ -2,7 +2,7 @@
 'use strict';
 
 import { stripIndents } from 'common-tags';
-import Channel from '../../database/channel';
+import UsableChannel from '../../database/usable-channel';
 
 export default {
 	name: 'allowedchannels',
@@ -13,7 +13,7 @@ export default {
 	serverOnly: true,
 
 	async run(message) {
-		const channels = Channel.findInServer(message.server);
+		const channels = UsableChannel.findInServer(message.server);
 		if(channels.length > 0) {
 			return stripIndents`
 				__**Allowed channels:**__
