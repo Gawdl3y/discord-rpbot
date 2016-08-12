@@ -7,13 +7,13 @@ import logger from '../util/logger';
 
 export default class UsableChannel {
 	static loadDatabase() {
-		this.serversMap = JSON.parse(storage.getItem('channels'));
+		this.serversMap = JSON.parse(storage.getItem('allowed-channels'));
 		if(!this.serversMap) this.serversMap = {};
 	}
 
 	static saveDatabase() {
 		logger.debug('Saving channels storage...', this.serversMap);
-		storage.setItem('channels', JSON.stringify(this.serversMap));
+		storage.setItem('allowed-channels', JSON.stringify(this.serversMap));
 	}
 
 	static save(channel) {
