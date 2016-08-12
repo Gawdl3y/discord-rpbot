@@ -5,6 +5,7 @@ import stringArgv from 'string-argv';
 import { stripIndents } from 'common-tags';
 import commands from './';
 import config from '../config';
+import Channel from '../database/channel';
 import buildCommandPattern from '../util/command-pattern';
 import usage from '../util/command-usage';
 import logger from '../util/logger';
@@ -17,24 +18,24 @@ export const commandResults = {};
 
 // Handle a raw message
 export async function handleMessage(message, oldMessage = null) {
+	// Make sure the bot is allowed to run in the channel
+	if(message.server && Channel.serverHasAny(message.server) && !Channel.serverHas(message.server, message.channel)) return;
+
+	// Parse the message, and get the old result if it exists
 	const [command, args, fromPattern, isCommandMessage] = parseMessage(message);
 	const oldResult = oldMessage ? commandResults[oldMessage.id] : null;
 
-	// Get the result for the message
+	// Run the command, or make an error message result
 	let result;
 	if(command) {
-		if(!oldMessage || oldResult) result = await run(command, args, fromPattern, message);
+		if(!oldMessage || oldResult) result = makeResultObject(await run(command, args, fromPattern, message));
 	} else if(isCommandMessage) {
-		result = `Unknown command. Use ${usage('help', message.server)} to view the list of all commands.`;
+		result = { reply: `Unknown command. Use ${usage('help', message.server)} to view the list of all commands.`, editable: true };
 	} else if(config.nonCommandEdit) {
 		result = {};
 	}
 
 	if(result) {
-		if(typeof result !== 'object') result = { reply: result };
-		if(!('editable' in result)) result.editable = true;
-		if(result.plain && result.reply) throw new Error('The command result may contain either "plain" or "reply", not both.');
-
 		// Change a plain or reply response into direct if there isn't a server
 		if(!message.server) {
 			if(!result.direct) result.direct = result.plain || result.reply;
@@ -99,6 +100,14 @@ export async function run(command, args, fromPattern, message) {
 			`;
 		}
 	}
+}
+
+// Get a result object from running a command
+export function makeResultObject(result) {
+	if(typeof result !== 'object') result = { reply: result };
+	if(!('editable' in result)) result.editable = true;
+	if(result.plain && result.reply) throw new Error('The command result may contain either "plain" or "reply", not both.');
+	return result;
 }
 
 // Send messages for a result

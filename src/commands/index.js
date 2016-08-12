@@ -20,6 +20,10 @@ import ListModRolesCommand from './mod-roles/list';
 import AddModRoleCommand from './mod-roles/add';
 import DeleteModRoleCommand from './mod-roles/delete';
 
+import AllowChannelCommand from './channels/allow';
+import DisallowChannelCommand from './channels/disallow';
+import ListAllowedChannelsCommand from './channels/list';
+
 // Flat array of all commands
 export const commands = [
 	HelpCommand,
@@ -39,7 +43,11 @@ export const commands = [
 
 	ListModRolesCommand,
 	AddModRoleCommand,
-	DeleteModRoleCommand
+	DeleteModRoleCommand,
+
+	AllowChannelCommand,
+	DisallowChannelCommand,
+	ListAllowedChannelsCommand
 ];
 export default commands;
 
@@ -48,7 +56,8 @@ export const groups = [
 	{ id: 'general', name: 'General', commands: [] },
 	{ id: 'dice', name: 'Dice', commands: [] },
 	{ id: 'characters', name: 'Characters', commands: [] },
-	{ id: 'mod-roles', name: 'Mod roles', commands: [] }
+	{ id: 'mod-roles', name: 'Mod roles', commands: [] },
+	{ id: 'channels', name: 'Channels', commands: [] }
 ];
 for(const command of commands) groups.find(grp => grp.id === command.group).commands.push(command);
 
