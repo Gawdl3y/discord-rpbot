@@ -26,7 +26,7 @@ export default {
 				${roles.map(role => `**-** ${role.name} (ID: ${role.id})`).join('\n')}
 			`;
 		} else {
-			return 'There are no moderator roles.';
+			return 'There are no moderator roles, therefore moderators are determined by the "Manage messages" permission.';
 		}
 	}
 };
