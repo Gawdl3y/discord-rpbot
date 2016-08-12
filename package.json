@@ -25,7 +25,7 @@
 		"rpbot": "lib/rpbot.js"
 	},
 	"dependencies": {
-		"discord.js": "^8.1.0",
+		"discord.js": "8.0.*",
 		"yargs": "^4.8.0",
 		"winston": "^2.2.0",
 		"js-yaml": "^3.6.0",
