@@ -15,6 +15,7 @@ import ViewCharacterCommand from './characters/view';
 import ListCharactersCommand from './characters/list';
 import AddCharacterCommand from './characters/add';
 import DeleteCharacterCommand from './characters/delete';
+import ClearCharactersCommand from './characters/clear';
 
 import ListModRolesCommand from './mod-roles/list';
 import AddModRoleCommand from './mod-roles/add';
@@ -42,6 +43,7 @@ export const commands = [
 	ListCharactersCommand,
 	AddCharacterCommand,
 	DeleteCharacterCommand,
+	ClearCharactersCommand,
 
 	ListModRolesCommand,
 	AddModRoleCommand,

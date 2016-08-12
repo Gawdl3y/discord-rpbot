@@ -13,6 +13,7 @@ const sqlFindByServerAndNameLike = 'SELECT * FROM characters WHERE server_id = ?
 const sqlInsert = 'INSERT INTO characters VALUES(?, ?, ?, ?)';
 const sqlUpdate = 'UPDATE characters SET name = ?, info = ? WHERE server_id = ? AND name = ?';
 const sqlDelete = 'DELETE FROM characters WHERE server_id = ? AND name = ?';
+const sqlClear = 'DELETE FROM characters WHERE server_id = ?';
 
 export default class Character {
 	constructor(server, owner, name, info) {
@@ -67,6 +68,14 @@ export default class Character {
 		} else {
 			throw new Error('Character doesn\'t exist.');
 		}
+	}
+
+	static async clearServer(server) {
+		if(!server) throw new Error('A server must be specified.');
+		const clearStmt = await db.prepare(sqlClear);
+		await clearStmt.run(server.id);
+		clearStmt.finalize();
+		logger.info('Cleared characters.', { server: server.name, serverID: server.id });
 	}
 
 	static async findInServer(server, searchString = null, searchExact = true) {
