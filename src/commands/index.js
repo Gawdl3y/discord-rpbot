@@ -65,7 +65,7 @@ export function findCommands(searchString = null, message = null) {
 		if(command.name === lowercaseSearch || (command.aliases && command.aliases.some(ali => ali === lowercaseSearch))) return [command];
 	}
 
-	return message ? matchedCommands.filter(cmd => isUsable(cmd, message)) : matchedCommands;
+	return matchedCommands;
 }
 
 // Check to make sure a command is runnable
