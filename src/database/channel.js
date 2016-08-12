@@ -51,6 +51,14 @@ export default class Channel {
 		}
 	}
 
+	static clearServer(server) {
+		if(!server) throw new Error('A server must be specified.');
+		if(!this.serversMap) this.loadDatabase();
+		delete this.serversMap[server.id];
+		logger.info('Cleared channels.', { server: server.name, serverID: server.id });
+		this.saveDatabase();
+	}
+
 	static findInServer(server, searchString = null) {
 		if(!server) throw new Error('A server must be specified.');
 		if(!this.serversMap) this.loadDatabase();

@@ -19,10 +19,12 @@ import DeleteCharacterCommand from './characters/delete';
 import ListModRolesCommand from './mod-roles/list';
 import AddModRoleCommand from './mod-roles/add';
 import DeleteModRoleCommand from './mod-roles/delete';
+import ClearModRolesCommand from './mod-roles/clear';
 
+import ListAllowedChannelsCommand from './channels/list';
 import AllowChannelCommand from './channels/allow';
 import DisallowChannelCommand from './channels/disallow';
-import ListAllowedChannelsCommand from './channels/list';
+import ClearAllowedChannelsCommand from './channels/clear';
 
 // Flat array of all commands
 export const commands = [
@@ -44,10 +46,12 @@ export const commands = [
 	ListModRolesCommand,
 	AddModRoleCommand,
 	DeleteModRoleCommand,
+	ClearModRolesCommand,
 
+	ListAllowedChannelsCommand,
 	AllowChannelCommand,
 	DisallowChannelCommand,
-	ListAllowedChannelsCommand
+	ClearAllowedChannelsCommand
 ];
 export default commands;
 
