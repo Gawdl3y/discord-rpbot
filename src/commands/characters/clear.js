@@ -13,7 +13,8 @@ export default {
 	aliases: ['clearchars'],
 	group: 'characters',
 	groupName: 'clear',
-	description: 'Clears all of the characters. Only administrators may use this command.',
+	description: 'Clears the character database.',
+	details: 'Only administrators may use this command.',
 	serverOnly: true,
 
 	isRunnable(message) {

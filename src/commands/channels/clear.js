@@ -13,7 +13,8 @@ export default {
 	aliases: ['clearallowedchans', 'clearchannels', 'clearchans'],
 	group: 'channels',
 	groupName: 'clear',
-	description: 'Clears all of the allowed channels. Only administrators may use this command.',
+	description: 'Clears all of the allowed channels.',
+	details: 'Only administrators may use this command.',
 	serverOnly: true,
 
 	isRunnable(message) {

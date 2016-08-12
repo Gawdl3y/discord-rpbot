@@ -13,7 +13,8 @@ export default {
 	aliases: ['clearmods'],
 	group: 'mod-roles',
 	groupName: 'clear',
-	description: 'Clears all of the moderator roles. Only administrators may use this command.',
+	description: 'Clears all of the moderator roles.',
+	details: 'Only administrators may use this command.',
 	serverOnly: true,
 
 	isRunnable(message) {
