@@ -5,7 +5,7 @@ import { client } from '../rpbot';
 import config from '../config';
 import ModRole from '../database/mod-role';
 
-export function isModerator(server, user) {
+export function isMod(server, user) {
 	[server, user] = resolve(server, user);
 	if(user.id === config.owner) return true;
 	const userRoles = server.rolesOfUser(user);
@@ -14,7 +14,7 @@ export function isModerator(server, user) {
 	return ModRole.findInServer(server).some(element => userRoles.some(element2 => element.id === element2.id));
 }
 
-export function isAdministrator(server, user) {
+export function isAdmin(server, user) {
 	[server, user] = resolve(server, user);
 	if(user.id === config.owner) return true;
 	return server.rolesOfUser(user).some(role => role.hasPermission('administrator'));

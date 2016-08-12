@@ -6,6 +6,7 @@ import { stripIndents } from 'common-tags';
 import commands from './';
 import config from '../config';
 import Channel from '../database/channel';
+import * as permissions from '../util/permissions';
 import buildCommandPattern from '../util/command-pattern';
 import usage from '../util/command-usage';
 import logger from '../util/logger';
@@ -18,8 +19,10 @@ export const commandResults = {};
 
 // Handle a raw message
 export async function handleMessage(message, oldMessage = null) {
-	// Make sure the bot is allowed to run in the channel
-	if(message.server && Channel.serverHasAny(message.server) && !Channel.serverHas(message.server, message.channel)) return;
+	// Make sure the bot is allowed to run in the channel, or the user is an admin
+	if(message.server && Channel.serverHasAny(message.server)
+		&& !Channel.serverHas(message.server, message.channel)
+		&& !permissions.isAdmin(message.server, message.author)) return;
 
 	// Parse the message, and get the old result if it exists
 	const [command, args, fromPattern, isCommandMessage] = parseMessage(message);

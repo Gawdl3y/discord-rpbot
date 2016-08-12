@@ -30,7 +30,7 @@ export default class Character {
 		findStmt.finalize();
 		if(existingCharacters.length > 1) throw new Error('Multiple existing characters found.');
 		if(existingCharacters.length === 1) {
-			if(existingCharacters[0].user_id === character.owner || permissions.isModerator(character.server, character.owner)) {
+			if(existingCharacters[0].user_id === character.owner || permissions.isMod(character.server, character.owner)) {
 				const updateStmt = await db.prepare(sqlUpdate);
 				await updateStmt.run(character.name, character.info, character.server, existingCharacters[0].name);
 				updateStmt.finalize();
@@ -55,7 +55,7 @@ export default class Character {
 		findStmt.finalize();
 		if(existingCharacters.length > 1) throw new Error('Multiple existing characters found.');
 		if(existingCharacters.length === 1) {
-			if(existingCharacters[0].user_id === character.owner || permissions.isModerator(character.server, character.owner)) {
+			if(existingCharacters[0].user_id === character.owner || permissions.isMod(character.server, character.owner)) {
 				const deleteStmt = await db.prepare(sqlDelete);
 				await deleteStmt.run(character.server, character.name);
 				deleteStmt.finalize();

@@ -20,7 +20,7 @@ export default {
 
 	async run(message, args) {
 		if(args[0] && message.server) {
-			if(!permissions.isAdministrator(message.server, message.author)) return 'Only administrators may change the command prefix.';
+			if(!permissions.isAdmin(message.server, message.author)) return 'Only administrators may change the command prefix.';
 
 			// Save the prefix
 			const lowercase = args[0].toLowerCase();

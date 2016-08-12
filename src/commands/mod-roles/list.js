@@ -15,7 +15,7 @@ export default {
 	serverOnly: true,
 
 	isRunnable(message) {
-		return permissions.isAdministrator(message.server, message.author);
+		return permissions.isAdmin(message.server, message.author);
 	},
 
 	async run(message) {
