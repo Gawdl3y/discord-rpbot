@@ -16,7 +16,6 @@ export default {
 	usage: 'prefix [prefix|"default"|"none"]',
 	details: 'If no prefix is provided, the current prefix will be shown. If the prefix is "default", the prefix will be reset to the bot\'s default prefix. If the prefix is "none", the prefix will be removed entirely, only allowing mentions to run commands. Only administrators may change the prefix.',
 	examples: ['prefix', 'prefix -', 'prefix rp!', 'prefix default', 'prefix none'],
-	singleArgument: true,
 
 	async run(message, args) {
 		if(args[0] && message.server) {

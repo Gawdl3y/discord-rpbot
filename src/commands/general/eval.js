@@ -39,7 +39,6 @@ export default {
 	description: 'Evaluates input as JavaScript.',
 	usage: 'eval <script>',
 	details: 'Only the bot owner may use this command.',
-	singleArgument: true,
 
 	isRunnable(message) {
 		return message.author.id === config.owner;

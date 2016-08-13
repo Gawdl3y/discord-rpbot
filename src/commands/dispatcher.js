@@ -161,17 +161,39 @@ export function parseMessage(message) {
 	return [null, null, false, isCommandMessage];
 }
 
-// Find the command from a default matches pattern
+// Find the command and arguments from a default matches pattern
+const newlinesPattern = /\n/g;
+const newlinesReplacement = '{!~NL~!}';
+const newlinesReplacementPattern = new RegExp(newlinesReplacement, 'g');
+const extraNewlinesPattern = /\n{3,}/g;
 export function matchDefault(message, pattern, commandNameIndex = 1) {
 	const matches = pattern.exec(message.content);
-	if(matches) {
-		const commandName = matches[commandNameIndex].toLowerCase();
-		const command = commands.find(cmd => cmd.name === commandName || (cmd.aliases && cmd.aliases.some(alias => alias === commandName)));
-		if(command && !command.disableDefault) {
-			const argString = message.content.substring(matches[1].length + (matches[2] ? matches[2].length : 0));
-			return [command, !command.singleArgument ? stringArgv(argString) : [argString.trim()]];
+	if(!matches) return [null, null, false];
+
+	const commandName = matches[commandNameIndex].toLowerCase();
+	const command = commands.find(cmd => cmd.name === commandName || (cmd.aliases && cmd.aliases.some(alias => alias === commandName)));
+	if(!command || command.disableDefault) return [null, null, true];
+
+	const argString = message.content.substring(matches[1].length + (matches[2] ? matches[2].length : 0));
+	let args;
+	if(!('argsType' in command) || command.argsType === 'single') {
+		args = [argString.trim()];
+	} else if(command.argsType === 'multiple') {
+		if('argsCount' in command) {
+			if(command.argsCount < 2) throw new RangeError(`Command ${command.group}:${command.groupName} argsCount must be at least 2.`);
+			args = [];
+			const newlinesReplaced = argString.trim().replace(newlinesPattern, newlinesReplacement);
+			const argv = stringArgv(newlinesReplaced);
+			if(argv.length > 0) {
+				for(let i = 0; i < command.argsCount - 1; i++) args.push(argv.shift());
+				if(argv.length > 0) args.push(argv.join(' ').replace(newlinesReplacementPattern, '\n').replace(extraNewlinesPattern, '\n\n'));
+			}
+		} else {
+			args = stringArgv(argString);
 		}
-		return [null, null, true];
+	} else {
+		throw new Error(`Command ${command.group}:${command.groupName} argsType is not one of 'single' or 'multiple'.`);
 	}
-	return [null, null, false];
+
+	return [command, args, true];
 }

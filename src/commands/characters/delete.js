@@ -16,7 +16,6 @@ export default {
 	details: 'The name can be the whole name of the character, or just a part of it. Only the owner of the character and administrators/moderators may delete it.',
 	examples: ['deletecharacter Billy McBillface', 'deletecharacter bill'],
 	serverOnly: true,
-	singleArgument: true,
 
 	async run(message, args) {
 		if(!args[0]) throw new CommandFormatError(this, message.server);

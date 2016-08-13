@@ -20,7 +20,6 @@ export default {
 	details: 'The role must be the name or ID of a role, or a role mention. Only administrators may use this command.',
 	examples: ['addmodrole cool', 'addmodrole 205536402341888001', 'addmodrole @CoolPeopleRole'],
 	serverOnly: true,
-	singleArgument: true,
 
 	isRunnable(message) {
 		return permissions.isAdmin(message.server, message.author);

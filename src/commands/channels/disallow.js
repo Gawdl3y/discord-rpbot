@@ -21,7 +21,6 @@ export default {
 	details: 'The channel must be the name or ID of a channel, or a channel mention. Only administrators may use this command.',
 	examples: ['disallowchannel #CoolChannel', 'disallowchannel cool', 'disallowchannel 205536402341888001'],
 	serverOnly: true,
-	singleArgument: true,
 
 	isRunnable(message) {
 		return permissions.isAdmin(message.server, message.author);
