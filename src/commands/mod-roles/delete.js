@@ -1,6 +1,7 @@
 'use babel';
 'use strict';
 
+import { stripIndents } from 'common-tags';
 import ModRole from '../../database/mod-role';
 import disambiguation from '../../util/disambiguation';
 import usage from '../../util/command-usage';
@@ -34,7 +35,10 @@ export default {
 
 		if(roles.length === 1) {
 			if(ModRole.delete(roles[0])) {
-				return `Removed "${roles[0].name}" from the moderator roles.`;
+				return stripIndents`
+					Removed "${roles[0].name}" from the moderator roles.
+					${ModRole.findInServer(message.server).length === 0 ? 'Since there are no longer any moderator roles, moderators will be determined by the "Manage messages" permission.' : ''}
+				`;
 			} else {
 				return `Unable to remove "${roles[0].name}" from the moderator roles. It isn\'t one.`;
 			}
