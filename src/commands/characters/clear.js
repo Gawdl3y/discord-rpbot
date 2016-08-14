@@ -1,9 +1,8 @@
 'use babel';
 'use strict';
 
+import graf from 'discord-graf';
 import Character from '../../database/character';
-import * as permissions from '../../util/permissions';
-import usage from '../../util/command-usage';
 
 let lastUser;
 let timeout;
@@ -18,7 +17,7 @@ export default {
 	serverOnly: true,
 
 	isRunnable(message) {
-		return permissions.isAdmin(message.server, message.author);
+		return graf.permissions.isAdmin(message.server, message.author);
 	},
 
 	async run(message, args) {
@@ -35,7 +34,7 @@ export default {
 			}
 			lastUser = message.author;
 			timeout = setTimeout(() => { lastUser = null; }, 30000);
-			return `Are you sure you want to delete all characters? This cannot be undone. Use ${usage('clearcharacters confirm', message.server)} to continue.`;
+			return `Are you sure you want to delete all characters? This cannot be undone. Use ${graf.usage('clearcharacters confirm', message.server)} to continue.`;
 		}
 	}
 };

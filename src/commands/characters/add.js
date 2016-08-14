@@ -1,8 +1,8 @@
 'use babel';
 'use strict';
 
+import graf from 'discord-graf';
 import Character from '../../database/character';
-import CommandFormatError from '../../util/errors/command-format';
 
 const mentionsPattern = /@everyone|@here|<@!?&?[0-9]+>/i;
 
@@ -21,7 +21,7 @@ export default {
 
 	async run(message, args) {
 		const name = args[0], info = args[1];
-		if(!name || !info) throw new CommandFormatError(this, message.server);
+		if(!name || !info) throw new graf.util.CommandFormatError(this, message.server);
 		if(mentionsPattern.test(name) || mentionsPattern.test(info)) return 'Please do not use mentions in your character name or information.';
 
 		// Apply some restrictions

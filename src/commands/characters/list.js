@@ -1,11 +1,10 @@
 'use babel';
 'use strict';
 
+import graf from 'discord-graf';
 import { stripIndents } from 'common-tags';
 import Character from '../../database/character';
 import config from '../../config';
-import paginate from '../../util/pagination';
-import usage from '../../util/command-usage';
 
 export default {
 	name: 'characters',
@@ -30,13 +29,13 @@ export default {
 		let characters = await Character.findInServer(message.server, search, false);
 		if(characters.length > 0) {
 			characters.sort((a, b) => a.name < b.name ? -1 : a.name > b.name ? 1 : 0);
-			const paginated = paginate(characters, page, Math.floor(config.paginationItems));
+			const paginated = graf.util.paginate(characters, page, Math.floor(config.paginationItems));
 			characters = paginated.items;
 			return stripIndents`
 				__**Character${search ? `s ${search.length === 1 ? 'that begin with' : 'that contain'} "${search}"` : ' list'}, ${paginated.pageText}:**__
 				${characters.map(char => `**-** ${char.name}`).join('\n')}
-				${paginated.maxPage > 1 ? `\nUse ${usage(`characters ${search ? `${search} ` : ''}<page>`, message.server)} to view a specific page.` : ''}
-				Use ${usage('character <name>', message.server)} to view information about a character.
+				${paginated.maxPage > 1 ? `\nUse ${graf.util.usage(`characters ${search ? `${search} ` : ''}<page>`, message.server)} to view a specific page.` : ''}
+				Use ${graf.util.usage('character <name>', message.server)} to view information about a character.
 			`;
 		} else {
 			return `There are no characters ${search ? `${search.length === 1 ? 'that begin with' : 'that contain'} "${search}"` : 'in the database'}.`;

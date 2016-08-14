@@ -1,10 +1,8 @@
 'use babel';
 'use strict';
 
+import graf from 'discord-graf';
 import DiceExpression from 'dice-expression-evaluator';
-import nbsp from '../../util/nbsp';
-import logger from '../../util/logger';
-import CommandFormatError from '../../util/errors/command-format';
 
 const pattern = /^(.+?)(?:(>|<)\s*([0-9]+?))?\s*$/;
 
@@ -22,7 +20,7 @@ export default {
 	],
 
 	async run(message, args, fromPattern) {
-		if(!args[0]) throw new CommandFormatError(this, message.server);
+		if(!args[0]) throw new graf.errors.CommandFormatError(this, message.server);
 		try {
 			const matches = fromPattern ? args : pattern.exec(args[0]);
 			const dice = new DiceExpression(matches[1]);
@@ -33,12 +31,12 @@ export default {
 
 			// Roll the dice
 			const rollResult = dice.roll();
-			logger.debug(rollResult);
+			graf.logger.debug(rollResult);
 
 			// Build the list of dice
 			let diceList = '';
 			if(totalDice <= 100 && (rollResult.diceRaw.length > 1 || (rollResult.diceRaw.length > 0 && rollResult.diceRaw[0].length > 1))) {
-				diceList = rollResult.diceRaw.map((res, i) => nbsp(res.length > 1 ? `${res.join(' + ')} = ${rollResult.diceSums[i]}` : res[0])).join(',   ');
+				diceList = rollResult.diceRaw.map((res, i) => graf.util.nbsp(res.length > 1 ? `${res.join(' + ')} = ${rollResult.diceSums[i]}` : res[0])).join(',   ');
 			}
 
 			if(matches[2]) {
