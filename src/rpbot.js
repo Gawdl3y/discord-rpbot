@@ -17,7 +17,6 @@ import RollDiceCommand from './commands/dice/roll';
 import MaxRollCommand from './commands/dice/max';
 import MinRollCommand from './commands/dice/min';
 
-graf.createLogger();
 graf.logger.info(`RPBot v${version} is starting...`);
 analytics.sendEvent('Bot', 'started');
 
@@ -31,9 +30,9 @@ initDatabase().catch(err => {
 export const client = graf.createClient({
 	botName: 'RPBot',
 	botVersion: version,
-	botAbout: `**RPBot** v${version} created by Schuyler Cebulskie (Gawdl3y).\nSource code and information: https://github.com/Gawdl3y/discord-rpbot`
+	botAbout: `**RPBot** v${version} created by Schuyler Cebulskie (Gawdl3y).\nSource code and information: https://github.com/Gawdl3y/discord-rpbot`,
+	updatePackageURL: 'https://raw.githubusercontent.com/Gawdl3y/discord-rpbot/master/package.json'
 });
-graf.checkForUpdate('https://raw.githubusercontent.com/Gawdl3y/discord-rpbot/master/package.json');
 graf.registerDefaultCommands();
 graf.registerCommands([
 	ListCharactersCommand,

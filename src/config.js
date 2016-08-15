@@ -5,16 +5,16 @@ import graf from 'discord-graf';
 import yargs from 'yargs';
 import version from './version';
 
-export const config = graf.config.yargs(yargs)
+graf.config.defaults.log = 'rpbot.log';
+graf.config.defaults.storage = 'rpbot-storage';
+
+export const config = graf.config.loadYargs(yargs)
 	.usage('$0 [command] [options]')
 	.example('$0 --token SomeAPITokenGoesHere', 'Starts the bot using a token')
 	.example('$0 --email SomeGuy@SomeSite.com --password SomeCrazyPassword123', 'Starts the bot using an email and password')
 	.example('$0 --config settings.yml', 'Starts the bot using a config file')
 	.example('$0 completion', 'Outputs Bash completion script')
 	.epilogue(`RPBot v${version} by Schuyler Cebulskie (Gawdl3y): https://github.com/Gawdl3y/discord-rpbot/`)
-
-	.default('log', 'rpbot.log')
-	.default('storage', 'rpbot-storage')
 
 	// Database
 	.option('database', {
