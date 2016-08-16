@@ -1,14 +1,15 @@
 'use babel';
 'use strict';
 
-import graf from 'discord-graf';
 import yargs from 'yargs';
+import bot from './bot';
 import version from './version';
 
-graf.config.defaults.log = 'rpbot.log';
-graf.config.defaults.storage = 'rpbot-storage';
+bot.config.defaults.log = 'rpbot.log';
+bot.config.defaults.storage = 'rpbot-storage';
+bot.config.loadDefaults();
 
-export const config = graf.config.loadYargs(yargs)
+export const config = bot.config.yargs(yargs)
 	.usage('$0 [command] [options]')
 	.example('$0 --token SomeAPITokenGoesHere', 'Starts the bot using a token')
 	.example('$0 --email SomeGuy@SomeSite.com --password SomeCrazyPassword123', 'Starts the bot using an email and password')

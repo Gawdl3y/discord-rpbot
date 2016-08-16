@@ -1,27 +1,27 @@
 'use babel';
 'use strict';
 
-import graf from 'discord-graf';
 import { join as pathJoin } from 'path';
 import sqlite from 'sqlite';
-import Character from './character';
+import bot from '../bot';
 import config from '../config';
+import Character from './character';
 
 export const db = sqlite;
 export default db;
 
 export async function init() {
-	graf.logger.info('Initializing database...', { file: config.database, verbose: config.databaseVerbose });
+	bot.logger.info('Initializing database...', { file: config.database, verbose: config.databaseVerbose });
 	await db.open(config.database, { verbose: config.databaseVerbose });
 	await db.migrate({ migrationsPath: pathJoin(__dirname, '../../migrations') });
 	await Promise.all([
 		Character.convertStorage()
 	]);
-	graf.logger.info('Database initialized.');
+	bot.logger.info('Database initialized.');
 }
 
 export async function close() {
-	graf.logger.info('Closing database...');
+	bot.logger.info('Closing database...');
 	await db.close();
-	graf.logger.info('Database closed.');
+	bot.logger.info('Database closed.');
 }

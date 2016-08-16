@@ -1,7 +1,7 @@
 'use babel';
 'use strict';
 
-import graf from 'discord-graf';
+import bot from '../bot';
 import db from './';
 
 const sqlFindByServer = 'SELECT * FROM characters WHERE server_id = ?';
@@ -28,11 +28,11 @@ export default class Character {
 		findStmt.finalize();
 		if(existingCharacters.length > 1) throw new Error('Multiple existing characters found.');
 		if(existingCharacters.length === 1) {
-			if(existingCharacters[0].user_id === character.owner || graf.permissions.isMod(character.server, character.owner)) {
+			if(existingCharacters[0].user_id === character.owner || bot.permissions.isMod(character.server, character.owner)) {
 				const updateStmt = await db.prepare(sqlUpdate);
 				await updateStmt.run(character.name, character.info, character.server, existingCharacters[0].name);
 				updateStmt.finalize();
-				graf.logger.info('Updated existing character.', character);
+				bot.logger.info('Updated existing character.', character);
 				return { character: new Character(character.server, existingCharacters[0].user_id, character.name, character.info), new: false };
 			} else {
 				throw new Error('Character already exists, and the owners don\'t match.');
@@ -41,7 +41,7 @@ export default class Character {
 			const insertStmt = await db.prepare(sqlInsert);
 			await insertStmt.run(character.server, character.name, character.info, character.owner);
 			insertStmt.finalize();
-			graf.logger.info('Added new character.', character);
+			bot.logger.info('Added new character.', character);
 			return { character: character, new: true };
 		}
 	}
@@ -53,11 +53,11 @@ export default class Character {
 		findStmt.finalize();
 		if(existingCharacters.length > 1) throw new Error('Multiple existing characters found.');
 		if(existingCharacters.length === 1) {
-			if(existingCharacters[0].user_id === character.owner || graf.permissions.isMod(character.server, character.owner)) {
+			if(existingCharacters[0].user_id === character.owner || bot.permissions.isMod(character.server, character.owner)) {
 				const deleteStmt = await db.prepare(sqlDelete);
 				await deleteStmt.run(character.server, character.name);
 				deleteStmt.finalize();
-				graf.logger.info('Deleted character.', character);
+				bot.logger.info('Deleted character.', character);
 				return true;
 			} else {
 				throw new Error('Existing character is not owned by the specified character owner.');
@@ -72,7 +72,7 @@ export default class Character {
 		const clearStmt = await db.prepare(sqlClear);
 		await clearStmt.run(server.id);
 		clearStmt.finalize();
-		graf.logger.info('Cleared characters.', { server: server.name, serverID: server.id });
+		bot.logger.info('Cleared characters.', { server: server.name, serverID: server.id });
 	}
 
 	static async findInServer(server, searchString = null, searchExact = true) {
@@ -82,11 +82,11 @@ export default class Character {
 		const characters = await findStmt.all(server, searchString ? searchString.length > 1 ? `%${searchString}%` : `${searchString}%` : undefined);
 		findStmt.finalize();
 		for(const [index, character] of characters.entries()) characters[index] = new Character(character.server_id, character.user_id, character.name, character.info);
-		return searchExact ? graf.util.search(characters, searchString, { searchInexact: false }) : characters;
+		return searchExact ? bot.util.search(characters, searchString, { searchInexact: false }) : characters;
 	}
 
 	static async convertStorage() {
-		const storageEntry = graf.storage.getItem('characters');
+		const storageEntry = bot.localStorage.getItem('characters');
 		if(!storageEntry) return;
 		const baseMap = JSON.parse(storageEntry);
 		if(!baseMap) return;
@@ -105,7 +105,7 @@ export default class Character {
 			}
 			stmt.finalize();
 		}
-		graf.storage.removeItem('characters');
-		graf.logger.info('Converted characters from local storage to database.', { count: characters.length });
+		bot.localStorage.removeItem('characters');
+		bot.logger.info('Converted characters from local storage to database.', { count: characters.length });
 	}
 }
