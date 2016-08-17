@@ -1,20 +1,23 @@
 'use babel';
 'use strict';
 
-import graf from 'discord-graf';
+import { Command, CommandFormatError } from 'discord-graf';
 import DiceExpression from 'dice-expression-evaluator';
 
-export default {
-	name: 'maxroll',
-	group: 'dice',
-	groupName: 'max',
-	description: 'Calculates the maximum possible roll for a dice expression.',
-	usage: 'maxroll <dice expression>',
-	details: 'The dice expression follows the same rules as !roll, but targets (< or >) cannot be used.',
-	examples: ['maxroll 2d20', 'maxroll 3d20 - d10 + 6'],
+export default class MaxRollCommand extends Command {
+	constructor(bot) {
+		super(bot);
+		this.name = 'maxroll';
+		this.group = 'dice';
+		this.groupName = 'max';
+		this.description = 'Calculates the maximum possible roll for a dice expression.';
+		this.usage = 'maxroll <dice expression>';
+		this.details = 'The dice expression follows the same rules as !roll, but targets (< or >) cannot be used.';
+		this.examples = ['maxroll 2d20', 'maxroll 3d20 - d10 + 6'];
+	}
 
 	async run(message, args) {
-		if(!args[0]) throw new graf.errors.CommandFormatError(this, message.server);
+		if(!args[0]) throw new CommandFormatError(this, message.server);
 		try {
 			const maxRoll = new DiceExpression(args[0]).max();
 			return `The maximum possible roll is **${maxRoll}**.`;
@@ -22,4 +25,4 @@ export default {
 			return 'Invalid dice expression specified.';
 		}
 	}
-};
+}

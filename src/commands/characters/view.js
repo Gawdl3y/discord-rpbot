@@ -1,31 +1,34 @@
 'use babel';
 'use strict';
 
-import graf from 'discord-graf';
+import { Command, CommandFormatError } from 'discord-graf';
 import Character from '../../database/character';
 
-export default {
-	name: 'character',
-	aliases: ['viewcharacter', 'char'],
-	group: 'characters',
-	groupName: 'view',
-	description: 'Views a character\'s information.',
-	usage: 'character <name>',
-	details: 'The name can be the whole name of the character, or just a part of it.',
-	examples: ['character Billy McBillface', 'character bill'],
-	serverOnly: true,
+export default class ViewCharacterCommand extends Command {
+	constructor(bot) {
+		super(bot);
+		this.name = 'character';
+		this.aliases = ['viewcharacter', 'char'];
+		this.group = 'characters';
+		this.groupName = 'view';
+		this.description = 'Views a character\'s information.';
+		this.usage = 'character <name>';
+		this.details = 'The name can be the whole name of the character, or just a part of it.';
+		this.examples = ['character Billy McBillface', 'character bill'];
+		this.serverOnly = true;
+	}
 
 	async run(message, args) {
-		if(!args[0]) throw new graf.errors.CommandFormatError(this, message.server);
+		if(!args[0]) throw new CommandFormatError(this, message.server);
 		const characters = await Character.findInServer(message.server, args[0]);
 		if(characters.length === 1) {
 			const owner = message.client.users.get('id', characters[0].owner);
 			const ownerName = owner ? `${owner.name}#${owner.discriminator}` : 'Unknown';
 			return `Character **${characters[0].name}** (created by ${ownerName}):\n${characters[0].info}`;
 		} else if(characters.length > 1) {
-			return graf.util.disambiguation(characters, 'characters');
+			return this.bot.util.disambiguation(characters, 'characters');
 		} else {
-			return `Unable to find character. Use ${graf.util.usage('characters', message.server)} to view the list of characters.`;
+			return `Unable to find character. Use ${this.bot.util.usage('characters', message.server)} to view the list of characters.`;
 		}
 	}
-};
+}

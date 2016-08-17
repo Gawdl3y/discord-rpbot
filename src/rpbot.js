@@ -8,14 +8,14 @@ import version from './version';
 import { init as initDatabase, close as closeDatabase } from './database';
 import * as analytics from './util/analytics';
 
-// import ListCharactersCommand from './commands/characters/list';
-// import ViewCharacterCommand from './commands/characters/view';
-// import AddCharacterCommand from './commands/characters/add';
-// import DeleteCharacterCommand from './commands/characters/delete';
-// import ClearCharactersCommand from './commands/characters/clear';
-// import RollDiceCommand from './commands/dice/roll';
-// import MaxRollCommand from './commands/dice/max';
-// import MinRollCommand from './commands/dice/min';
+import ListCharactersCommand from './commands/characters/list';
+import ViewCharacterCommand from './commands/characters/view';
+import AddCharacterCommand from './commands/characters/add';
+import DeleteCharacterCommand from './commands/characters/delete';
+import ClearCharactersCommand from './commands/characters/clear';
+import RollDiceCommand from './commands/dice/roll';
+import MaxRollCommand from './commands/dice/max';
+import MinRollCommand from './commands/dice/min';
 
 bot.logger.info(`RPBot v${version} is starting...`);
 analytics.sendEvent('Bot', 'started');
@@ -24,14 +24,14 @@ analytics.sendEvent('Bot', 'started');
 export const client = bot.createClient();
 bot.registerDefaultCommands();
 bot.registerCommands([
-	// ListCharactersCommand,
-	// ViewCharacterCommand,
-	// AddCharacterCommand,
-	// DeleteCharacterCommand,
-	// ClearCharactersCommand,
-	// RollDiceCommand,
-	// MaxRollCommand,
-	// MinRollCommand
+	ListCharactersCommand,
+	ViewCharacterCommand,
+	AddCharacterCommand,
+	DeleteCharacterCommand,
+	ClearCharactersCommand,
+	RollDiceCommand,
+	MaxRollCommand,
+	MinRollCommand
 ]);
 bot.nameGroups([
 	['characters', 'Characters'],

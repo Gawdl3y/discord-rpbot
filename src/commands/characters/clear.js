@@ -1,40 +1,43 @@
 'use babel';
 'use strict';
 
-import graf from 'discord-graf';
+import { Command } from 'discord-graf';
 import Character from '../../database/character';
 
-let lastUser;
-let timeout;
+export default class ClearCharactersCommand extends Command {
+	constructor(bot) {
+		super(bot);
+		this.name = 'clearcharacters';
+		this.aliases = ['clearchars'];
+		this.group = 'characters';
+		this.groupName = 'clear';
+		this.description = 'Clears the character database.';
+		this.details = 'Only administrators may use this command.';
+		this.serverOnly = true;
 
-export default {
-	name: 'clearcharacters',
-	aliases: ['clearchars'],
-	group: 'characters',
-	groupName: 'clear',
-	description: 'Clears the character database.',
-	details: 'Only administrators may use this command.',
-	serverOnly: true,
+		this.lastUser = null;
+		this.timeout = null;
+	}
 
 	isRunnable(message) {
-		return graf.permissions.isAdmin(message.server, message.author);
-	},
+		return this.bot.permissions.isAdmin(message.server, message.author);
+	}
 
 	async run(message, args) {
-		if(message.author.equals(lastUser) && args[0] && args[0].toLowerCase() === 'confirm') {
+		if(message.author.equals(this.lastUser) && args[0] && args[0].toLowerCase() === 'confirm') {
 			Character.clearServer(message.server);
-			clearTimeout(timeout);
-			lastUser = null;
-			timeout = null;
+			clearTimeout(this.timeout);
+			this.lastUser = null;
+			this.timeout = null;
 			return 'Cleared the character database.';
 		} else {
-			if(timeout) {
-				clearTimeout(timeout);
-				timeout = null;
+			if(this.timeout) {
+				clearTimeout(this.timeout);
+				this.timeout = null;
 			}
-			lastUser = message.author;
-			timeout = setTimeout(() => { lastUser = null; }, 30000);
-			return `Are you sure you want to delete all characters? This cannot be undone. Use ${graf.usage('clearcharacters confirm', message.server)} to continue.`;
+			this.lastUser = message.author;
+			this.timeout = setTimeout(() => { this.lastUser = null; }, 30000);
+			return `Are you sure you want to delete all characters? This cannot be undone. Use ${this.bot.util.usage('clearcharacters confirm', message.server)} to continue.`;
 		}
 	}
-};
+}
