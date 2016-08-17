@@ -27,18 +27,23 @@ This is so that I know how many people are using the bot, and what commands are 
 If you don't want anything being sent at all, run RPBot with the `--no-analytics` option, or set `analytics` to `false` in your config file.
 
 ## Chat commands
-| Command              | Description                                                                                                   |
-|----------------------|---------------------------------------------------------------------------------------------------------------|
-| roll                 | Rolls specified dice. (Uses [dice-expression-evaluator](https://github.com/dbkang/dice-expression-evaluator)) |
-| maxroll              | Calculates the maximum possible roll for a dice expression.                                                   |
-| minroll              | Calculates the minimum possible roll for a dice expression.                                                   |
-| character            | Views a character's information.                                                                              |
-| characters           | Lists/searches characters in the database.                                                                    |
-| addcharacter         | Adds a character to the database, or updates the existing one.                                                |
-| deletecharacter      | Deletes a character from the database.                                                                        |
-| clearcharacters      | Clears the character database. (administrator only)                                                           |
-
-GRAF's built-in commands are also available.
+| Command          | Description                                                                                                   |
+|------------------|---------------------------------------------------------------------------------------------------------------|
+| help             | Displays a list of available commands, or detailed information for a specified command.                       |
+| about            | Displays information about the bot.                                                                           |
+| prefix           | Shows or sets the command prefix.                                                                             |
+| eval             | Evaluates input as JavaScript. (owner only)                                                                   |
+| roll             | Rolls specified dice. (Uses [dice-expression-evaluator](https://github.com/dbkang/dice-expression-evaluator)) |
+| maxroll          | Calculates the maximum possible roll for a dice expression.                                                   |
+| minroll          | Calculates the minimum possible roll for a dice expression.                                                   |
+| character        | Views a character's information.                                                                              |
+| characters       | Lists/searches characters in the database.                                                                    |
+| addcharacter     | Adds a character to the database, or updates the existing one.                                                |
+| deletecharacter  | Deletes a character from the database.                                                                        |
+| roles            | Lists all server roles. (administrator only)                                                                  |
+| modroles         | Lists all moderator roles. (administrator only)                                                               |
+| addmodrole       | Adds a moderator role. (administrator only)                                                                   |
+| deletemodrole    | Deletes a moderator role. (administrator only)                                                                |
 
 You may use a command by prefixing it with the command prefix (default `!`) or the bot's mention (e.g. `@RPBot#4161`).
 Use `!help` or `@RPBot#4161 help`, for example.
