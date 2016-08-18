@@ -32,12 +32,12 @@ export default class RollDiceCommand extends Command {
 			const dice = new DiceExpression(matches[1]);
 
 			// Restrict the maximum dice count
-			const totalDice = dice.dice.reduce((prev, die) => prev + die.diceCount, 0);
+			const totalDice = dice.dice.reduce((prev, die) => prev + die.diceCount ? die.diceCount : 1, 0);
 			if(totalDice > 1000) return { plain: `${message.author} might hurt themselves by rolling that many dice at once!` };
 
 			// Roll the dice
 			const rollResult = dice.roll();
-			this.bot.logger.debug(rollResult);
+			this.bot.logger.debug('Dice rolled', { dice: dice.dice, result: rollResult, totalDice: totalDice });
 
 			// Build the list of dice
 			let diceList = '';
