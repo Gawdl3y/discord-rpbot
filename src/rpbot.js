@@ -5,7 +5,8 @@
 import bot from './bot';
 import config from './config'; // eslint-disable-line no-unused-vars
 import version from './version';
-import { init as initDatabase, close as closeDatabase } from './database';
+import * as db from './database';
+import Character from './database/character';
 import * as analytics from './util/analytics';
 
 import ListCharactersCommand from './commands/characters/list';
@@ -37,9 +38,15 @@ bot.nameGroups([
 	['characters', 'Characters'],
 	['dice', 'Dice']
 ]);
+bot.registerEvalObjects({
+	db: db,
+	Character: Character,
+	config: config,
+	version: version
+});
 
 // Set up database
-initDatabase().catch(err => {
+db.init().catch(err => {
 	bot.logger.error(err);
 	process.exit(1);
 });
@@ -51,7 +58,7 @@ process.on('SIGINT', async () => {
 	if(interruptCount === 1) {
 		bot.logger.info('Received interrupt signal; closing database, destroying client, and exiting...');
 		await Promise.all([
-			closeDatabase(),
+			db.close(),
 			client.destroy()
 		]).catch(err => {
 			bot.logger.error(err);
