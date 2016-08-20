@@ -23,6 +23,7 @@ export default class AddCharacterCommand extends Command {
 		this.serverOnly = true;
 		this.argsType = 'multiple';
 		this.argsCount = 2;
+		this.argsSingleQuotes = false;
 	}
 
 	async run(message, args) {
