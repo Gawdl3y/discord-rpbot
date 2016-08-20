@@ -4,9 +4,9 @@
 import bot from '../bot';
 import db from './';
 
-const sqlFindByServer = 'SELECT * FROM characters WHERE server_id = ?';
-const sqlFindByServerAndName = 'SELECT * FROM characters WHERE server_id = ? AND name = ?';
-const sqlFindByServerAndNameLike = 'SELECT * FROM characters WHERE server_id = ? AND name LIKE ?';
+const sqlFindByServer = 'SELECT CAST(server_id AS TEXT) AS server_id, name, info, CAST(user_id AS TEXT) AS user_id FROM characters WHERE server_id = ?';
+const sqlFindByServerAndName = 'SELECT CAST(server_id AS TEXT) AS server_id, name, info, CAST(user_id AS TEXT) AS user_id FROM characters WHERE server_id = ? AND name = ?';
+const sqlFindByServerAndNameLike = 'SELECT CAST(server_id AS TEXT) AS server_id, name, info, CAST(user_id AS TEXT) AS user_id FROM characters WHERE server_id = ? AND name LIKE ?';
 const sqlInsert = 'INSERT INTO characters VALUES(?, ?, ?, ?)';
 const sqlUpdate = 'UPDATE characters SET name = ?, info = ? WHERE server_id = ? AND name = ?';
 const sqlDelete = 'DELETE FROM characters WHERE server_id = ? AND name = ?';
