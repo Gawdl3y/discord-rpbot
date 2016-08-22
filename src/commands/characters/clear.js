@@ -6,21 +6,22 @@ import Character from '../../database/character';
 
 export default class ClearCharactersCommand extends Command {
 	constructor(bot) {
-		super(bot);
-		this.name = 'clearcharacters';
-		this.aliases = ['clearchars'];
-		this.group = 'characters';
-		this.groupName = 'clear';
-		this.description = 'Clears the character database.';
-		this.details = 'Only administrators may use this command.';
-		this.serverOnly = true;
+		super(bot, {
+			name: 'clearcharacters',
+			aliases: ['clearchars'],
+			module: 'characters',
+			memberName: 'clear',
+			description: 'Clears the character database.',
+			details: 'Only administrators may use this command.',
+			serverOnly: true
+		});
 
 		this.lastUser = null;
 		this.timeout = null;
 	}
 
-	isRunnable(message) {
-		return this.bot.permissions.isAdmin(message.server, message.author);
+	hasPermission(server, user) {
+		return this.bot.permissions.isAdmin(server, user);
 	}
 
 	async run(message, args) {

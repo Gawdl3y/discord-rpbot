@@ -6,16 +6,17 @@ import Character from '../../database/character';
 
 export default class ViewCharacterCommand extends Command {
 	constructor(bot) {
-		super(bot);
-		this.name = 'character';
-		this.aliases = ['viewcharacter', 'char'];
-		this.group = 'characters';
-		this.groupName = 'view';
-		this.description = 'Views a character\'s information.';
-		this.usage = 'character <name>';
-		this.details = 'The name can be the whole name of the character, or just a part of it.';
-		this.examples = ['character Billy McBillface', 'character bill'];
-		this.serverOnly = true;
+		super(bot, {
+			name: 'character',
+			aliases: ['viewcharacter', 'char'],
+			module: 'characters',
+			memberName: 'view',
+			description: 'Views a character\'s information.',
+			usage: 'character <name>',
+			details: 'The name can be the whole name of the character, or just a part of it.',
+			examples: ['character Billy McBillface', 'character bill'],
+			serverOnly: true
+		});
 	}
 
 	async run(message, args) {

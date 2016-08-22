@@ -8,22 +8,23 @@ import config from '../../config';
 
 export default class ListCharactersCommand extends Command {
 	constructor(bot) {
-		super(bot);
-		this.name = 'characters';
-		this.aliases = ['listcharacters', 'listchars', 'chars'];
-		this.group = 'characters';
-		this.groupName = 'list';
-		this.description = 'Lists/searches characters in the database.';
-		this.usage = 'characters [search] [page]';
-		this.details = oneLine`
-			If no search string is specified, all characters will be listed.
-			If the search string is only one letter long, characters that start with that character will be listed.
-			If the search string is more than one letter, all characters that contain that string will be listed.
-			If the search string contains spaces, it must be surrounded by quotes.
-		`;
-		this.examples = ['characters', 'characters c', 'characters bill'];
-		this.serverOnly = true;
-		this.argsType = 'multiple';
+		super(bot, {
+			name: 'characters',
+			aliases: ['listcharacters', 'listchars', 'chars'],
+			module: 'characters',
+			memberName: 'list',
+			description: 'Lists/searches characters in the database.',
+			usage: 'characters [search] [page]',
+			details: oneLine`
+				If no search string is specified, all characters will be listed.
+				If the search string is only one letter long, characters that start with that character will be listed.
+				If the search string is more than one letter, all characters that contain that string will be listed.
+				If the search string contains spaces, it must be surrounded by quotes.
+			`,
+			examples: ['characters', 'characters c', 'characters bill'],
+			serverOnly: true,
+			argsType: 'multiple'
+		});
 	}
 
 	async run(message, args) {

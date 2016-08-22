@@ -22,28 +22,29 @@ bot.logger.info(`RPBot v${version} is starting...`);
 analytics.sendEvent('Bot', 'started');
 
 // Create bot
-export const client = bot.createClient();
-bot.registerDefaultCommands();
-bot.registerCommands([
-	ListCharactersCommand,
-	ViewCharacterCommand,
-	AddCharacterCommand,
-	DeleteCharacterCommand,
-	ClearCharactersCommand,
-	RollDiceCommand,
-	MaxRollCommand,
-	MinRollCommand
-]);
-bot.nameGroups([
-	['characters', 'Characters'],
-	['dice', 'Dice']
-]);
-bot.registerEvalObjects({
-	db: db,
-	Character: Character,
-	config: config,
-	version: version
-});
+export const client = bot
+	.registerDefaults()
+	.registerModules([
+		['characters', 'Characters'],
+		['dice', 'Dice']
+	])
+	.registerCommands([
+		ListCharactersCommand,
+		ViewCharacterCommand,
+		AddCharacterCommand,
+		DeleteCharacterCommand,
+		ClearCharactersCommand,
+		RollDiceCommand,
+		MaxRollCommand,
+		MinRollCommand
+	])
+	.registerEvalObjects({
+		db: db,
+		Character: Character,
+		config: config,
+		version: version
+	})
+.createClient();
 
 // Set up database
 db.init().catch(err => {

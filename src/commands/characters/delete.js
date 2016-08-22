@@ -6,16 +6,17 @@ import Character from '../../database/character';
 
 export default class DeleteCharacterCommand extends Command {
 	constructor(bot) {
-		super(bot);
-		this.name = 'deletecharacter';
-		this.aliases = ['removecharacter', 'delchar', 'rmchar'];
-		this.group = 'characters';
-		this.groupName = 'delete';
-		this.description = 'Deletes a character from the database.';
-		this.usage = 'deletecharacter <name>';
-		this.details = 'The name can be the whole name of the character, or just a part of it. Only the owner of the character and administrators/moderators may delete it.';
-		this.examples = ['deletecharacter Billy McBillface', 'deletecharacter bill'];
-		this.serverOnly = true;
+		super(bot, {
+			name: 'deletecharacter',
+			aliases: ['removecharacter', 'delchar', 'rmchar'],
+			module: 'characters',
+			memberName: 'delete',
+			description: 'Deletes a character from the database.',
+			usage: 'deletecharacter <name>',
+			details: 'The name can be the whole name of the character, or just a part of it. Only the owner of the character and administrators/moderators may delete it.',
+			examples: ['deletecharacter Billy McBillface', 'deletecharacter bill'],
+			serverOnly: true
+		});
 	}
 
 	async run(message, args) {

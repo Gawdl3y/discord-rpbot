@@ -9,20 +9,21 @@ const pattern = /^(.+?)(?:(>|<)\s*([0-9]+?))?\s*$/;
 
 export default class RollDiceCommand extends Command {
 	constructor(bot) {
-		super(bot);
-		this.name = 'roll';
-		this.aliases = ['dice', 'rolldice', 'diceroll', '(roll: xxxx)'];
-		this.group = 'dice';
-		this.groupName = 'roll';
-		this.description = 'Rolls specified dice.';
-		this.usage = 'roll <dice expression>';
-		this.details = oneLine`
-			Dice expressions can contain the standard representations of dice in text form (e.g. 2d20 is two 20-sided dice), with addition and subtraction allowed.
-			You may also use a single greater-than (>) or less-than (<) symbol at the end of the expression to add a target - if that target is met, a success message is displayed.
-			Otherwise, a failure message is shown.
-		`;
-		this.examples = ['roll 2d20', 'roll 3d20 - d10 + 6', 'roll d20 > 10', 'Billy McBillface attempts to slay the dragon. (Roll: d20 > 10)'];
-		this.patterns = [/\(\s*(?:roll|dice|rolldice|diceroll):\s*(.+?)(?:(>|<)\s*([0-9]+?))?\s*\)/i];
+		super(bot, {
+			name: 'roll',
+			aliases: ['dice', 'rolldice', 'diceroll', '(roll: xxxx)'],
+			module: 'dice',
+			memberName: 'roll',
+			description: 'Rolls specified dice.',
+			usage: 'roll <dice expression>',
+			details: oneLine`
+				Dice expressions can contain the standard representations of dice in text form (e.g. 2d20 is two 20-sided dice), with addition and subtraction allowed.
+				You may also use a single greater-than (>) or less-than (<) symbol at the end of the expression to add a target - if that target is met, a success message is displayed.
+				Otherwise, a failure message is shown.
+			`,
+			examples: ['roll 2d20', 'roll 3d20 - d10 + 6', 'roll d20 > 10', 'Billy McBillface attempts to slay the dragon. (Roll: d20 > 10)'],
+			patterns: [/\(\s*(?:roll|dice|rolldice|diceroll):\s*(.+?)(?:(>|<)\s*([0-9]+?))?\s*\)/i]
+		});
 	}
 
 	async run(message, args, fromPattern) {

@@ -7,23 +7,24 @@ import Character from '../../database/character';
 
 export default class AddCharacterCommand extends Command {
 	constructor(bot) {
-		super(bot);
-		this.name = 'addcharacter';
-		this.aliases = ['addchar'];
-		this.group = 'characters';
-		this.groupName = 'add';
-		this.description = 'Adds a character to the database, or updates the existing one.';
-		this.usage = 'addcharacter <name> <info>';
-		this.details = oneLine`
-			The character name can be a maximum of 60 characters long, and must be surrounded by quotes if it contains spaces.
-			The information doesn\'t have to be a single line.
-			Only the owner of the character and administrators/moderators may update it.
-		`;
-		this.examples = ['addcharacter Bob Just your average guy.', 'addcharacter "Billy McBillface" A really cool guy who enjoys his chicken tendies.'];
-		this.serverOnly = true;
-		this.argsType = 'multiple';
-		this.argsCount = 2;
-		this.argsSingleQuotes = false;
+		super(bot, {
+			name: 'addcharacter',
+			aliases: ['addchar'],
+			module: 'characters',
+			memberName: 'add',
+			description: 'Adds a character to the database, or updates the existing one.',
+			usage: 'addcharacter <name> <info>',
+			details: oneLine`
+				The character name can be a maximum of 60 characters long, and must be surrounded by quotes if it contains spaces.
+				The information doesn't have to be a single line.
+				Only the owner of the character and administrators/moderators may update it.
+			`,
+			examples: ['addcharacter Bob Just your average guy.', 'addcharacter "Billy McBillface" A really cool guy who enjoys his chicken tendies.'],
+			serverOnly: true,
+			argsType: 'multiple',
+			argsCount: 2,
+			argsSingleQuotes: false
+		});
 	}
 
 	async run(message, args) {

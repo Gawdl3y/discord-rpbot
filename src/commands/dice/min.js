@@ -6,14 +6,15 @@ import DiceExpression from 'dice-expression-evaluator';
 
 export default class MinRollCommand extends Command {
 	constructor(bot) {
-		super(bot);
-		this.name = 'minroll';
-		this.group = 'dice';
-		this.groupName = 'min';
-		this.description = 'Calculates the minimum possible roll for a dice expression.';
-		this.usage = 'minroll <dice expression>';
-		this.details = 'The dice expression follows the same rules as !roll, but targets (< or >) cannot be used.';
-		this.examples = ['minroll 2d20', 'minroll 3d20 - d10 + 6'];
+		super(bot, {
+			name: 'minroll',
+			module: 'dice',
+			memberName: 'min',
+			description: 'Calculates the minimum possible roll for a dice expression.',
+			usage: 'minroll <dice expression>',
+			details: 'The dice expression follows the same rules as !roll, but targets (< or >) cannot be used.',
+			examples: ['minroll 2d20', 'minroll 3d20 - d10 + 6']
+		});
 	}
 
 	async run(message, args) {
