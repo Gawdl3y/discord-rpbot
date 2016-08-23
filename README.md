@@ -27,12 +27,10 @@ This is so that I know how many people are using the bot, and what commands are 
 If you don't want anything being sent at all, run RPBot with the `--no-analytics` option, or set `analytics` to `false` in your config file.
 
 ## Chat commands
+See GRAF's [command documentation](https://gawdl3y.github.io/discord-graf/manual/overview.html) for information about its built-in commands, and how to use commands.
+
 | Command          | Description                                                                                                   |
 |------------------|---------------------------------------------------------------------------------------------------------------|
-| help             | Displays a list of available commands, or detailed information for a specified command.                       |
-| about            | Displays information about the bot.                                                                           |
-| prefix           | Shows or sets the command prefix.                                                                             |
-| eval             | Evaluates input as JavaScript. (owner only)                                                                   |
 | roll             | Rolls specified dice. (Uses [dice-expression-evaluator](https://github.com/dbkang/dice-expression-evaluator)) |
 | maxroll          | Calculates the maximum possible roll for a dice expression.                                                   |
 | minroll          | Calculates the minimum possible roll for a dice expression.                                                   |
@@ -40,20 +38,6 @@ If you don't want anything being sent at all, run RPBot with the `--no-analytics
 | characters       | Lists/searches characters in the database.                                                                    |
 | addcharacter     | Adds a character to the database, or updates the existing one.                                                |
 | deletecharacter  | Deletes a character from the database.                                                                        |
-| roles            | Lists all server roles. (administrator only)                                                                  |
-| modroles         | Lists all moderator roles. (administrator only)                                                               |
-| addmodrole       | Adds a moderator role. (administrator only)                                                                   |
-| deletemodrole    | Deletes a moderator role. (administrator only)                                                                |
-
-You may use a command by prefixing it with the command prefix (default `!`) or the bot's mention (e.g. `@RPBot#4161`).
-Use `!help` or `@RPBot#4161 help`, for example.
-The prefix is configurable on a server-by-server basis, with the `prefix` command.
-You may DM the bot for many commands.
-
-Characters in the database may only be updated/deleted by the owner of the character and moderators.
-If one of the user's roles has the "administrator" permission, they are automatically considered a moderator.
-If there aren't any mod roles set, users with the "manage messages" permission are considered a moderator.
-Otherwise, users will be considered a moderator if they have one of the moderator roles.
 
 ## Usage
 Run `rpbot --help` for detailed usage, options, and examples.
