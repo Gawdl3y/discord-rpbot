@@ -1,5 +1,5 @@
 # Discord RPBot
-[![Discord](https://discordapp.com/api/servers/204792270568816640/widget.png)](https://discord.gg/SZMhh2B)
+[![Discord](https://discordapp.com/api/guilds/204792270568816640/embed.png)](https://discord.gg/SZMhh2B)
 [![Downloads](https://img.shields.io/npm/dt/discord-rpbot.svg)](https://www.npmjs.com/package/discord-rpbot)
 [![Version](https://img.shields.io/npm/v/discord-rpbot.svg)](https://www.npmjs.com/package/discord-rpbot)
 [![Dependency status](https://david-dm.org/Gawdl3y/discord-rpbot.svg)](https://david-dm.org/Gawdl3y/discord-rpbot)
