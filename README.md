@@ -27,7 +27,7 @@ This is so that I know how many people are using the bot, and what commands are 
 If you don't want anything being sent at all, run RPBot with the `--no-analytics` option, or set `analytics` to `false` in your config file.
 
 ## Chat commands
-See GRAF's [command documentation](https://gawdl3y.github.io/discord-graf/manual/overview.html) for information about its built-in commands, and how to use commands.
+See GRAF's [command documentation](https://gawdl3y.github.io/discord-graf/manual/overview.html#commands) for information about its built-in commands, and how to use commands.
 
 | Command          | Description                                                                                                   |
 |------------------|---------------------------------------------------------------------------------------------------------------|
