@@ -8,8 +8,8 @@ import Character from '../../database/character';
 export default class AddCharacterCommand extends Command {
 	constructor(bot) {
 		super(bot, {
-			name: 'addcharacter',
-			aliases: ['addchar'],
+			name: 'add-character',
+			aliases: ['add-char'],
 			module: 'characters',
 			memberName: 'add',
 			description: 'Adds a character to the database, or updates the existing one.',
@@ -20,7 +20,7 @@ export default class AddCharacterCommand extends Command {
 				Only the owner of the character and administrators/moderators may update it.
 			`,
 			examples: ['addcharacter Bob Just your average guy.', 'addcharacter "Billy McBillface" A really cool guy who enjoys his chicken tendies.'],
-			serverOnly: true,
+			guildOnly: true,
 			argsType: 'multiple',
 			argsCount: 2,
 			argsSingleQuotes: false
@@ -29,7 +29,7 @@ export default class AddCharacterCommand extends Command {
 
 	async run(message, args) {
 		const name = args[0], info = args[1];
-		if(!name || !info) throw new CommandFormatError(this, message.server);
+		if(!name || !info) throw new CommandFormatError(this, message.guild);
 		if(this.bot.util.patterns.anyUserMentions.test(name)
 			|| this.bot.util.patterns.anyUserMentions.test(info)) return 'Please do not use mentions in your character name or information.';
 
@@ -38,7 +38,7 @@ export default class AddCharacterCommand extends Command {
 		if(name.includes('\n')) return 'A character\'s name may not have multiple lines.';
 
 		// Add or update the character
-		const result = await Character.save(new Character(message.server, message.author, name, info));
+		const result = await Character.save(new Character(message.guild, message.author, name, info));
 		if(result) {
 			return `${result.new ? 'Added' : 'Updated'} character "${name}".`;
 		} else {

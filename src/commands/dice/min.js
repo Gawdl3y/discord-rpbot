@@ -7,7 +7,7 @@ import DiceExpression from 'dice-expression-evaluator';
 export default class MinRollCommand extends Command {
 	constructor(bot) {
 		super(bot, {
-			name: 'minroll',
+			name: 'min-roll',
 			module: 'dice',
 			memberName: 'min',
 			description: 'Calculates the minimum possible roll for a dice expression.',
@@ -18,7 +18,7 @@ export default class MinRollCommand extends Command {
 	}
 
 	async run(message, args) {
-		if(!args[0]) throw new CommandFormatError(this, message.server);
+		if(!args[0]) throw new CommandFormatError(this, message.guild);
 		try {
 			const minRoll = new DiceExpression(args[0]).min();
 			return `The minimum possible roll is **${minRoll}**.`;

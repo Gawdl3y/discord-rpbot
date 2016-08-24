@@ -7,21 +7,21 @@ import Character from '../../database/character';
 export default class DeleteCharacterCommand extends Command {
 	constructor(bot) {
 		super(bot, {
-			name: 'deletecharacter',
-			aliases: ['removecharacter', 'delchar', 'rmchar'],
+			name: 'delete-character',
+			aliases: ['remove-character', 'del-char', 'rm-char'],
 			module: 'characters',
 			memberName: 'delete',
 			description: 'Deletes a character from the database.',
 			usage: 'deletecharacter <name>',
 			details: 'The name can be the whole name of the character, or just a part of it. Only the owner of the character and administrators/moderators may delete it.',
 			examples: ['deletecharacter Billy McBillface', 'deletecharacter bill'],
-			serverOnly: true
+			guildOnly: true
 		});
 	}
 
 	async run(message, args) {
-		if(!args[0]) throw new CommandFormatError(this, message.server);
-		const characters = await Character.findInServer(message.server, args[0]);
+		if(!args[0]) throw new CommandFormatError(this, message.guild);
+		const characters = await Character.findInGuild(message.guild, args[0]);
 		if(characters.length === 1) {
 			if(await Character.delete(characters[0])) {
 				return `Deleted character "${characters[0].name}".`;
@@ -31,7 +31,7 @@ export default class DeleteCharacterCommand extends Command {
 		} else if(characters.length > 1) {
 			return this.bot.util.disambiguation(characters, 'characters');
 		} else {
-			return `Unable to find character. Use ${this.bot.util.usage('characters', message.server)} to view the list of characters.`;
+			return `Unable to find character. Use ${this.bot.util.usage('characters', message.guild)} to view the list of characters.`;
 		}
 	}
 }

@@ -11,7 +11,7 @@ export default class RollDiceCommand extends Command {
 	constructor(bot) {
 		super(bot, {
 			name: 'roll',
-			aliases: ['dice', 'rolldice', 'diceroll', '(roll: xxxx)'],
+			aliases: ['dice', 'roll-dice', 'dice-roll', '(roll: xxxx)'],
 			module: 'dice',
 			memberName: 'roll',
 			description: 'Rolls specified dice.',
@@ -27,7 +27,7 @@ export default class RollDiceCommand extends Command {
 	}
 
 	async run(message, args, fromPattern) {
-		if(!args[0]) throw new CommandFormatError(this, message.server);
+		if(!args[0]) throw new CommandFormatError(this, message.guild);
 		try {
 			const matches = fromPattern ? args : pattern.exec(args[0]);
 			const dice = new DiceExpression(matches[1]);

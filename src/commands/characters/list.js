@@ -10,7 +10,7 @@ export default class ListCharactersCommand extends Command {
 	constructor(bot) {
 		super(bot, {
 			name: 'characters',
-			aliases: ['listcharacters', 'listchars', 'chars'],
+			aliases: ['list-characters', 'list-chars', 'chars'],
 			module: 'characters',
 			memberName: 'list',
 			description: 'Lists/searches characters in the database.',
@@ -22,7 +22,7 @@ export default class ListCharactersCommand extends Command {
 				If the search string contains spaces, it must be surrounded by quotes.
 			`,
 			examples: ['characters', 'characters c', 'characters bill'],
-			serverOnly: true,
+			guildOnly: true,
 			argsType: 'multiple'
 		});
 	}
@@ -31,7 +31,7 @@ export default class ListCharactersCommand extends Command {
 		const last = args.length >= 1 ? args.length - 1 : 0;
 		const page = !isNaN(args[last]) ? parseInt(args.pop()) : 1;
 		const search = args.join(' ');
-		let characters = await Character.findInServer(message.server, search, false);
+		let characters = await Character.findInGuild(message.guild, search, false);
 		if(characters.length > 0) {
 			characters.sort((a, b) => a.name < b.name ? -1 : a.name > b.name ? 1 : 0);
 			const paginated = this.bot.util.paginate(characters, page, Math.floor(config.paginationItems));
@@ -39,8 +39,8 @@ export default class ListCharactersCommand extends Command {
 			return stripIndents`
 				__**Character${search ? `s ${search.length === 1 ? 'that begin with' : 'that contain'} "${search}"` : ' list'}, ${paginated.pageText}:**__
 				${characters.map(char => `**-** ${char.name}`).join('\n')}
-				${paginated.maxPage > 1 ? `\nUse ${this.bot.util.usage(`characters ${search ? `${search} ` : ''}<page>`, message.server)} to view a specific page.` : ''}
-				Use ${this.bot.util.usage('character <name>', message.server)} to view information about a character.
+				${paginated.maxPage > 1 ? `\nUse ${this.bot.util.usage(`characters ${search ? `${search} ` : ''}<page>`, message.guild)} to view a specific page.` : ''}
+				Use ${this.bot.util.usage('character <name>', message.guild)} to view information about a character.
 			`;
 		} else {
 			return `There are no characters ${search ? `${search.length === 1 ? 'that begin with' : 'that contain'} "${search}"` : 'in the database'}.`;

@@ -7,7 +7,7 @@ import DiceExpression from 'dice-expression-evaluator';
 export default class MaxRollCommand extends Command {
 	constructor(bot) {
 		super(bot, {
-			name: 'maxroll',
+			name: 'max-roll',
 			module: 'dice',
 			memberName: 'max',
 			description: 'Calculates the maximum possible roll for a dice expression.',
@@ -18,7 +18,7 @@ export default class MaxRollCommand extends Command {
 	}
 
 	async run(message, args) {
-		if(!args[0]) throw new CommandFormatError(this, message.server);
+		if(!args[0]) throw new CommandFormatError(this, message.guild);
 		try {
 			const maxRoll = new DiceExpression(args[0]).max();
 			return `The maximum possible roll is **${maxRoll}**.`;
