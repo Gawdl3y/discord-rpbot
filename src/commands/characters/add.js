@@ -38,7 +38,7 @@ export default class AddCharacterCommand extends Command {
 		if(name.includes('\n')) return 'A character\'s name may not have multiple lines.';
 
 		// Add or update the character
-		const result = await Character.save(new Character(message.guild, message.author, name, info.replace(/\n{3,}/g, '\n\n')));
+		const result = await Character.save(new Character(message.guild, message.author, name, info.replace(/(?:\s*\n\s*){3,}/g, '\n\n')));
 		if(result) {
 			return `${result.new ? 'Added' : 'Updated'} character "${name}".`;
 		} else {
