@@ -23,8 +23,8 @@ export default class ViewCharacterCommand extends Command {
 		if(!args[0]) throw new CommandFormatError(this, message.guild);
 		const characters = await Character.findInGuild(message.guild, args[0]);
 		if(characters.length === 1) {
-			const owner = message.client.users.get('id', characters[0].owner);
-			const ownerName = owner ? `${owner.name}#${owner.discriminator}` : 'Unknown';
+			const owner = message.client.users.get(characters[0].owner);
+			const ownerName = owner ? `${owner.username}#${owner.discriminator}` : 'Unknown';
 			return `Character **${characters[0].name}** (created by ${ownerName}):\n${characters[0].info}`;
 		} else if(characters.length > 1) {
 			return this.bot.util.disambiguation(characters, 'characters');
