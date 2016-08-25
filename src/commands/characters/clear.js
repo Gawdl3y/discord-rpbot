@@ -25,7 +25,7 @@ export default class ClearCharactersCommand extends Command {
 	}
 
 	async run(message, args) {
-		if(message.author.equals(this.lastUser) && args[0] && args[0].toLowerCase() === 'confirm') {
+		if(this.lastUser && message.author.id === this.lastUser.id && args[0] && args[0].toLowerCase() === 'confirm') {
 			Character.clearGuild(message.guild);
 			clearTimeout(this.timeout);
 			this.lastUser = null;
@@ -38,7 +38,7 @@ export default class ClearCharactersCommand extends Command {
 			}
 			this.lastUser = message.author;
 			this.timeout = setTimeout(() => { this.lastUser = null; }, 30000);
-			return `Are you sure you want to delete all characters? This cannot be undone. Use ${this.bot.util.usage('clearcharacters confirm', message.guild)} to continue.`;
+			return `Are you sure you want to delete all characters? This cannot be undone. Use ${this.bot.util.usage('clear-characters confirm', message.guild)} to continue.`;
 		}
 	}
 }
