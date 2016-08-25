@@ -12,9 +12,9 @@ export default class DeleteCharacterCommand extends Command {
 			module: 'characters',
 			memberName: 'delete',
 			description: 'Deletes a character from the database.',
-			usage: 'deletecharacter <name>',
+			usage: 'delete-character <name>',
 			details: 'The name can be the whole name of the character, or just a part of it. Only the owner of the character and administrators/moderators may delete it.',
-			examples: ['deletecharacter Billy McBillface', 'deletecharacter bill'],
+			examples: ['delete-character Billy McBillface', 'delete-character bill'],
 			guildOnly: true
 		});
 	}

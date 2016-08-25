@@ -11,9 +11,9 @@ export default class MaxRollCommand extends Command {
 			module: 'dice',
 			memberName: 'max',
 			description: 'Calculates the maximum possible roll for a dice expression.',
-			usage: 'maxroll <dice expression>',
+			usage: 'max-roll <dice expression>',
 			details: 'The dice expression follows the same rules as !roll, but targets (< or >) cannot be used.',
-			examples: ['maxroll 2d20', 'maxroll 3d20 - d10 + 6']
+			examples: ['max-roll 2d20', 'max-roll 3d20 - d10 + 6']
 		});
 	}
 
