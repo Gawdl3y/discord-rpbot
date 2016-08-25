@@ -15,8 +15,8 @@ const sqlClear = 'DELETE FROM characters WHERE server_id = ?';
 export default class Character {
 	constructor(guild, owner, name, info) {
 		if(!guild || !owner || !name) throw new Error('Character name, owner, and guild must be specified.');
-		this.guild = guild.id ? guild.id : guild;
-		this.owner = owner.id ? owner.id : owner;
+		this.guild = guild.id || guild;
+		this.owner = owner.id || owner;
 		this.name = name;
 		this.info = info;
 	}
