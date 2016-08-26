@@ -1,7 +1,7 @@
 'use babel';
 'use strict';
 
-import { Command, CommandFormatError } from 'discord-graf';
+import { Command } from 'discord-graf';
 import DiceExpression from 'dice-expression-evaluator';
 import { oneLine } from 'common-tags';
 
@@ -15,19 +15,28 @@ export default class RollDiceCommand extends Command {
 			module: 'dice',
 			memberName: 'roll',
 			description: 'Rolls specified dice.',
-			usage: 'roll <dice expression>',
+			usage: 'roll [dice expression]',
 			details: oneLine`
 				Dice expressions can contain the standard representations of dice in text form (e.g. 2d20 is two 20-sided dice), with addition and subtraction allowed.
 				You may also use a single greater-than (>) or less-than (<) symbol at the end of the expression to add a target - if that target is met, a success message is displayed.
 				Otherwise, a failure message is shown.
+				If no dice expression is specified, it will default to a D20.
+				When just a single plain number is specified, it will be interpreted as a single die with that many sides.
 			`,
-			examples: ['roll 2d20', 'roll 3d20 - d10 + 6', 'roll d20 > 10', 'Billy McBillface attempts to slay the dragon. (Roll: d20 > 10)'],
+			examples: ['roll 2d20', 'roll 3d20 - d10 + 6', 'roll d20 > 10', 'roll', 'roll 30', 'Billy McBillface attempts to slay the dragon. (Roll: d20 > 10)'],
 			patterns: [/\(\s*(?:roll|dice|rolldice|diceroll):\s*(.+?)(?:(>|<)\s*([0-9]+?))?\s*\)/i]
 		});
 	}
 
 	async run(message, args, fromPattern) {
-		if(!args[0]) throw new CommandFormatError(this, message.guild);
+		const firstArgIndex = fromPattern ? 1 : 0;
+		if(!args[firstArgIndex]) {
+			args[firstArgIndex] = 'd20';
+		} else {
+			const rawNumber = parseInt(args[firstArgIndex]);
+			if(!isNaN(rawNumber) && String(rawNumber) === args[firstArgIndex]) args[firstArgIndex] = `d${rawNumber}`;
+		}
+
 		try {
 			const matches = fromPattern ? args : pattern.exec(args[0]);
 			const dice = new DiceExpression(matches[1]);
