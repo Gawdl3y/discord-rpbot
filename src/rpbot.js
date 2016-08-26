@@ -8,6 +8,7 @@ import version from './version';
 import * as db from './database';
 import Character from './database/character';
 import * as analytics from './util/analytics';
+import DiceExpression from 'dice-expression-evaluator';
 
 import ListCharactersCommand from './commands/characters/list';
 import ViewCharacterCommand from './commands/characters/view';
@@ -42,7 +43,8 @@ export const client = bot
 		db: db,
 		Character: Character,
 		config: config,
-		version: version
+		version: version,
+		dice: DiceExpression
 	})
 .createClient();
 
