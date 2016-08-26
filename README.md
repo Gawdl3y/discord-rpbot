@@ -68,7 +68,8 @@ The settings:
 | log                  | Path to the log file to output to                                                |
 | log-max-size         | Maximum size of a single log file (in bytes)                                     |
 | log-max-files        | Maximum log files to keep                                                        |
-| log-level            | Log level to output to the log file (error, warn, info, verbose, debug)          |
-| console-level        | Log level to output to the console (error, warn, info, verbose, debug)           |
+| log-level            | Log level to output to the log file (error, warn, info, verbose, message, debug) |
+| console-level        | Log level to output to the console (error, warn, info, verbose, message, debug)  |
+| log-messages         | Whether or not all chat messages should be logged                                |
 
 For a more detailed list of configuration values, use `rpbot --help`.
