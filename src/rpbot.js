@@ -3,7 +3,7 @@
 'use strict';
 
 import bot from './bot';
-import config from './config'; // eslint-disable-line no-unused-vars
+import config from './config';
 import version from './version';
 import * as db from './database';
 import Character from './database/character';
