@@ -59,9 +59,10 @@ let interruptCount = 0;
 process.on('SIGINT', async () => {
 	interruptCount++;
 	if(interruptCount === 1) {
-		bot.logger.info('Received interrupt signal; closing database and exiting...');
+		bot.logger.info('Received interrupt signal; closing database, destroying client, and exiting...');
 		await Promise.all([
-			db.close()
+			db.close(),
+			client.destroy()
 		]).catch(err => {
 			bot.logger.error(err);
 		});
