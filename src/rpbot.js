@@ -55,14 +55,14 @@ db.init().catch(err => {
 });
 
 // Set up Carbonitex guild count updates
-if(config.carbon) {
+if(config.carbonURL) {
 	const request = require('request-promise-native');
 	const sendCarbon = () => {
 		request({
 			method: 'POST',
-			uri: `https://www.carbonitex.net/discord/data/botdata.php`,
+			uri: config.carbonURL,
 			body: {
-				key: config.carbon,
+				key: config.carbonKey,
 				servercount: client.guilds.size
 			},
 			json: true
