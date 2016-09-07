@@ -64,7 +64,8 @@ if(config.carbon) {
 			body: {
 				key: config.carbon,
 				servercount: client.guilds.size
-			}
+			},
+			json: true
 		}).then(() => {
 			bot.logger.info(`Sent guild count to Carbon with ${client.guilds.size} guilds.`);
 		}).catch(err => {
