@@ -23,7 +23,7 @@ export default class RollDiceCommand extends Command {
 				When running the command with no dice expression, it will default to a D20.
 				When just a single plain number is provided, it will be interpreted as a single die with that many sides.
 			`,
-			examples: ['roll 2d20', 'roll 3d20 - d10 + 6', 'roll d20 > 10', 'roll', 'roll 30', 'Billy McBillface attempts to slay the dragon. (Roll: d20 > 10)'],
+			examples: ['roll 2d20', 'roll 3d20 - d10 + 6', 'roll d20 > 10', 'roll 6d20 >> 14', 'roll', 'roll 30', 'Billy McBillface attempts to slay the dragon. (Roll: d20 > 10)'],
 			patterns: [/\(\s*(?:roll|dice|rolldice|diceroll):\s*(.+?)(?:(>{1,2}|<{1,2})\s*([0-9]+?))?\s*\)/i]
 		});
 	}
