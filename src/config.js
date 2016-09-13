@@ -41,16 +41,6 @@ export const config = bot.config.yargs(yargs)
 		describe: 'Whether or not to enable anonymous, non-unique, non-identifiable analytics',
 		group: 'General:'
 	})
-	.option('carbon-url', {
-		type: 'string',
-		describe: 'The Carbonitex submission URL (you probably don\'t need this)',
-		group: 'General:'
-	})
-	.option('carbon-key', {
-		type: 'string',
-		describe: 'The Carbonitex key for the bot (you probably don\'t need this)',
-		group: 'General:'
-	})
 
 	// General yargs
 	.help()

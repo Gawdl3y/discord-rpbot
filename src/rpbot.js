@@ -54,29 +54,6 @@ db.init().catch(err => {
 	process.exit(1);
 });
 
-// Set up Carbonitex guild count updates
-if(config.carbonUrl) {
-	const request = require('request-promise-native');
-	const sendCarbon = () => {
-		request({
-			method: 'POST',
-			uri: config.carbonUrl,
-			body: {
-				key: config.carbonKey,
-				servercount: client.guilds.size
-			},
-			json: true
-		}).then(() => {
-			bot.logger.info(`Sent guild count to Carbon with ${client.guilds.size} guilds.`);
-		}).catch(err => {
-			bot.logger.error('Error while sending guild count to Carbon.', err);
-		});
-	};
-	client.once('ready', sendCarbon);
-	client.on('guildCreate', sendCarbon);
-	client.on('guildDelete', sendCarbon);
-}
-
 // Exit on interrupt
 let interruptCount = 0;
 process.on('SIGINT', async () => {
