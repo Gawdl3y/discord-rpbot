@@ -35,7 +35,7 @@ export default class Character {
 				bot.logger.info('Updated existing character.', character);
 				return { character: new Character(character.guild, existingCharacters[0].user_id, character.name, character.info), new: false };
 			} else {
-				throw new Error('Character already exists, and the owners don\'t match.');
+				return false;
 			}
 		} else {
 			const insertStmt = await db.prepare(sqlInsert);
@@ -60,10 +60,10 @@ export default class Character {
 				bot.logger.info('Deleted character.', character);
 				return true;
 			} else {
-				throw new Error('Existing character is not owned by the specified character owner.');
+				return false;
 			}
 		} else {
-			throw new Error('Character doesn\'t exist.');
+			return false;
 		}
 	}
 
