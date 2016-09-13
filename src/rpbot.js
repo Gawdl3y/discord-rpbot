@@ -2,6 +2,7 @@
 'use babel';
 'use strict';
 
+import { FriendlyError } from 'discord-graf';
 import bot from './bot';
 import config from './config';
 import version from './version';
@@ -47,6 +48,13 @@ export const client = bot
 		dice: DiceExpression
 	})
 .createClient();
+
+// Set up command analytics
+bot.dispatcher.on('commandRun', command => {
+	analytics.sendEvent('Command', 'run', `${command.module}:${command.memberName}`);
+}).on('commandError', (command, err) => {
+	if(!(err instanceof FriendlyError)) analytics.sendException(err);
+});
 
 // Set up database
 db.init().catch(err => {
