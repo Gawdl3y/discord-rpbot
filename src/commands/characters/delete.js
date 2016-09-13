@@ -23,6 +23,7 @@ export default class DeleteCharacterCommand extends Command {
 		if(!args[0]) throw new CommandFormatError(this, message.guild);
 		const characters = await Character.findInGuild(message.guild, args[0]);
 		if(characters.length === 1) {
+			characters[0].owner = message.author.id;
 			if(await Character.delete(characters[0])) {
 				return `Deleted character "${characters[0].name}".`;
 			} else {
