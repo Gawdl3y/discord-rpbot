@@ -47,7 +47,7 @@ export default class RollDiceCommand extends Command {
 
 			// Roll the dice
 			const rollResult = dice.roll();
-			this.bot.logger.debug('Dice rolled', { dice: dice.dice, result: rollResult, totalDice: totalDice });
+			this.bot.logger.debug('Dice rolled.', { dice: dice.dice, result: rollResult, totalDice: totalDice });
 
 			if(matches[2]) {
 				// Deal with target operations
