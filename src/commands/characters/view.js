@@ -27,6 +27,13 @@ export default class ViewCharacterCommand extends Command {
 			try {
 				const owner = await message.client.fetchUser(characters[0].owner);
 				ownerName = `${owner.username}#${owner.discriminator}`;
+				try {
+					const member = await message.guild.fetchMember(owner);
+					if(member.nickname) ownerName = `${member.nickname} (${ownerName})`;
+				} catch(err2) {
+					// do nothing
+				}
+				ownerName = this.bot.util.escapeMarkdown(ownerName);
 			} catch(err) {
 				ownerName = 'Unknown';
 			}
