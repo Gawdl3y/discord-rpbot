@@ -34,6 +34,10 @@ See GRAF's [command documentation](https://gawdl3y.github.io/discord-graf/manual
 | roll             | Rolls specified dice. (Uses [dice-expression-evaluator](https://github.com/dbkang/dice-expression-evaluator)) |
 | maxroll          | Calculates the maximum possible roll for a dice expression.                                                   |
 | minroll          | Calculates the minimum possible roll for a dice expression.                                                   |
+| viewroll         | Views a roll's expression.                                                                                    |
+| rolls            | Lists/searches rolls in the database.                                                                         |
+| addroll          | Adds a roll to the database, or updates the existing one.                                                     |
+| deleteroll       | Deletes a roll from the database.                                                                             |
 | character        | Views a character's information.                                                                              |
 | characters       | Lists/searches characters in the database.                                                                    |
 | addcharacter     | Adds a character to the database, or updates the existing one.                                                |

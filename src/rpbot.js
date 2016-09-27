@@ -10,15 +10,22 @@ import * as db from './database';
 import Character from './database/character';
 import * as analytics from './util/analytics';
 import DiceExpression from 'dice-expression-evaluator';
+import Roll from './database/roll';
 
 import ListCharactersCommand from './commands/characters/list';
 import ViewCharacterCommand from './commands/characters/view';
 import AddCharacterCommand from './commands/characters/add';
 import DeleteCharacterCommand from './commands/characters/delete';
 import ClearCharactersCommand from './commands/characters/clear';
+
 import RollDiceCommand from './commands/dice/roll';
 import MaxRollCommand from './commands/dice/max';
 import MinRollCommand from './commands/dice/min';
+import AddRollCommand from './commands/dice/add';
+import ViewRollCommand from './commands/dice/view';
+import ListRollsCommand from './commands/dice/list';
+import DeleteRollCommand from './commands/dice/delete';
+import ClearRollsCommand from './commands/dice/clear';
 
 bot.logger.info(`RPBot v${version} is starting...`);
 analytics.sendEvent('Bot', 'started');
@@ -28,7 +35,8 @@ export const client = bot
 	.registerDefaults()
 	.registerModules([
 		['characters', 'Characters'],
-		['dice', 'Dice']
+		['dice', 'Dice'],
+		['rolls', 'Rolls']
 	])
 	.registerCommands([
 		ListCharactersCommand,
@@ -38,11 +46,17 @@ export const client = bot
 		ClearCharactersCommand,
 		RollDiceCommand,
 		MaxRollCommand,
-		MinRollCommand
+		MinRollCommand,
+		AddRollCommand,
+		ViewRollCommand,
+		ListRollsCommand,
+		DeleteRollCommand,
+		ClearRollsCommand
 	])
 	.registerEvalObjects({
 		db: db,
 		Character: Character,
+		Roll: Roll,
 		config: config,
 		version: version,
 		dice: DiceExpression
