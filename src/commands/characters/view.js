@@ -3,6 +3,7 @@
 
 import { Command, CommandFormatError } from 'discord-graf';
 import Character from '../../database/character';
+import * as transformers from '../../util/transformers';
 
 export default class ViewCharacterCommand extends Command {
 	constructor(bot) {
@@ -23,21 +24,7 @@ export default class ViewCharacterCommand extends Command {
 		if(!args[0]) throw new CommandFormatError(this, message.guild);
 		const characters = await Character.findInGuild(message.guild, args[0]);
 		if(characters.length === 1) {
-			let ownerName;
-			try {
-				const owner = await message.client.fetchUser(characters[0].owner);
-				ownerName = `${owner.username}#${owner.discriminator}`;
-				try {
-					const member = await message.guild.fetchMember(owner);
-					if(member.nickname) ownerName = `${member.nickname} (${ownerName})`;
-				} catch(err2) {
-					// do nothing
-				}
-				ownerName = this.bot.util.escapeMarkdown(ownerName);
-			} catch(err) {
-				ownerName = 'Unknown';
-			}
-
+			const ownerName = await transformers.ownerIdToName(message, characters[0].owner);
 			return `Character **${characters[0].name}** (created by ${ownerName}):\n${characters[0].info}`;
 		} else if(characters.length > 1) {
 			return this.bot.util.disambiguation(characters, 'characters');
