@@ -13,5 +13,9 @@ export default new Bot({
 		Source code and information: https://github.com/Gawdl3y/discord-rpbot
 	`,
 	updateURL: 'https://raw.githubusercontent.com/Gawdl3y/discord-rpbot/master/package.json',
-	clientOptions: { disable_everyone: true } // eslint-disable-line camelcase
+	clientOptions: {
+		disableEveryone: true,
+		messageCacheLifetime: 120,
+		messageSweepInterval: 60
+	}
 });
