@@ -69,7 +69,7 @@ export default class RollDiceCommand extends Command {
 					const successes = rollResult.diceRaw[0].reduce((prev, die) => prev + (matches[2] === '>>' ? die > target : die < target), 0);
 					response = oneLine`
 						${message.author} has **${successes > 0 ? `succeeded ${successes} time${successes !== 1 ? 's' : ''}` : `failed`}**.
-						${rollResult.diceRaw[0].length > 1 ? `(${rollResult.diceRaw[0].join(',   ')})` : ''}
+						${rollResult.diceRaw[0].length > 1 && rollResult.diceRaw[0].length <= 100 ? `(${rollResult.diceRaw[0].join(',   ')})` : ''}
 					`;
 
 				// Oh dear.
