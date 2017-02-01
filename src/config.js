@@ -41,6 +41,11 @@ export const config = bot.config.yargs(yargs)
 		describe: 'Whether or not to enable anonymous, non-unique, non-identifiable analytics',
 		group: 'General:'
 	})
+	.option('shard-count', {
+		type: 'number',
+		describe: 'Number of shards to spawn (only for rpbot-sharder)',
+		group: 'General:'
+	})
 
 	// General yargs
 	.help()

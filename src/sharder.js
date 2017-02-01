@@ -10,6 +10,7 @@ import config from './config';
 
 const manager = new ShardingManager(path.join(__dirname, 'rpbot.js'), {
 	token: config.token,
+	totalShards: config.shardCount || 'auto',
 	shardArgs: process.argv.slice(2)
 });
 manager.on('launch', shard => {
