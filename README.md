@@ -1,5 +1,5 @@
 # Discord RPBot
-[![Discord](https://discordapp.com/api/guilds/204792270568816640/embed.png)](https://discord.gg/SZMhh2B)
+[![Discord](https://discordapp.com/api/guilds/204792270568816640/embed.png)](https://discord.gg/w3P7Sz4)
 [![Downloads](https://img.shields.io/npm/dt/discord-rpbot.svg)](https://www.npmjs.com/package/discord-rpbot)
 [![Version](https://img.shields.io/npm/v/discord-rpbot.svg)](https://www.npmjs.com/package/discord-rpbot)
 [![Dependency status](https://david-dm.org/Gawdl3y/discord-rpbot.svg)](https://david-dm.org/Gawdl3y/discord-rpbot)
@@ -9,7 +9,7 @@ This is a simple Discord bot that contains commands useful for roleplaying.
 It is built with [GRAF](https://github.com/Gawdl3y/discord-graf).
 
 Have any questions/feedback?
-Join the [Discord server](https://discord.gg/SZMhh2B).
+Join the [Discord server](https://discord.gg/w3P7Sz4).
 If you find any bugs or have suggestions, feel free to [create an issue](/../../issues).
 
 ## Install
