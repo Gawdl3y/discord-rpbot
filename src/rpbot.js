@@ -2,13 +2,13 @@
 'use babel';
 'use strict';
 
-import { FriendlyError } from 'discord-graf';
+// import { FriendlyError } from 'discord-graf';
 import bot from './bot';
 import config from './config';
 import version from './version';
 import * as db from './database';
 import Character from './database/character';
-import * as analytics from './util/analytics';
+// import * as analytics from './util/analytics';
 import DiceExpression from 'dice-expression-evaluator';
 
 import ListCharactersCommand from './commands/characters/list';
@@ -21,7 +21,7 @@ import MaxRollCommand from './commands/dice/max';
 import MinRollCommand from './commands/dice/min';
 
 bot.logger.info(`RPBot v${version} is starting...`);
-analytics.sendEvent('Bot', 'started');
+// analytics.sendEvent('Bot', 'started');
 
 // Create bot
 export const client = bot

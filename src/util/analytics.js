@@ -1,11 +1,11 @@
-import ua from 'universal-analytics';
-import config from '../config';
-import version from '../version';
+// import ua from 'universal-analytics';
+// import config from '../config';
+// import version from '../version';
 
-//export const user = config.analytics ? ua('UA-81182461-1', { https: true }) : null;
+// export const user = config.analytics ? ua('UA-81182461-1', { https: true }) : null;
 
-//// TODO: Re-enable analytics before pushing
-//// don't want to be spamming out errors while developing stuff
+// TODO: Re-enable analytics before pushing
+// don't want to be spamming out errors while developing stuff
 
 // export function sendEvent(eventCategory, eventAction, eventLabel = null, eventValue = null) {
 // 	if(user) {
