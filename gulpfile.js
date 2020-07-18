@@ -29,18 +29,18 @@ gulp.task('lint', () =>
 );
 
 // Commit & tag version
-// gulp.task('tag-release', () => {
-// 	const version = require('./package.json').version;
-// 	return gulp.src('.')
-// 		.pipe(exec(`git commit -am "Prepare ${version} release"`))
-// 		.pipe(exec(`git tag v${version}`))
-// 		.pipe(exec(`git push origin : v${version}`));
-// });
+gulp.task('tag-release', () => {
+	const version = require('./package.json').version;
+	return gulp.src('.')
+		.pipe(exec(`git commit -am "Prepare ${version} release"`))
+		.pipe(exec(`git tag v${version}`))
+		.pipe(exec(`git push origin : v${version}`));
+});
 
 // Commit & tag and publish to NPM
-// gulp.task('publish', gulp.parallel('lint', gulp.series('rebuild', 'tag-release', () =>
-// 	gulp.src('.')
-// 		.pipe(exec('npm publish'))
-// )));
-//
+gulp.task('publish', gulp.parallel('lint', gulp.series('rebuild', 'tag-release', () =>
+	gulp.src('.')
+		.pipe(exec('npm publish'))
+)));
+
 gulp.task('default', gulp.parallel('lint', 'rebuild'));
