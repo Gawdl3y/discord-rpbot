@@ -13,6 +13,12 @@ export default db;
 export async function init() {
 	bot.logger.info('Initializing database...', { file: config.database, verbose: config.databaseVerbose });
 	await db.open(config.database, { verbose: config.databaseVerbose });
+	// add tags to database if it dosn't exist
+	await db.prepare('SELECT tags FROM characters').catch((error) => {
+		if(error) {
+			db.exec('ALTER TABLE characters ADD tags TEXT COLLATE NOCASE');
+		}
+	});
 	await db.migrate({ migrationsPath: pathJoin(__dirname, '../../migrations') });
 	await Promise.all([
 		Character.convertStorage()

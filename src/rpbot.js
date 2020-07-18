@@ -12,10 +12,14 @@ import * as analytics from './util/analytics';
 import DiceExpression from 'dice-expression-evaluator';
 
 import ListCharactersCommand from './commands/characters/list';
+import ListAuthorsCommand from './commands/characters/listauthor';
+import ListTagsCommand from './commands/characters/listtags';
 import ViewCharacterCommand from './commands/characters/view';
 import AddCharacterCommand from './commands/characters/add';
 import DeleteCharacterCommand from './commands/characters/delete';
 import ClearCharactersCommand from './commands/characters/clear';
+import AddTagCommand from './commands/characters/addtag';
+import DelTagCommand from './commands/characters/deltag';
 import RollDiceCommand from './commands/dice/roll';
 import MaxRollCommand from './commands/dice/max';
 import MinRollCommand from './commands/dice/min';
@@ -32,10 +36,14 @@ export const client = bot
 	])
 	.registerCommands([
 		ListCharactersCommand,
+		ListAuthorsCommand,
 		ViewCharacterCommand,
 		AddCharacterCommand,
 		DeleteCharacterCommand,
 		ClearCharactersCommand,
+		AddTagCommand,
+		DelTagCommand,
+		ListTagsCommand,
 		RollDiceCommand,
 		MaxRollCommand,
 		MinRollCommand

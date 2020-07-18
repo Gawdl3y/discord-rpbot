@@ -1,5 +1,5 @@
 -- Up
-CREATE TABLE characters (server_id INTEGER NOT NULL, name TEXT NOT NULL COLLATE NOCASE, info TEXT, user_id INTEGER NOT NULL);
+CREATE TABLE characters (server_id INTEGER NOT NULL, name TEXT NOT NULL COLLATE NOCASE, info TEXT, user_id INTEGER NOT NULL, tags TEXT COLLATE NOCASE);
 CREATE INDEX characters_index ON characters (server_id, name);
 /*CREATE TABLE mod_roles (server_id INTEGER NOT NULL, role_id INTEGER NOT NULL);
 CREATE INDEX mod_roles_index ON mod_roles (server_id, role_id);
