@@ -20,7 +20,7 @@ export default class ListTagsCommand extends Command {
 				all characters that contain the given tag will be listed.
 				If the search string contains spaces, it must be surrounded by quotes.
 			`,
-			examples: ['characters', 'characters c', 'characters bill'],
+			examples: ['tags', 'tags big', 'tags eye'],
 			guildOnly: true,
 			argsType: 'multiple'
 		});
