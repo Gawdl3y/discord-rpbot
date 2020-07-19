@@ -25,7 +25,7 @@ export default class ListCharactersCommand extends Command {
 	}
 
 	async run(message, args) {
-		const last = args.length >= 1 ? args.length - 1 : 0;
+		const last = args.length >= 2 ? args.length - 1 : -1;
 		const page = !isNaN(args[last]) ? parseInt(args.pop()) : 1;
 		const search = args.join(' ');
 		let characters = await Character.findAuthorInGuild(message.guild, search, false);
@@ -34,13 +34,13 @@ export default class ListCharactersCommand extends Command {
 			const paginated = this.bot.util.paginate(characters, page, Math.floor(config.paginationItems));
 			characters = paginated.items;
 			return stripIndents`
-				__**Character${search ? `s ${search.length === 1 ? 'that begin with' : 'that contain'} "${search}"` : ' list'}, ${paginated.pageText}:**__
+				__**Character${search ? `s ${search.length === 1 ? 'from authors beginning with' : 'from author'} "${search}"` : ' list'}, ${paginated.pageText}:**__
 				${characters.map(char => `**-** ${char.name}`).join('\n')}
-				${paginated.maxPage > 1 ? `\nUse ${this.bot.util.usage(`characters ${search ? `${search} ` : ''}<page>`, message.guild)} to view a specific page.` : ''}
+				${paginated.maxPage > 1 ? `\nUse ${this.bot.util.usage(`authors ${search ? `${search} ` : ''}<page>`, message.guild)} to view a specific page.` : ''}
 				Use ${this.bot.util.usage('character <name>', message.guild)} to view information about a character.
 			`;
 		} else {
-			return `There are no characters ${search ? `${search.length === 1 ? 'that begin with' : 'that contain'} "${search}"` : 'in the database'}.`;
+			return `There are no characters ${search ? `${search.length === 1 ? 'from authors beginning with' : 'from author'} "${search}"` : 'in the database'}.`;
 		}
 	}
 }
