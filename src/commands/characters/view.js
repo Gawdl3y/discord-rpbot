@@ -37,8 +37,14 @@ export default class ViewCharacterCommand extends Command {
 			} catch(err) {
 				ownerName = 'Unknown';
 			}
+			let tags;
+			if(characters[0].tags) {
+				tags = characters[0].tags.substring(1, characters[0].tags.length - 1);
+			} else {
+				tags = '';
+			}
 
-			return `Character **${characters[0].name}** (created by ${ownerName}):\n${characters[0].info}`;
+			return `Character **${characters[0].name}** (created by ${ownerName}):\n${characters[0].info}\n\nTags:${tags}`;
 		} else if(characters.length > 1) {
 			return this.bot.util.disambiguation(characters, 'characters');
 		} else {
