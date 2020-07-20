@@ -39,7 +39,7 @@ export default class ListTagsCommand extends Command {
 				__**Character${search ? `s that have tag "${search}"` : ' list'}, ${paginated.pageText}:**__
 				${characters.map(char => `**-** ${char.name}`).join('\n')}
 				${paginated.maxPage > 1 ? `\nUse ${this.bot.util.usage(`characters ${search ? `${search} ` : ''}<page>`, message.guild)} to view a specific page.` : ''}
-				Use ${this.bot.util.usage('tags <tag>', message.guild)} to view information about a character.
+				Use ${this.bot.util.usage('character <name>', message.guild)} to view information about a character.
 			`;
 		} else {
 			return `There are no characters ${search ? `that have tag "${search}"` : 'in the database'}.`;
