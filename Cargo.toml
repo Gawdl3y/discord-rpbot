@@ -1,0 +1,12 @@
+[workspace]
+resolver = "2"
+members = ["./crates/bot", "./crates/db"]
+
+[workspace.package]
+rust-version = "1.78"
+edition = "2021"
+license = "AGPL-3.0-or-later"
+authors = ["Schuyler Cebulskie <me@gawdl3y.dev>"]
+
+[workspace.dependencies]
+rpbot-db = { path = "./crates/db", version = "0.0.0" }

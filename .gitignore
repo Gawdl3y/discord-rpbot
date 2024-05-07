@@ -1,7 +1,3 @@
-/node_modules
-npm-debug.log
-/lib
-/rpbot-storage
-rpbot.sqlite3
-settings.yml
-rpbot.log
+/target
+/.idea
+.env

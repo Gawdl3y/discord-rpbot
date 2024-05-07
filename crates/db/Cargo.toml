@@ -1,0 +1,15 @@
+[package]
+name = "rpbot-db"
+version = "0.0.0"
+
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+deadpool = "0.12.0"
+secrecy = "0.8.0"
+surrealdb = "1.4.2"
+thiserror = "1.0.60"
+tracing = "0.1.40"
