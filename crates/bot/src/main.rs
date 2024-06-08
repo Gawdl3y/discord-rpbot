@@ -62,16 +62,16 @@ impl Config {
 
 #[tokio::main]
 async fn main() -> Result<(), anyhow::Error> {
-	let filter = EnvFilter::builder()
-		.with_default_directive(LevelFilter::WARN.into())
-		.from_env()?
-		.add_directive("discord_rpbot=info".parse()?)
-		.add_directive("rpbot_db=info".parse()?);
-
 	tracing_forest::worker_task()
 		.map_sender(|sender| sender)
 		.map_receiver(|printer| printer)
-		.build_on(move |subscriber| subscriber.with(filter))
+		.build_on(|subscriber| {
+			subscriber.with(EnvFilter::try_from_default_env().unwrap_or_else(|_| {
+				"warn,discord_rpbot=info,rpbot_db=info"
+					.parse()
+					.expect("Unable to parse default EnvFilter string")
+			}))
+		})
 		.on(async {
 			info!("Starting RPBot");
 			let cfg = Config::load()?;
